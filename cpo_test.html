@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC CPO - Original Exam Interface</title>
+    <title>SSC CPO - Bilingual Exam Interface</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
-        
-        /* Default for Desktop */
         body, html { background-color: #f4f6f7; height: 100%; overflow: hidden; }
         
         /* Header */
@@ -20,13 +18,18 @@
         
         /* Left Panel - Questions */
         .left-panel { flex: 1; display: flex; flex-direction: column; background: white; border-right: 2px solid #ccc; overflow: hidden; }
-        
         .section-tabs { display: flex; background: #e0e0e0; overflow-x: auto; flex-shrink: 0; }
         .tab { padding: 12px 15px; cursor: pointer; font-weight: bold; color: #555; border-right: 1px solid #ccc; white-space: nowrap; font-size: 14px; }
         .tab.active { background: #3498db; color: white; }
         
         .question-area { flex: 1; padding: 20px; overflow-y: auto; }
-        .question-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; color: #333; font-size: 14px; }
+        
+        /* Bilingual Header Setup */
+        .question-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .q-info { font-weight: bold; color: #333; font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
+        .lang-toggle { background: #e8f4f8; padding: 5px 10px; border-radius: 5px; border: 1px solid #b3d4fc; display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: bold; color: #2c3e50; }
+        .lang-toggle select { padding: 3px; font-size: 13px; font-weight: bold; border: 1px solid #ccc; border-radius: 3px; cursor: pointer; outline: none; }
+        
         .question-text { font-size: 16px; margin-bottom: 20px; line-height: 1.6; font-weight: 500; }
         .options { display: flex; flex-direction: column; gap: 12px; }
         .option-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; padding: 5px 0; }
@@ -41,9 +44,7 @@
         
         /* Right Panel - Palette */
         .right-panel { background: #fff; display: flex; flex-direction: column; width: 300px; flex-shrink: 0; }
-        
         .candidate-info { padding: 15px; border-bottom: 1px solid #ccc; text-align: center; background: #f8f9fa; }
-        
         .legend-box { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 1px solid #ccc; font-size: 12px; flex-shrink: 0; background: #fafafa; }
         .legend-item { display: flex; align-items: center; gap: 6px; }
         .legend-icon { width: 20px; height: 20px; display: inline-block; }
@@ -51,10 +52,7 @@
         .palette-area { padding: 15px; flex: 1; overflow-y: auto; }
         .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 10px; margin-top: 10px; margin-bottom: 20px; }
         
-        /* TCS iON Original Bubble Shapes */
         .q-bubble { width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; border: 1px solid #ccc; font-size: 14px; margin: 0 auto; transition: 0.2s; }
-        .q-bubble:hover { opacity: 0.8; }
-        
         .not-visited { background: #f0f0f0; color: #333; border-radius: 4px; }
         .not-answered { background: #e74c3c; color: white; border-color: #c0392b; border-bottom-left-radius: 15px; border-top-right-radius: 15px; }
         .answered { background: #27ae60; color: white; border-color: #2ecc71; border-top-left-radius: 15px; border-bottom-right-radius: 15px; }
@@ -64,32 +62,25 @@
         
         .btn-submit { background: #3498db; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; flex-shrink: 0; margin-top: auto; }
         
-        /* Scorecard Overlay */
         .scorecard-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
         .scorecard { background: white; padding: 30px; border-radius: 10px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .score-row { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; font-size: 16px; }
 
-        /* =========================================
-           SUPER MOBILE RESPONSIVE FIX
-           ========================================= */
         @media(max-width: 767px) {
             body, html { height: auto; overflow: auto; }
             .main-container { flex-direction: column; height: auto; }
             .left-panel { border-right: none; overflow: visible; }
             .question-area { overflow: visible; min-height: 300px; }
-            
-            /* Action buttons always visible at bottom of screen */
             .action-buttons { position: sticky; bottom: 0; z-index: 10; box-shadow: 0 -3px 8px rgba(0,0,0,0.1); }
-            
             .right-panel { width: 100%; height: auto; border-top: 4px solid #2c3e50; }
             .candidate-info { display: none; }
             .palette-area { overflow: visible; padding-bottom: 30px; }
+            .lang-toggle { padding: 3px 6px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <div class="header">
         <div class="exam-name">SSC CPO Mock Test</div>
         <div class="timer-box">⏱️ <span id="time">120:00</span></div>
@@ -97,20 +88,29 @@
 
     <div class="main-container" id="exam-container">
         
-        <!-- Left Side: Questions -->
         <div class="left-panel">
             <div class="section-tabs" id="section-tabs"></div>
             
             <div class="question-area">
                 <div class="question-header">
-                    <span id="q-no">Question No. 1</span>
-                    <span style="color:#e74c3c">Marks: +1, -0.25</span>
+                    <div class="q-info">
+                        <span id="q-no">Question No. 1</span>
+                        <span style="color:#e74c3c; font-size:12px;">Marks: +1, -0.25</span>
+                    </div>
+                    <!-- English/Hindi Toggle Button -->
+                    <div class="lang-toggle">
+                        <label for="lang-select">View in:</label>
+                        <select id="lang-select" onchange="changeLanguage()">
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी (Hindi)</option>
+                        </select>
+                    </div>
                 </div>
+                
                 <div class="question-text" id="q-text">Loading...</div>
                 <div class="options" id="options-container"></div>
             </div>
 
-            <!-- Mobile sticky buttons -->
             <div class="action-buttons">
                 <button class="btn btn-mark" onclick="markForReview()">Review & Next</button>
                 <button class="btn btn-clear" onclick="clearResponse()">Clear</button>
@@ -118,7 +118,6 @@
             </div>
         </div>
 
-        <!-- Right Side: Palette (Will stack below on mobile) -->
         <div class="right-panel">
             <div class="candidate-info">
                 <strong style="font-size:18px;">MANN GURU</strong><br>
@@ -140,7 +139,6 @@
         </div>
     </div>
 
-    <!-- Result / Scorecard Popup -->
     <div class="scorecard-overlay" id="scorecard">
         <div class="scorecard">
             <h2>📊 CPO Scorecard</h2>
@@ -158,39 +156,96 @@
     </div>
 
     <script>
-        // Exam Data
+        // Exam Data (Now with Both English and Hindi content)
         const examData = [
             {
                 sectionName: "Reasoning",
                 questions: [
-                    { id: 1, text: "Find the odd one out: Apple, Banana, Carrot, Mango.", options: ["Apple", "Banana", "Carrot", "Mango"], answer: 2 },
-                    { id: 2, text: "If A = 1, B = 2, what is D?", options: ["3", "4", "5", "6"], answer: 1 }
+                    { 
+                        id: 1, 
+                        text_en: "Find the odd one out: Apple, Banana, Carrot, Mango.", 
+                        text_hi: "इनमें से विषम चुनें: सेब, केला, गाजर, आम।",
+                        options_en: ["Apple", "Banana", "Carrot", "Mango"], 
+                        options_hi: ["सेब", "केला", "गाजर", "आम"], 
+                        answer: 2 
+                    },
+                    { 
+                        id: 2, 
+                        text_en: "If A = 1, B = 2, what is D?", 
+                        text_hi: "यदि A = 1, B = 2, तो D क्या होगा?",
+                        options_en: ["3", "4", "5", "6"], 
+                        options_hi: ["3", "4", "5", "6"], 
+                        answer: 1 
+                    }
                 ]
             },
             {
                 sectionName: "General Knowledge",
                 questions: [
-                    { id: 1, text: "Who is known as the Father of Indian Constitution?", options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Dr. B.R. Ambedkar", "Sardar Patel"], answer: 2 },
-                    { id: 2, text: "What is the capital of India?", options: ["Mumbai", "New Delhi", "Kolkata", "Chennai"], answer: 1 }
+                    { 
+                        id: 1, 
+                        text_en: "Who is known as the Father of Indian Constitution?", 
+                        text_hi: "भारतीय संविधान के जनक के रूप में किसे जाना जाता है?",
+                        options_en: ["Mahatma Gandhi", "Jawaharlal Nehru", "Dr. B.R. Ambedkar", "Sardar Patel"], 
+                        options_hi: ["महात्मा गांधी", "जवाहरलाल नेहरू", "डॉ. बी.आर. अंबेडकर", "सरदार पटेल"], 
+                        answer: 2 
+                    },
+                    { 
+                        id: 2, 
+                        text_en: "What is the capital of India?", 
+                        text_hi: "भारत की राजधानी क्या है?",
+                        options_en: ["Mumbai", "New Delhi", "Kolkata", "Chennai"], 
+                        options_hi: ["मुंबई", "नई दिल्ली", "कोलकाता", "चेन्नई"], 
+                        answer: 1 
+                    }
                 ]
             },
             {
                 sectionName: "Maths",
                 questions: [
-                    { id: 1, text: "What is 15% of 200?", options: ["20", "25", "30", "35"], answer: 2 },
-                    { id: 2, text: "If x + 5 = 12, then x = ?", options: ["5", "6", "7", "8"], answer: 2 }
+                    { 
+                        id: 1, 
+                        text_en: "What is 15% of 200?", 
+                        text_hi: "200 का 15% क्या होगा?",
+                        options_en: ["20", "25", "30", "35"], 
+                        options_hi: ["20", "25", "30", "35"], 
+                        answer: 2 
+                    },
+                    { 
+                        id: 2, 
+                        text_en: "If x + 5 = 12, then x = ?", 
+                        text_hi: "यदि x + 5 = 12 है, तो x = ?",
+                        options_en: ["5", "6", "7", "8"], 
+                        options_hi: ["5", "6", "7", "8"], 
+                        answer: 2 
+                    }
                 ]
             },
             {
                 sectionName: "English",
                 questions: [
-                    { id: 1, text: "Choose the synonym for 'Happy'.", options: ["Sad", "Joyful", "Angry", "Tired"], answer: 1 },
-                    { id: 2, text: "Find the error: She do not like apples.", options: ["She", "do not", "like", "apples"], answer: 1 }
+                    { 
+                        id: 1, 
+                        text_en: "Choose the synonym for 'Happy'.", 
+                        text_hi: "Choose the synonym for 'Happy'. (English section is always in English)",
+                        options_en: ["Sad", "Joyful", "Angry", "Tired"], 
+                        options_hi: ["Sad", "Joyful", "Angry", "Tired"], 
+                        answer: 1 
+                    },
+                    { 
+                        id: 2, 
+                        text_en: "Find the error: She do not like apples.", 
+                        text_hi: "Find the error: She do not like apples. (English section remains English)",
+                        options_en: ["She", "do not", "like", "apples"], 
+                        options_hi: ["She", "do not", "like", "apples"], 
+                        answer: 1 
+                    }
                 ]
             }
         ];
 
         let currentSec = 0, currentQ = 0;
+        let currentLang = 'en'; // Default language
         let uState = examData.map(sec => sec.questions.map(() => 'not-visited'));
         let uAns = examData.map(sec => sec.questions.map(() => null));
 
@@ -206,6 +261,12 @@
 
         function switchSec(idx) { currentSec = idx; renderTabs(); loadQ(idx, 0); }
 
+        // Language toggle function
+        function changeLanguage() {
+            currentLang = document.getElementById('lang-select').value;
+            loadQ(currentSec, currentQ); // Refresh current question in new language
+        }
+
         function loadQ(sIdx, qIdx) {
             currentSec = sIdx; currentQ = qIdx;
             const q = examData[sIdx].questions[qIdx];
@@ -213,10 +274,14 @@
             if(uState[sIdx][qIdx] === 'not-visited') uState[sIdx][qIdx] = 'not-answered';
 
             document.getElementById('q-no').innerText = `Question No. ${qIdx + 1}`;
-            document.getElementById('q-text').innerText = q.text;
+            
+            // Check current language and display text accordingly
+            document.getElementById('q-text').innerText = currentLang === 'en' ? q.text_en : q.text_hi;
             
             let opts = "";
-            q.options.forEach((opt, i) => {
+            let currentOptions = currentLang === 'en' ? q.options_en : q.options_hi;
+            
+            currentOptions.forEach((opt, i) => {
                 let chk = uAns[sIdx][qIdx] === i ? "checked" : "";
                 opts += `<label class="option-label"><input type="radio" name="opt" value="${i}" ${chk}> ${opt}</label>`;
             });
