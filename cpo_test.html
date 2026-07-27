@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC CPO - Bilingual Exam Interface</title>
+    <title>SSC CPO 2025 Previous Year - MANN GURU</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
         body, html { background-color: #f4f6f7; height: 100%; overflow: hidden; }
@@ -82,7 +82,7 @@
 <body>
 
     <div class="header">
-        <div class="exam-name">SSC CPO Mock Test</div>
+        <div class="exam-name">SSC CPO 2025 previous year</div>
         <div class="timer-box">⏱️ <span id="time">120:00</span></div>
     </div>
 
@@ -97,7 +97,6 @@
                         <span id="q-no">Question No. 1</span>
                         <span style="color:#e74c3c; font-size:12px;">Marks: +1, -0.25</span>
                     </div>
-                    <!-- English/Hindi Toggle Button -->
                     <div class="lang-toggle">
                         <label for="lang-select">View in:</label>
                         <select id="lang-select" onchange="changeLanguage()">
@@ -156,26 +155,26 @@
     </div>
 
     <script>
-        // Exam Data (Now with Both English and Hindi content)
+        // Yahan aapke PDF se questions add kiye gaye hain
         const examData = [
             {
                 sectionName: "Reasoning",
                 questions: [
                     { 
                         id: 1, 
-                        text_en: "Find the odd one out: Apple, Banana, Carrot, Mango.", 
-                        text_hi: "इनमें से विषम चुनें: सेब, केला, गाजर, आम।",
-                        options_en: ["Apple", "Banana", "Carrot", "Mango"], 
-                        options_hi: ["सेब", "केला", "गाजर", "आम"], 
-                        answer: 2 
+                        text_en: "15 is related to 45 following a certain logic. Following the same logic, 25 is related to 125. Which of the following numbers is related to 80 using the same logic?", 
+                        text_hi: "15 एक निश्चित तर्क के अनुसार 45 से संबंधित है। उसी तर्क के अनुसार, 25, 125 से संबंधित है। निम्नलिखित में से कौन सी संख्या उसी तर्क का उपयोग करके 80 से संबंधित है?",
+                        options_en: ["20", "21", "18", "22"], 
+                        options_hi: ["20", "21", "18", "22"], 
+                        answer: 0 
                     },
                     { 
                         id: 2, 
-                        text_en: "If A = 1, B = 2, what is D?", 
-                        text_hi: "यदि A = 1, B = 2, तो D क्या होगा?",
-                        options_en: ["3", "4", "5", "6"], 
-                        options_hi: ["3", "4", "5", "6"], 
-                        answer: 1 
+                        text_en: "At a wedding reception, a man pointed to the groom and described him as the brother of the son of the son of his grandfather. How is the groom related to that man?", 
+                        text_hi: "एक शादी के रिसेप्शन में, एक व्यक्ति ने दूल्हे की ओर इशारा किया और दूल्हे को अपने दादा के पुत्र के पुत्र का भाई बताया। दूल्हा उस आदमी का क्या लगता है?",
+                        options_en: ["Uncle", "Father", "Brother", "Brother-in-law"], 
+                        options_hi: ["चाचा", "पिता", "भाई", "साला/जीजा"], 
+                        answer: 2 
                     }
                 ]
             },
@@ -184,68 +183,18 @@
                 questions: [
                     { 
                         id: 1, 
-                        text_en: "Who is known as the Father of Indian Constitution?", 
-                        text_hi: "भारतीय संविधान के जनक के रूप में किसे जाना जाता है?",
-                        options_en: ["Mahatma Gandhi", "Jawaharlal Nehru", "Dr. B.R. Ambedkar", "Sardar Patel"], 
-                        options_hi: ["महात्मा गांधी", "जवाहरलाल नेहरू", "डॉ. बी.आर. अंबेडकर", "सरदार पटेल"], 
-                        answer: 2 
-                    },
-                    { 
-                        id: 2, 
-                        text_en: "What is the capital of India?", 
-                        text_hi: "भारत की राजधानी क्या है?",
-                        options_en: ["Mumbai", "New Delhi", "Kolkata", "Chennai"], 
-                        options_hi: ["मुंबई", "नई दिल्ली", "कोलकाता", "चेन्नई"], 
-                        answer: 1 
-                    }
-                ]
-            },
-            {
-                sectionName: "Maths",
-                questions: [
-                    { 
-                        id: 1, 
-                        text_en: "What is 15% of 200?", 
-                        text_hi: "200 का 15% क्या होगा?",
-                        options_en: ["20", "25", "30", "35"], 
-                        options_hi: ["20", "25", "30", "35"], 
-                        answer: 2 
-                    },
-                    { 
-                        id: 2, 
-                        text_en: "If x + 5 = 12, then x = ?", 
-                        text_hi: "यदि x + 5 = 12 है, तो x = ?",
-                        options_en: ["5", "6", "7", "8"], 
-                        options_hi: ["5", "6", "7", "8"], 
-                        answer: 2 
-                    }
-                ]
-            },
-            {
-                sectionName: "English",
-                questions: [
-                    { 
-                        id: 1, 
-                        text_en: "Choose the synonym for 'Happy'.", 
-                        text_hi: "Choose the synonym for 'Happy'. (English section is always in English)",
-                        options_en: ["Sad", "Joyful", "Angry", "Tired"], 
-                        options_hi: ["Sad", "Joyful", "Angry", "Tired"], 
-                        answer: 1 
-                    },
-                    { 
-                        id: 2, 
-                        text_en: "Find the error: She do not like apples.", 
-                        text_hi: "Find the error: She do not like apples. (English section remains English)",
-                        options_en: ["She", "do not", "like", "apples"], 
-                        options_hi: ["She", "do not", "like", "apples"], 
-                        answer: 1 
+                        text_en: "According to Hindu calendar, Diwali falls in which of the following months?", 
+                        text_hi: "हिंदू कैलेंडर के अनुसार, दीवाली निम्नलिखित में से किस महीने में आती है?",
+                        options_en: ["Magha", "Ashwin", "Chaitra", "Kartika"], 
+                        options_hi: ["माघ", "अश्विन", "चैत्र", "कार्तिक"], 
+                        answer: 3 
                     }
                 ]
             }
         ];
 
         let currentSec = 0, currentQ = 0;
-        let currentLang = 'en'; // Default language
+        let currentLang = 'en'; 
         let uState = examData.map(sec => sec.questions.map(() => 'not-visited'));
         let uAns = examData.map(sec => sec.questions.map(() => null));
 
@@ -261,10 +210,9 @@
 
         function switchSec(idx) { currentSec = idx; renderTabs(); loadQ(idx, 0); }
 
-        // Language toggle function
         function changeLanguage() {
             currentLang = document.getElementById('lang-select').value;
-            loadQ(currentSec, currentQ); // Refresh current question in new language
+            loadQ(currentSec, currentQ); 
         }
 
         function loadQ(sIdx, qIdx) {
@@ -275,7 +223,6 @@
 
             document.getElementById('q-no').innerText = `Question No. ${qIdx + 1}`;
             
-            // Check current language and display text accordingly
             document.getElementById('q-text').innerText = currentLang === 'en' ? q.text_en : q.text_hi;
             
             let opts = "";
