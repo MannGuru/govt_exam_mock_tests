@@ -3,150 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC CPO Mock Test</title>
+    <title>SSC CPO - Original Exam Interface</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f6f7; }
-        .header { background-color: #2c3e50; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .exam-title { font-size: 18px; font-weight: bold; }
-        .timer { font-size: 18px; color: #f1c40f; font-weight: bold; }
-        .container { display: flex; flex-direction: column; padding: 15px; gap: 15px; }
-        @media(min-width: 768px) { .container { flex-direction: row; } }
-        .question-section { flex: 3; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .palette-section { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .question-text { font-size: 18px; margin-bottom: 20px; font-weight: bold; }
-        .option { margin-bottom: 12px; font-size: 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 5px; }
-        input[type="radio"] { transform: scale(1.3); cursor: pointer; }
-        .buttons { margin-top: 25px; display: flex; flex-wrap: wrap; gap: 10px; }
-        .btn { padding: 10px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; color: white; flex: 1; min-width: 120px; text-align: center; }
-        .btn-save { background-color: #27ae60; }
-        .btn-clear { background-color: #e67e22; }
-        .btn-review { background-color: #9b59b6; }
-        .btn-submit { background-color: #e74c3c; width: 100%; margin-top: 20px; }
-        .btn-back { background-color: #34495e; margin-bottom: 15px; width: 100%; }
-        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
-        .q-number { width: 35px; height: 35px; background: #ecf0f1; border: 1px solid #bdc3c7; display: flex; justify-content: center; align-items: center; border-radius: 4px; cursor: pointer; font-weight: bold; font-size:14px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { background-color: #f0f0f0; display: flex; flex-direction: column; height: 100vh; }
         
-        .answered { background: #27ae60 !important; color: white; border-color: #27ae60 !important; }
-        .review { background: #9b59b6 !important; color: white; border-color: #9b59b6 !important; }
-        .not-answered { background: #e74c3c !important; color: white; border-color: #e74c3c !important; }
-        .active { border: 3px solid #34495e !important; transform: scale(1.1); }
+        /* Header */
+        .header { background-color: #2c3e50; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #3498db; }
+        .exam-name { font-size: 20px; font-weight: bold; }
+        .timer-box { font-size: 18px; font-weight: bold; color: #f1c40f; display: flex; align-items: center; gap: 10px; }
+        
+        /* Layout Grid */
+        .main-container { display: flex; flex: 1; overflow: hidden; }
+        
+        /* Left Panel - Questions */
+        .left-panel { flex: 3; display: flex; flex-direction: column; border-right: 1px solid #ccc; background: white; }
+        .section-tabs { display: flex; background: #e0e0e0; border-bottom: 2px solid #ccc; overflow-x: auto; }
+        .tab { padding: 10px 15px; cursor: pointer; font-weight: bold; color: #555; border-right: 1px solid #ccc; }
+        .tab.active { background: #3498db; color: white; }
+        
+        .question-area { flex: 1; padding: 20px; overflow-y: auto; }
+        .question-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; color: #333; }
+        .question-text { font-size: 16px; margin-bottom: 20px; line-height: 1.5; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; }
+        input[type="radio"] { transform: scale(1.3); cursor: pointer; }
+        
+        /* Action Buttons */
+        .action-buttons { padding: 15px 20px; background: #f9f9f9; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .btn { padding: 8px 15px; border: 1px solid #ccc; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .btn-mark { background: white; color: #333; }
+        .btn-clear { background: white; color: #333; }
+        .btn-save { background: #4CAF50; color: white; border-color: #4CAF50; }
+        .btn-submit { background: #3498db; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: bold; }
+        
+        /* Right Panel - Palette */
+        .right-panel { flex: 1; display: flex; flex-direction: column; background: #fff; min-width: 250px; max-width: 320px; }
+        .candidate-info { padding: 15px; border-bottom: 1px solid #ccc; text-align: center; background: #f8f9fa; }
+        .legend-box { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 1px solid #ccc; font-size: 12px; }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        
+        .palette-area { padding: 15px; flex: 1; overflow-y: auto; }
+        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+        .q-bubble { width: 40px; height: 35px; display: flex; justify-content: center; align-items: center; font-weight: bold; border-radius: 5px; cursor: pointer; border: 1px solid #ccc; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="35"><path d="M0,0 L40,0 L40,25 L20,35 L0,25 Z" fill="%23eee"/></svg>') no-repeat; background-size: cover; color: #333; }
+        
+        /* TCS Colors for bubbles */
+        .not-visited { background: #f0f0f0; border-color: #ccc; }
+        .not-answered { background: #ff4d4d; color: white; border-color: #ff4d4d; }
+        .answered { background: #26a69a; color: white; border-color: #26a69a; }
+        .review { background: #9b59b6; color: white; border-color: #9b59b6; }
+        .answered-review { background: #9b59b6; color: white; border-color: #9b59b6; position: relative; }
+        .answered-review::after { content: '✔'; position: absolute; bottom: 2px; right: 2px; font-size: 10px; color: #2ecc71; }
+        
+        /* Scorecard Overlay */
+        .scorecard-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
+        .scorecard { background: white; padding: 30px; border-radius: 10px; width: 400px; text-align: center; }
+        .score-row { display: flex; justify-content: space-between; margin: 10px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="exam-title">SSC CPO Pre - Mock Test</div>
-        <div class="timer" id="time">Time Left: 120:00</div>
+        <div class="exam-name">SSC CPO Tier 1 - Mock Test</div>
+        <div class="timer-box">⏱️ <span id="time">120:00</span></div>
     </div>
 
-    <div class="container">
-        <div class="question-section">
-            <button class="btn btn-back" onclick="window.location.href='index.html'">🔙 Back to Dashboard</button>
-            <div class="question-text" id="q-text">Loading question...</div>
-            <div id="options-container"></div>
-            <div class="buttons">
-                <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
-                <button class="btn btn-clear" onclick="clearResponse()">Clear</button>
-                <button class="btn btn-review" onclick="markReview()">Review</button>
+    <div class="main-container" id="exam-container">
+        <!-- Left Side: Questions -->
+        <div class="left-panel">
+            <div class="section-tabs" id="section-tabs">
+                <!-- Tabs generated by JS -->
+            </div>
+            
+            <div class="question-area">
+                <div class="question-header">
+                    <span id="q-no">Question No. 1</span>
+                    <span style="color:#e74c3c">Marks: +1, -0.25</span>
+                </div>
+                <div class="question-text" id="q-text">Question loading...</div>
+                <div class="options" id="options-container"></div>
+            </div>
+
+            <div class="action-buttons">
+                <div>
+                    <button class="btn btn-mark" onclick="markForReview()">Mark for Review & Next</button>
+                    <button class="btn btn-clear" onclick="clearResponse()">Clear Response</button>
+                </div>
+                <div>
+                    <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
+                </div>
             </div>
         </div>
 
-        <div class="palette-section">
-            <h3 style="margin-top:0;">Question Palette</h3>
-            <div class="palette-grid" id="palette"></div>
-            <button class="btn btn-submit" onclick="submitExam()">Submit Exam</button>
+        <!-- Right Side: Profile & Palette -->
+        <div class="right-panel">
+            <div class="candidate-info">
+                <strong>MANN GURU</strong><br>
+                <small>Mock Test Series</small>
+            </div>
+            <div class="legend-box">
+                <div class="legend-item"><span style="color:#26a69a">🟩</span> Answered</div>
+                <div class="legend-item"><span style="color:#ff4d4d">🟥</span> Not Answered</div>
+                <div class="legend-item"><span style="color:#ccc">⬜</span> Not Visited</div>
+                <div class="legend-item"><span style="color:#9b59b6">🟪</span> Marked for Review</div>
+            </div>
+            <div class="palette-area">
+                <h4 style="margin-bottom:10px" id="palette-title">Reasoning</h4>
+                <div class="palette-grid" id="palette-grid"></div>
+                <button class="btn-submit" onclick="showScorecard()">Submit Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result / Scorecard Popup -->
+    <div class="scorecard-overlay" id="scorecard">
+        <div class="scorecard">
+            <h2>📊 SSC CPO Scorecard</h2>
+            <hr style="margin:15px 0">
+            <div class="score-row"><span>Total Questions:</span> <strong id="res-total"></strong></div>
+            <div class="score-row"><span>Attempted:</span> <strong id="res-att"></strong></div>
+            <div class="score-row"><span>Correct ✅:</span> <strong style="color:green" id="res-right"></strong></div>
+            <div class="score-row"><span>Incorrect ❌:</span> <strong style="color:red" id="res-wrong"></strong></div>
+            <div class="score-row"><span>Positive Marks:</span> <strong id="res-pos"></strong></div>
+            <div class="score-row"><span>Negative Marks:</span> <strong id="res-neg"></strong></div>
+            <hr style="margin:15px 0">
+            <h3 style="color:#3498db; margin-bottom:15px">Final Score: <span id="res-score"></span></h3>
+            <button class="btn btn-submit" onclick="window.location.href='index.html'">Back to Dashboard</button>
         </div>
     </div>
 
     <script>
-        const questions = [
-            { id: 1, text: "Q1. Which of the following articles of the Constitution of India deals with the Right to Equality?", options: ["Article 14 to 18", "Article 19 to 22", "Article 23 to 24", "Article 25 to 28"], answer: 0 },
-            { id: 2, text: "Q2. In a certain code language, 'ROSE' is written as 'TQUG'. How will 'BISCUIT' be written in that language?", options: ["DKUEWKV", "DKVEWKV", "DKUEWLV", "CJTDVJS"], answer: 0 },
-            { id: 3, text: "Q3. Who among the following was the founder of the Maurya Empire?", options: ["Ashoka", "Chandragupta Maurya", "Bindusara", "Bimbisara"], answer: 1 },
-            { id: 4, text: "Q4. If A is the brother of B, C is the sister of A, D is the brother of E, and E is the daughter of B, then who is the uncle of D?", options: ["A", "B", "C", "Cannot be determined"], answer: 0 },
-            { id: 5, text: "Q5. The SI unit of Electric Current is?", options: ["Volt", "Ampere", "Ohm", "Watt"], answer: 1 }
+        // Exam Data (Sections and Questions)
+        const examData = [
+            {
+                sectionName: "General Intelligence & Reasoning",
+                questions: [
+                    { id: 1, text: "Find the odd one out: Apple, Banana, Carrot, Mango.", options: ["Apple", "Banana", "Carrot", "Mango"], answer: 2 },
+                    { id: 2, text: "If A = 1, B = 2, what is D?", options: ["3", "4", "5", "6"], answer: 1 }
+                ]
+            },
+            {
+                sectionName: "General Knowledge",
+                questions: [
+                    { id: 1, text: "Who is known as the Father of Indian Constitution?", options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Dr. B.R. Ambedkar", "Sardar Patel"], answer: 2 },
+                    { id: 2, text: "What is the capital of India?", options: ["Mumbai", "New Delhi", "Kolkata", "Chennai"], answer: 1 }
+                ]
+            },
+            {
+                sectionName: "Quantitative Aptitude",
+                questions: [
+                    { id: 1, text: "What is 15% of 200?", options: ["20", "25", "30", "35"], answer: 2 },
+                    { id: 2, text: "If x + 5 = 12, then x = ?", options: ["5", "6", "7", "8"], answer: 2 }
+                ]
+            },
+            {
+                sectionName: "English Comprehension",
+                questions: [
+                    { id: 1, text: "Choose the synonym for 'Happy'.", options: ["Sad", "Joyful", "Angry", "Tired"], answer: 1 },
+                    { id: 2, text: "Find the error: She do not like apples.", options: ["She", "do not", "like", "apples"], answer: 1 }
+                ]
+            }
         ];
 
-        let currentQ = 0;
-        let userAnswers = new Array(questions.length).fill(null);
-        let qStatus = new Array(questions.length).fill("not-visited"); 
+        let currentSectionIndex = 0;
+        let currentQuestionIndex = 0;
+        
+        // Tracking states: 'not-visited', 'not-answered', 'answered', 'review', 'answered-review'
+        let userState = examData.map(sec => sec.questions.map(() => 'not-visited'));
+        let userAnswers = examData.map(sec => sec.questions.map(() => null));
 
-        function loadQuestion(index) {
-            currentQ = index;
-            const q = questions[index];
-            document.getElementById('q-text').innerText = q.text;
-            let optsHTML = "";
-            q.options.forEach((opt, i) => {
-                let checked = userAnswers[index] === i ? "checked" : "";
-                optsHTML += `<div class="option" onclick="selectOption(${i})">
-                    <input type="radio" name="q" id="opt${i}" ${checked}>
-                    <label for="opt${i}">${opt}</label>
-                </div>`;
-            });
-            document.getElementById('options-container').innerHTML = optsHTML;
-            if(qStatus[index] === "not-visited") qStatus[index] = "not-answered";
-            updatePalette();
+        function initExam() {
+            renderTabs();
+            loadQuestion(0, 0);
+            startTimer(120 * 60); // 120 minutes
         }
 
-        function selectOption(optIndex) { document.getElementById(`opt${optIndex}`).checked = true; }
+        function renderTabs() {
+            let tabsHTML = "";
+            examData.forEach((sec, idx) => {
+                let activeClass = idx === currentSectionIndex ? 'active' : '';
+                tabsHTML += `<div class="tab ${activeClass}" onclick="switchSection(${idx})">${sec.sectionName.split(' ')[0]}</div>`;
+            });
+            document.getElementById('section-tabs').innerHTML = tabsHTML;
+        }
+
+        function switchSection(secIdx) {
+            currentSectionIndex = secIdx;
+            renderTabs();
+            loadQuestion(secIdx, 0);
+        }
+
+        function loadQuestion(secIdx, qIdx) {
+            currentSectionIndex = secIdx;
+            currentQuestionIndex = qIdx;
+            
+            const q = examData[secIdx].questions[qIdx];
+            
+            // Mark as not-answered if it was not-visited
+            if(userState[secIdx][qIdx] === 'not-visited') {
+                userState[secIdx][qIdx] = 'not-answered';
+            }
+
+            document.getElementById('q-no').innerText = `Question No. ${qIdx + 1}`;
+            document.getElementById('q-text').innerText = q.text;
+            
+            let optsHTML = "";
+            q.options.forEach((opt, i) => {
+                let isChecked = userAnswers[secIdx][qIdx] === i ? "checked" : "";
+                optsHTML += `
+                    <label class="option-label">
+                        <input type="radio" name="option" value="${i}" ${isChecked}>
+                        ${opt}
+                    </label>
+                `;
+            });
+            document.getElementById('options-container').innerHTML = optsHTML;
+            
+            renderPalette();
+        }
+
+        function getSelectedOption() {
+            let selected = document.querySelector('input[name="option"]:checked');
+            return selected ? parseInt(selected.value) : null;
+        }
 
         function saveAndNext() {
-            let selected = document.querySelector('input[name="q"]:checked');
-            if(selected) {
-                userAnswers[currentQ] = parseInt(selected.id.replace('opt',''));
-                qStatus[currentQ] = "answered";
-            } else { qStatus[currentQ] = "not-answered"; }
-            
-            if(currentQ < questions.length - 1) loadQuestion(currentQ + 1);
-            else { updatePalette(); alert("You have reached the last question."); }
+            let ans = getSelectedOption();
+            if (ans !== null) {
+                userAnswers[currentSectionIndex][currentQuestionIndex] = ans;
+                userState[currentSectionIndex][currentQuestionIndex] = 'answered';
+            } else {
+                userState[currentSectionIndex][currentQuestionIndex] = 'not-answered';
+            }
+            moveToNextQuestion();
+        }
+
+        function markForReview() {
+            let ans = getSelectedOption();
+            if (ans !== null) {
+                userAnswers[currentSectionIndex][currentQuestionIndex] = ans;
+                userState[currentSectionIndex][currentQuestionIndex] = 'answered-review';
+            } else {
+                userState[currentSectionIndex][currentQuestionIndex] = 'review';
+            }
+            moveToNextQuestion();
         }
 
         function clearResponse() {
-            let selected = document.querySelector('input[name="q"]:checked');
-            if(selected) selected.checked = false;
-            userAnswers[currentQ] = null;
-            qStatus[currentQ] = "not-answered";
-            updatePalette();
+            let radios = document.querySelectorAll('input[name="option"]');
+            radios.forEach(r => r.checked = false);
+            userAnswers[currentSectionIndex][currentQuestionIndex] = null;
+            userState[currentSectionIndex][currentQuestionIndex] = 'not-answered';
+            renderPalette();
         }
 
-        function markReview() {
-            qStatus[currentQ] = "review";
-            if(currentQ < questions.length - 1) loadQuestion(currentQ + 1);
-            else updatePalette();
-        }
-
-        function updatePalette() {
-            let pHTML = "";
-            for(let i=0; i<questions.length; i++) {
-                let cls = "q-number ";
-                if(qStatus[i] === "answered") cls += "answered";
-                else if(qStatus[i] === "review") cls += "review";
-                else if(qStatus[i] === "not-answered") cls += "not-answered";
-                if(i === currentQ) cls += " active";
-                pHTML += `<div class="${cls}" onclick="loadQuestion(${i})">${i+1}</div>`;
+        function moveToNextQuestion() {
+            if (currentQuestionIndex < examData[currentSectionIndex].questions.length - 1) {
+                loadQuestion(currentSectionIndex, currentQuestionIndex + 1);
+            } else if (currentSectionIndex < examData.length - 1) {
+                switchSection(currentSectionIndex + 1);
+            } else {
+                renderPalette();
+                alert("You have reached the end of the test. Please Submit.");
             }
-            document.getElementById('palette').innerHTML = pHTML;
         }
 
-        function submitExam() {
-            let score = 0;
-            for(let i=0; i<questions.length; i++) {
-                if(userAnswers[i] === questions[i].answer) score++;
-            }
-            alert(`Exam Submitted!\nYour Score is: ${score} out of ${questions.length}`);
-            window.location.href = 'index.html'; // Goes back to dashboard
+        function renderPalette() {
+            document.getElementById('palette-title').innerText = examData[currentSectionIndex].sectionName;
+            let gridHTML = "";
+            let currentQuestions = examData[currentSectionIndex].questions;
+            
+            currentQuestions.forEach((q, idx) => {
+                let statusClass = userState[currentSectionIndex][idx];
+                // highlight active question
+                let borderStyle = (idx === currentQuestionIndex) ? "border: 2px solid black; transform: scale(1.1);" : "";
+                
+                gridHTML += `<div class="q-bubble ${statusClass}" style="${borderStyle}" onclick="loadQuestion(${currentSectionIndex}, ${idx})">${idx + 1}</div>`;
+            });
+            document.getElementById('palette-grid').innerHTML = gridHTML;
         }
 
-        let timeLeft = 120 * 60; 
-        setInterval(() => {
-            if(timeLeft <= 0) return;
-            timeLeft--;
-            let m = Math.floor(timeLeft / 60);
-            let s = timeLeft % 60;
-            document.getElementById('time').innerText = `Time Left: ${m}:${s < 10 ? '0'+s : s}`;
-        }, 1000);
+        function showScorecard() {
+            let totalQ = 0, attempted = 0, correct = 0, wrong = 0;
+            
+            examData.forEach((sec, sIdx) => {
+                sec.questions.forEach((q, qIdx) => {
+                    totalQ++;
+                    if (userAnswers[sIdx][qIdx] !== null) {
+                        attempted++;
+                        if (userAnswers[sIdx][qIdx] === q.answer) correct++;
+                        else wrong++;
+                    }
+                });
+            });
 
-        loadQuestion(0);
+            let positiveMarks = correct * 1;
+            let negativeMarks = wrong * 0.25;
+            let finalScore = (positiveMarks - negativeMarks).toFixed(2);
+
+            document.getElementById('res-total').innerText = totalQ;
+            document.getElementById('res-att').innerText = attempted;
+            document.getElementById('res-right').innerText = correct;
+            document.getElementById('res-wrong').innerText = wrong;
+            document.getElementById('res-pos').innerText = `+${positiveMarks}`;
+            document.getElementById('res-neg').innerText = `-${negativeMarks}`;
+            document.getElementById('res-score').innerText = `${finalScore} / ${totalQ}`;
+
+            document.getElementById('exam-container').style.display = 'none';
+            document.getElementById('scorecard').style.display = 'flex';
+        }
+
+        function startTimer(durationInSeconds) {
+            let time = durationInSeconds;
+            setInterval(function () {
+                if(time <= 0) { showScorecard(); return; }
+                time--;
+                let m = Math.floor(time / 60);
+                let s = time % 60;
+                document.getElementById('time').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+            }, 1000);
+        }
+
+        // Start everything
+        initExam();
     </script>
 </body>
 </html>
