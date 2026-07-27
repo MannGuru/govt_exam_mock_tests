@@ -5,138 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSC CPO - Original Exam Interface</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-        body { background-color: #f0f0f0; display: flex; flex-direction: column; height: 100vh; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
+        
+        /* Default for Desktop */
+        body, html { background-color: #f4f6f7; height: 100%; overflow: hidden; }
         
         /* Header */
-        .header { background-color: #2c3e50; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #3498db; }
-        .exam-name { font-size: 20px; font-weight: bold; }
-        .timer-box { font-size: 18px; font-weight: bold; color: #f1c40f; display: flex; align-items: center; gap: 10px; }
+        .header { background-color: #2c3e50; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #3498db; }
+        .exam-name { font-size: 16px; font-weight: bold; }
+        .timer-box { font-size: 16px; font-weight: bold; color: #f1c40f; display: flex; align-items: center; gap: 5px; }
         
         /* Layout Grid */
-        .main-container { display: flex; flex: 1; overflow: hidden; }
+        .main-container { display: flex; flex-direction: row; height: calc(100% - 46px); }
         
         /* Left Panel - Questions */
-        .left-panel { flex: 3; display: flex; flex-direction: column; border-right: 1px solid #ccc; background: white; }
-        .section-tabs { display: flex; background: #e0e0e0; border-bottom: 2px solid #ccc; overflow-x: auto; }
-        .tab { padding: 10px 15px; cursor: pointer; font-weight: bold; color: #555; border-right: 1px solid #ccc; }
+        .left-panel { flex: 1; display: flex; flex-direction: column; background: white; border-right: 2px solid #ccc; overflow: hidden; }
+        
+        .section-tabs { display: flex; background: #e0e0e0; overflow-x: auto; flex-shrink: 0; }
+        .tab { padding: 12px 15px; cursor: pointer; font-weight: bold; color: #555; border-right: 1px solid #ccc; white-space: nowrap; font-size: 14px; }
         .tab.active { background: #3498db; color: white; }
         
         .question-area { flex: 1; padding: 20px; overflow-y: auto; }
-        .question-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; color: #333; }
-        .question-text { font-size: 16px; margin-bottom: 20px; line-height: 1.5; }
+        .question-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; color: #333; font-size: 14px; }
+        .question-text { font-size: 16px; margin-bottom: 20px; line-height: 1.6; font-weight: 500; }
         .options { display: flex; flex-direction: column; gap: 12px; }
-        .option-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; }
+        .option-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; padding: 5px 0; }
         input[type="radio"] { transform: scale(1.3); cursor: pointer; }
         
         /* Action Buttons */
-        .action-buttons { padding: 15px 20px; background: #f9f9f9; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .btn { padding: 8px 15px; border: 1px solid #ccc; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 14px; }
-        .btn-mark { background: white; color: #333; }
+        .action-buttons { padding: 15px; background: #f9f9f9; border-top: 1px solid #ccc; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; flex-shrink: 0; }
+        .btn { padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; flex: 1; min-width: 110px; text-align: center; }
+        .btn-mark { background: #e67e22; color: white; border-color: #d35400; }
         .btn-clear { background: white; color: #333; }
-        .btn-save { background: #4CAF50; color: white; border-color: #4CAF50; }
-        .btn-submit { background: #3498db; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: bold; }
+        .btn-save { background: #27ae60; color: white; border-color: #2ecc71; }
         
         /* Right Panel - Palette */
-        .right-panel { flex: 1; display: flex; flex-direction: column; background: #fff; min-width: 250px; max-width: 320px; }
+        .right-panel { background: #fff; display: flex; flex-direction: column; width: 300px; flex-shrink: 0; }
+        
         .candidate-info { padding: 15px; border-bottom: 1px solid #ccc; text-align: center; background: #f8f9fa; }
-        .legend-box { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 1px solid #ccc; font-size: 12px; }
-        .legend-item { display: flex; align-items: center; gap: 5px; }
+        
+        .legend-box { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 1px solid #ccc; font-size: 12px; flex-shrink: 0; background: #fafafa; }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-icon { width: 20px; height: 20px; display: inline-block; }
         
         .palette-area { padding: 15px; flex: 1; overflow-y: auto; }
-        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
-        .q-bubble { width: 40px; height: 35px; display: flex; justify-content: center; align-items: center; font-weight: bold; border-radius: 5px; cursor: pointer; border: 1px solid #ccc; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="35"><path d="M0,0 L40,0 L40,25 L20,35 L0,25 Z" fill="%23eee"/></svg>') no-repeat; background-size: cover; color: #333; }
+        .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 10px; margin-top: 10px; margin-bottom: 20px; }
         
-        /* TCS Colors for bubbles */
-        .not-visited { background: #f0f0f0; border-color: #ccc; }
-        .not-answered { background: #ff4d4d; color: white; border-color: #ff4d4d; }
-        .answered { background: #26a69a; color: white; border-color: #26a69a; }
-        .review { background: #9b59b6; color: white; border-color: #9b59b6; }
-        .answered-review { background: #9b59b6; color: white; border-color: #9b59b6; position: relative; }
-        .answered-review::after { content: '✔'; position: absolute; bottom: 2px; right: 2px; font-size: 10px; color: #2ecc71; }
+        /* TCS iON Original Bubble Shapes */
+        .q-bubble { width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; border: 1px solid #ccc; font-size: 14px; margin: 0 auto; transition: 0.2s; }
+        .q-bubble:hover { opacity: 0.8; }
+        
+        .not-visited { background: #f0f0f0; color: #333; border-radius: 4px; }
+        .not-answered { background: #e74c3c; color: white; border-color: #c0392b; border-bottom-left-radius: 15px; border-top-right-radius: 15px; }
+        .answered { background: #27ae60; color: white; border-color: #2ecc71; border-top-left-radius: 15px; border-bottom-right-radius: 15px; }
+        .review { background: #9b59b6; color: white; border-color: #8e44ad; border-radius: 50%; }
+        .answered-review { background: #9b59b6; color: white; border-color: #8e44ad; border-radius: 50%; position: relative; }
+        .answered-review::after { content: '✔'; position: absolute; bottom: -2px; right: -2px; font-size: 10px; color: white; background: #27ae60; border-radius: 50%; width: 15px; height: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; border: 1px solid white; }
+        
+        .btn-submit { background: #3498db; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; flex-shrink: 0; margin-top: auto; }
         
         /* Scorecard Overlay */
-        .scorecard-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
-        .scorecard { background: white; padding: 30px; border-radius: 10px; width: 400px; text-align: center; }
-        .score-row { display: flex; justify-content: space-between; margin: 10px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .scorecard-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .scorecard { background: white; padding: 30px; border-radius: 10px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .score-row { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; font-size: 16px; }
+
+        /* =========================================
+           SUPER MOBILE RESPONSIVE FIX
+           ========================================= */
+        @media(max-width: 767px) {
+            body, html { height: auto; overflow: auto; }
+            .main-container { flex-direction: column; height: auto; }
+            .left-panel { border-right: none; overflow: visible; }
+            .question-area { overflow: visible; min-height: 300px; }
+            
+            /* Action buttons always visible at bottom of screen */
+            .action-buttons { position: sticky; bottom: 0; z-index: 10; box-shadow: 0 -3px 8px rgba(0,0,0,0.1); }
+            
+            .right-panel { width: 100%; height: auto; border-top: 4px solid #2c3e50; }
+            .candidate-info { display: none; }
+            .palette-area { overflow: visible; padding-bottom: 30px; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <div class="header">
-        <div class="exam-name">SSC CPO Tier 1 - Mock Test</div>
+        <div class="exam-name">SSC CPO Mock Test</div>
         <div class="timer-box">⏱️ <span id="time">120:00</span></div>
     </div>
 
     <div class="main-container" id="exam-container">
+        
         <!-- Left Side: Questions -->
         <div class="left-panel">
-            <div class="section-tabs" id="section-tabs">
-                <!-- Tabs generated by JS -->
-            </div>
+            <div class="section-tabs" id="section-tabs"></div>
             
             <div class="question-area">
                 <div class="question-header">
                     <span id="q-no">Question No. 1</span>
                     <span style="color:#e74c3c">Marks: +1, -0.25</span>
                 </div>
-                <div class="question-text" id="q-text">Question loading...</div>
+                <div class="question-text" id="q-text">Loading...</div>
                 <div class="options" id="options-container"></div>
             </div>
 
+            <!-- Mobile sticky buttons -->
             <div class="action-buttons">
-                <div>
-                    <button class="btn btn-mark" onclick="markForReview()">Mark for Review & Next</button>
-                    <button class="btn btn-clear" onclick="clearResponse()">Clear Response</button>
-                </div>
-                <div>
-                    <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
-                </div>
+                <button class="btn btn-mark" onclick="markForReview()">Review & Next</button>
+                <button class="btn btn-clear" onclick="clearResponse()">Clear</button>
+                <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
             </div>
         </div>
 
-        <!-- Right Side: Profile & Palette -->
+        <!-- Right Side: Palette (Will stack below on mobile) -->
         <div class="right-panel">
             <div class="candidate-info">
-                <strong>MANN GURU</strong><br>
+                <strong style="font-size:18px;">MANN GURU</strong><br>
                 <small>Mock Test Series</small>
             </div>
+            
             <div class="legend-box">
-                <div class="legend-item"><span style="color:#26a69a">🟩</span> Answered</div>
-                <div class="legend-item"><span style="color:#ff4d4d">🟥</span> Not Answered</div>
-                <div class="legend-item"><span style="color:#ccc">⬜</span> Not Visited</div>
-                <div class="legend-item"><span style="color:#9b59b6">🟪</span> Marked for Review</div>
+                <div class="legend-item"><div class="q-bubble answered legend-icon"></div> Answered</div>
+                <div class="legend-item"><div class="q-bubble not-answered legend-icon"></div> Not Answered</div>
+                <div class="legend-item"><div class="q-bubble not-visited legend-icon"></div> Not Visited</div>
+                <div class="legend-item"><div class="q-bubble review legend-icon"></div> Review</div>
             </div>
+            
             <div class="palette-area">
-                <h4 style="margin-bottom:10px" id="palette-title">Reasoning</h4>
+                <h4 style="margin-bottom:15px; color:#2c3e50; border-bottom:1px solid #ccc; padding-bottom:5px;" id="palette-title">Section</h4>
                 <div class="palette-grid" id="palette-grid"></div>
-                <button class="btn-submit" onclick="showScorecard()">Submit Exam</button>
             </div>
+            <button class="btn-submit" onclick="showScorecard()">Submit Exam</button>
         </div>
     </div>
 
     <!-- Result / Scorecard Popup -->
     <div class="scorecard-overlay" id="scorecard">
         <div class="scorecard">
-            <h2>📊 SSC CPO Scorecard</h2>
+            <h2>📊 CPO Scorecard</h2>
             <hr style="margin:15px 0">
             <div class="score-row"><span>Total Questions:</span> <strong id="res-total"></strong></div>
             <div class="score-row"><span>Attempted:</span> <strong id="res-att"></strong></div>
-            <div class="score-row"><span>Correct ✅:</span> <strong style="color:green" id="res-right"></strong></div>
-            <div class="score-row"><span>Incorrect ❌:</span> <strong style="color:red" id="res-wrong"></strong></div>
+            <div class="score-row"><span>Correct ✅:</span> <strong style="color:#27ae60" id="res-right"></strong></div>
+            <div class="score-row"><span>Incorrect ❌:</span> <strong style="color:#e74c3c" id="res-wrong"></strong></div>
             <div class="score-row"><span>Positive Marks:</span> <strong id="res-pos"></strong></div>
             <div class="score-row"><span>Negative Marks:</span> <strong id="res-neg"></strong></div>
             <hr style="margin:15px 0">
-            <h3 style="color:#3498db; margin-bottom:15px">Final Score: <span id="res-score"></span></h3>
-            <button class="btn btn-submit" onclick="window.location.href='index.html'">Back to Dashboard</button>
+            <h3 style="color:#3498db; margin-bottom:20px; font-size:22px;">Final Score: <span id="res-score"></span></h3>
+            <button class="btn btn-submit" style="border-radius:25px;" onclick="window.location.href='index.html'">Back to Dashboard</button>
         </div>
     </div>
 
     <script>
-        // Exam Data (Sections and Questions)
+        // Exam Data
         const examData = [
             {
-                sectionName: "General Intelligence & Reasoning",
+                sectionName: "Reasoning",
                 questions: [
                     { id: 1, text: "Find the odd one out: Apple, Banana, Carrot, Mango.", options: ["Apple", "Banana", "Carrot", "Mango"], answer: 2 },
                     { id: 2, text: "If A = 1, B = 2, what is D?", options: ["3", "4", "5", "6"], answer: 1 }
@@ -150,14 +175,14 @@
                 ]
             },
             {
-                sectionName: "Quantitative Aptitude",
+                sectionName: "Maths",
                 questions: [
                     { id: 1, text: "What is 15% of 200?", options: ["20", "25", "30", "35"], answer: 2 },
                     { id: 2, text: "If x + 5 = 12, then x = ?", options: ["5", "6", "7", "8"], answer: 2 }
                 ]
             },
             {
-                sectionName: "English Comprehension",
+                sectionName: "English",
                 questions: [
                     { id: 1, text: "Choose the synonym for 'Happy'.", options: ["Sad", "Joyful", "Angry", "Tired"], answer: 1 },
                     { id: 2, text: "Find the error: She do not like apples.", options: ["She", "do not", "like", "apples"], answer: 1 }
@@ -165,166 +190,118 @@
             }
         ];
 
-        let currentSectionIndex = 0;
-        let currentQuestionIndex = 0;
-        
-        // Tracking states: 'not-visited', 'not-answered', 'answered', 'review', 'answered-review'
-        let userState = examData.map(sec => sec.questions.map(() => 'not-visited'));
-        let userAnswers = examData.map(sec => sec.questions.map(() => null));
+        let currentSec = 0, currentQ = 0;
+        let uState = examData.map(sec => sec.questions.map(() => 'not-visited'));
+        let uAns = examData.map(sec => sec.questions.map(() => null));
 
-        function initExam() {
-            renderTabs();
-            loadQuestion(0, 0);
-            startTimer(120 * 60); // 120 minutes
-        }
+        function initExam() { renderTabs(); loadQ(0, 0); startTimer(120 * 60); }
 
         function renderTabs() {
-            let tabsHTML = "";
+            let html = "";
             examData.forEach((sec, idx) => {
-                let activeClass = idx === currentSectionIndex ? 'active' : '';
-                tabsHTML += `<div class="tab ${activeClass}" onclick="switchSection(${idx})">${sec.sectionName.split(' ')[0]}</div>`;
+                html += `<div class="tab ${idx === currentSec ? 'active' : ''}" onclick="switchSec(${idx})">${sec.sectionName}</div>`;
             });
-            document.getElementById('section-tabs').innerHTML = tabsHTML;
+            document.getElementById('section-tabs').innerHTML = html;
         }
 
-        function switchSection(secIdx) {
-            currentSectionIndex = secIdx;
-            renderTabs();
-            loadQuestion(secIdx, 0);
-        }
+        function switchSec(idx) { currentSec = idx; renderTabs(); loadQ(idx, 0); }
 
-        function loadQuestion(secIdx, qIdx) {
-            currentSectionIndex = secIdx;
-            currentQuestionIndex = qIdx;
+        function loadQ(sIdx, qIdx) {
+            currentSec = sIdx; currentQ = qIdx;
+            const q = examData[sIdx].questions[qIdx];
             
-            const q = examData[secIdx].questions[qIdx];
-            
-            // Mark as not-answered if it was not-visited
-            if(userState[secIdx][qIdx] === 'not-visited') {
-                userState[secIdx][qIdx] = 'not-answered';
-            }
+            if(uState[sIdx][qIdx] === 'not-visited') uState[sIdx][qIdx] = 'not-answered';
 
             document.getElementById('q-no').innerText = `Question No. ${qIdx + 1}`;
             document.getElementById('q-text').innerText = q.text;
             
-            let optsHTML = "";
+            let opts = "";
             q.options.forEach((opt, i) => {
-                let isChecked = userAnswers[secIdx][qIdx] === i ? "checked" : "";
-                optsHTML += `
-                    <label class="option-label">
-                        <input type="radio" name="option" value="${i}" ${isChecked}>
-                        ${opt}
-                    </label>
-                `;
+                let chk = uAns[sIdx][qIdx] === i ? "checked" : "";
+                opts += `<label class="option-label"><input type="radio" name="opt" value="${i}" ${chk}> ${opt}</label>`;
             });
-            document.getElementById('options-container').innerHTML = optsHTML;
-            
+            document.getElementById('options-container').innerHTML = opts;
             renderPalette();
         }
 
-        function getSelectedOption() {
-            let selected = document.querySelector('input[name="option"]:checked');
-            return selected ? parseInt(selected.value) : null;
+        function getAns() {
+            let s = document.querySelector('input[name="opt"]:checked');
+            return s ? parseInt(s.value) : null;
         }
 
         function saveAndNext() {
-            let ans = getSelectedOption();
-            if (ans !== null) {
-                userAnswers[currentSectionIndex][currentQuestionIndex] = ans;
-                userState[currentSectionIndex][currentQuestionIndex] = 'answered';
-            } else {
-                userState[currentSectionIndex][currentQuestionIndex] = 'not-answered';
-            }
-            moveToNextQuestion();
+            let a = getAns();
+            if (a !== null) { uAns[currentSec][currentQ] = a; uState[currentSec][currentQ] = 'answered'; } 
+            else { uState[currentSec][currentQ] = 'not-answered'; }
+            nextQ();
         }
 
         function markForReview() {
-            let ans = getSelectedOption();
-            if (ans !== null) {
-                userAnswers[currentSectionIndex][currentQuestionIndex] = ans;
-                userState[currentSectionIndex][currentQuestionIndex] = 'answered-review';
-            } else {
-                userState[currentSectionIndex][currentQuestionIndex] = 'review';
-            }
-            moveToNextQuestion();
+            let a = getAns();
+            if (a !== null) { uAns[currentSec][currentQ] = a; uState[currentSec][currentQ] = 'answered-review'; } 
+            else { uState[currentSec][currentQ] = 'review'; }
+            nextQ();
         }
 
         function clearResponse() {
-            let radios = document.querySelectorAll('input[name="option"]');
-            radios.forEach(r => r.checked = false);
-            userAnswers[currentSectionIndex][currentQuestionIndex] = null;
-            userState[currentSectionIndex][currentQuestionIndex] = 'not-answered';
+            let r = document.querySelectorAll('input[name="opt"]');
+            r.forEach(x => x.checked = false);
+            uAns[currentSec][currentQ] = null;
+            uState[currentSec][currentQ] = 'not-answered';
             renderPalette();
         }
 
-        function moveToNextQuestion() {
-            if (currentQuestionIndex < examData[currentSectionIndex].questions.length - 1) {
-                loadQuestion(currentSectionIndex, currentQuestionIndex + 1);
-            } else if (currentSectionIndex < examData.length - 1) {
-                switchSection(currentSectionIndex + 1);
-            } else {
-                renderPalette();
-                alert("You have reached the end of the test. Please Submit.");
-            }
+        function nextQ() {
+            if (currentQ < examData[currentSec].questions.length - 1) loadQ(currentSec, currentQ + 1);
+            else if (currentSec < examData.length - 1) switchSec(currentSec + 1);
+            else { renderPalette(); alert("End of test! Scroll down and click 'Submit Exam'."); window.scrollTo(0, document.body.scrollHeight); }
         }
 
         function renderPalette() {
-            document.getElementById('palette-title').innerText = examData[currentSectionIndex].sectionName;
-            let gridHTML = "";
-            let currentQuestions = examData[currentSectionIndex].questions;
-            
-            currentQuestions.forEach((q, idx) => {
-                let statusClass = userState[currentSectionIndex][idx];
-                // highlight active question
-                let borderStyle = (idx === currentQuestionIndex) ? "border: 2px solid black; transform: scale(1.1);" : "";
-                
-                gridHTML += `<div class="q-bubble ${statusClass}" style="${borderStyle}" onclick="loadQuestion(${currentSectionIndex}, ${idx})">${idx + 1}</div>`;
+            document.getElementById('palette-title').innerText = examData[currentSec].sectionName;
+            let html = "";
+            examData[currentSec].questions.forEach((q, i) => {
+                let cls = uState[currentSec][i];
+                let bdr = (i === currentQ) ? "border: 2px solid black; transform: scale(1.1);" : "";
+                html += `<div class="q-bubble ${cls}" style="${bdr}" onclick="loadQ(${currentSec}, ${i})">${i + 1}</div>`;
             });
-            document.getElementById('palette-grid').innerHTML = gridHTML;
+            document.getElementById('palette-grid').innerHTML = html;
         }
 
         function showScorecard() {
-            let totalQ = 0, attempted = 0, correct = 0, wrong = 0;
-            
+            let tQ = 0, att = 0, crt = 0, wrg = 0;
             examData.forEach((sec, sIdx) => {
                 sec.questions.forEach((q, qIdx) => {
-                    totalQ++;
-                    if (userAnswers[sIdx][qIdx] !== null) {
-                        attempted++;
-                        if (userAnswers[sIdx][qIdx] === q.answer) correct++;
-                        else wrong++;
+                    tQ++;
+                    if (uAns[sIdx][qIdx] !== null) {
+                        att++;
+                        if (uAns[sIdx][qIdx] === q.answer) crt++; else wrg++;
                     }
                 });
             });
 
-            let positiveMarks = correct * 1;
-            let negativeMarks = wrong * 0.25;
-            let finalScore = (positiveMarks - negativeMarks).toFixed(2);
-
-            document.getElementById('res-total').innerText = totalQ;
-            document.getElementById('res-att').innerText = attempted;
-            document.getElementById('res-right').innerText = correct;
-            document.getElementById('res-wrong').innerText = wrong;
-            document.getElementById('res-pos').innerText = `+${positiveMarks}`;
-            document.getElementById('res-neg').innerText = `-${negativeMarks}`;
-            document.getElementById('res-score').innerText = `${finalScore} / ${totalQ}`;
+            let pos = crt * 1, neg = wrg * 0.25;
+            document.getElementById('res-total').innerText = tQ;
+            document.getElementById('res-att').innerText = att;
+            document.getElementById('res-right').innerText = crt;
+            document.getElementById('res-wrong').innerText = wrg;
+            document.getElementById('res-pos').innerText = `+${pos}`;
+            document.getElementById('res-neg').innerText = `-${neg}`;
+            document.getElementById('res-score').innerText = `${(pos - neg).toFixed(2)} / ${tQ}`;
 
             document.getElementById('exam-container').style.display = 'none';
             document.getElementById('scorecard').style.display = 'flex';
         }
 
-        function startTimer(durationInSeconds) {
-            let time = durationInSeconds;
-            setInterval(function () {
-                if(time <= 0) { showScorecard(); return; }
-                time--;
-                let m = Math.floor(time / 60);
-                let s = time % 60;
+        function startTimer(sec) {
+            setInterval(() => {
+                if(sec <= 0) { showScorecard(); return; }
+                sec--;
+                let m = Math.floor(sec / 60), s = sec % 60;
                 document.getElementById('time').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
             }, 1000);
         }
 
-        // Start everything
         initExam();
     </script>
 </body>
