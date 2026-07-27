@@ -3,75 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC CPO Mock Test</title>
+    <title>SSC Mock Test Portal</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f6f7; }
-        .header { background-color: #2c3e50; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .exam-title { font-size: 20px; font-weight: bold; }
-        .timer { font-size: 18px; color: #f1c40f; font-weight: bold; }
-        .container { display: flex; padding: 20px; gap: 20px; }
-        .question-section { flex: 3; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .palette-section { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .question-text { font-size: 18px; margin-bottom: 20px; font-weight: bold; }
-        .option { margin-bottom: 12px; font-size: 16px; display: flex; align-items: center; gap: 10px; }
-        input[type="radio"] { transform: scale(1.2); }
-        .buttons { margin-top: 30px; display: flex; gap: 15px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; font-weight: bold; color: white; }
-        .btn-save { background-color: #27ae60; }
-        .btn-clear { background-color: #e67e22; }
-        .btn-review { background-color: #3498db; }
-        .btn-submit { background-color: #e74c3c; width: 100%; margin-top: 20px; }
-        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
-        .q-number { width: 35px; height: 35px; background: #ecf0f1; border: 1px solid #bdc3c7; display: flex; justify-content: center; align-items: center; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); min-height: 100vh; color: #333; }
+        
+        .navbar { background: rgba(255, 255, 255, 0.85); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); font-weight: bold; font-size: 18px; color: #2c3e50; }
+        
+        .wa-banner { text-align: center; margin: 15px 0; }
+        .wa-btn { background: #25D366; color: white; text-decoration: none; padding: 8px 20px; border-radius: 25px; font-weight: bold; display: inline-block; font-size: 14px; box-shadow: 0 4px 6px rgba(37, 211, 102, 0.3); }
+        
+        .updates { background: #3b5998; color: white; display: flex; align-items: center; font-size: 14px; }
+        .update-tag { background: #e74c3c; padding: 6px 15px; font-weight: bold; z-index: 1; }
+        .marquee-text { padding: 6px; flex: 1; overflow: hidden; white-space: nowrap; }
+        
+        .main-content { padding: 30px 20px; text-align: center; }
+        .badge { background: #4a90e2; color: white; padding: 5px 15px; border-radius: 15px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 12px; }
+        .title { font-size: 26px; font-weight: 900; color: #1a1a1a; margin-bottom: 5px; }
+        .subtitle { font-size: 14px; color: #444; margin-bottom: 40px; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        
+        .card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); padding: 25px 20px; border-radius: 15px; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); border: 1px solid rgba(255, 255, 255, 0.18); display: flex; flex-direction: column; align-items: center; }
+        .icon-circle { width: 55px; height: 55px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; margin-bottom: 15px; }
+        .card-title { font-size: 18px; font-weight: 800; margin-bottom: 8px; color: #222; }
+        .card-desc { font-size: 13px; color: #555; margin-bottom: 20px; text-align: center; flex-grow: 1; }
+        
+        .start-btn { background: #4a90e2; color: white; text-decoration: none; padding: 10px 0; width: 100%; border-radius: 20px; font-weight: bold; font-size: 14px; text-align: center; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="exam-title">SSC CPO Pre - Mock Test 1</div>
-        <div class="timer">Time Left: 120:00</div>
+    <!-- Header -->
+    <div class="navbar">🎓 SSC Mock Test Portal</div>
+
+    <!-- WhatsApp Button -->
+    <div class="wa-banner">
+        <a href="#" class="wa-btn">💬 हमारे WhatsApp Channel से जुड़ें</a>
     </div>
 
-    <div class="container">
-        <!-- Left Side: Question Area -->
-        <div class="question-section">
-            <div class="question-text">Q1. Which of the following articles of the Constitution of India deals with the Right to Equality?</div>
-            
-            <div class="option">
-                <input type="radio" name="q1" id="opt1">
-                <label for="opt1">Article 14 to 18</label>
-            </div>
-            <div class="option">
-                <input type="radio" name="q1" id="opt2">
-                <label for="opt2">Article 19 to 22</label>
-            </div>
-            <div class="option">
-                <input type="radio" name="q1" id="opt3">
-                <label for="opt3">Article 23 to 24</label>
-            </div>
-            <div class="option">
-                <input type="radio" name="q1" id="opt4">
-                <label for="opt4">Article 25 to 28</label>
-            </div>
-
-            <div class="buttons">
-                <button class="btn btn-save">Save & Next</button>
-                <button class="btn btn-clear">Clear Response</button>
-                <button class="btn btn-review">Mark for Review</button>
-            </div>
+    <!-- Scrolling Updates -->
+    <div class="updates">
+        <div class="update-tag">Updates</div>
+        <div class="marquee-text">
+            <marquee scrollamount="5">🔴 SSC CPO Notification Out &nbsp; | &nbsp; 💻 New SSC CGL Mock Test Added Today</marquee>
         </div>
+    </div>
 
-        <!-- Right Side: Question Palette -->
-        <div class="palette-section">
-            <h3 style="margin-top:0;">Question Palette</h3>
-            <div class="palette-grid">
-                <div class="q-number" style="background:#2ecc71; color:white; border-color:#27ae60;">1</div>
-                <div class="q-number">2</div>
-                <div class="q-number">3</div>
-                <div class="q-number">4</div>
-                <div class="q-number">5</div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="badge">Staff Selection Commission</div>
+        <h1 class="title">SSC MOCK TEST BY MAANSIR</h1>
+        <p class="subtitle">(Narendra Kumar Sub inspector Delhi Police)</p>
+
+        <!-- Exam Cards Grid -->
+        <div class="grid-container">
+            
+            <!-- SSC CPO Card -->
+            <div class="card">
+                <div class="icon-circle">🛡️</div>
+                <div class="card-title">SSC CPO</div>
+                <div class="card-desc">Sub-Inspector in Delhi Police & CAPFs Full Mock Tests</div>
+                <!-- Is button par click karne se ab 'cpo_test.html' khulega -->
+                <button class="start-btn" onclick="window.location.href='cpo_test.html'">Start Practice</button>
             </div>
-            <button class="btn btn-submit">Submit Exam</button>
+
+            <!-- SSC CGL Card -->
+            <div class="card">
+                <div class="icon-circle">🎓</div>
+                <div class="card-title">SSC CGL</div>
+                <div class="card-desc">Combined Graduate Level Examination Complete Series</div>
+                <button class="start-btn" onclick="alert('SSC CGL Test is coming soon!')">Start Practice</button>
+            </div>
+
+            <!-- SSC MTS Card -->
+            <div class="card">
+                <div class="icon-circle">📄</div>
+                <div class="card-title">SSC MTS</div>
+                <div class="card-desc">Multi-Tasking Staff (Non-Technical) Tier 1 Mock Tests</div>
+                <button class="start-btn" onclick="alert('SSC MTS Test is coming soon!')">Start Practice</button>
+            </div>
+
+            <!-- SSC CHSL Card -->
+            <div class="card">
+                <div class="icon-circle">💻</div>
+                <div class="card-title">SSC CHSL</div>
+                <div class="card-desc">Combined Higher Secondary Level Practice Set</div>
+                <button class="start-btn" onclick="alert('SSC CHSL Test is coming soon!')">Start Practice</button>
+            </div>
+
+            <!-- SSC GD Card -->
+            <div class="card">
+                <div class="icon-circle">🏃‍♂️</div>
+                <div class="card-title">SSC GD</div>
+                <div class="card-desc">Constable (General Duty) in CAPFs & Rifleman Practice Sets</div>
+                <button class="start-btn" onclick="alert('SSC GD Test is coming soon!')">Start Practice</button>
+            </div>
+
         </div>
     </div>
 
