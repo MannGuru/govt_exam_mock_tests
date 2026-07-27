@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CPO Mock Tests - MANN GURU</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
+        body { background: #f4f6f7; color: #333; }
+        
+        /* Navbar */
+        .navbar { background: #2c3e50; padding: 15px 20px; color: white; font-weight: bold; font-size: 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .back-btn { color: white; text-decoration: none; font-size: 14px; background: #34495e; padding: 8px 12px; border-radius: 5px; border: 1px solid #7f8c8d; }
+        
+        .container { max-width: 800px; margin: 30px auto; padding: 0 15px; }
+        .page-title { text-align: center; margin-bottom: 30px; color: #2c3e50; font-weight: 900; }
+        
+        /* Test Card Styling */
+        .test-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border-left: 6px solid #3498db; transition: transform 0.2s; }
+        .test-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        
+        .test-info h3 { font-size: 18px; color: #2c3e50; margin-bottom: 8px; }
+        .test-details { font-size: 13px; color: #7f8c8d; display: flex; gap: 15px; font-weight: 600; }
+        
+        /* Buttons */
+        .start-btn { background: #27ae60; color: white; border: none; padding: 10px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 14px; transition: 0.2s; }
+        .start-btn:hover { background: #219150; }
+        .start-btn.locked { background: #95a5a6; cursor: not-allowed; }
+        .start-btn.locked:hover { background: #95a5a6; }
+
+        /* Mobile View */
+        @media(max-width: 600px) { 
+            .test-card { flex-direction: column; align-items: flex-start; } 
+            .start-btn { width: 100%; text-align: center; } 
+            .test-details { flex-wrap: wrap; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <span>🛡️ SSC CPO Tests</span>
+        <a href="index.html" class="back-btn">⬅ Back to Home</a>
+    </div>
+
+    <div class="container">
+        <h2 class="page-title">SSC CPO Tier 1 - Mock Test Series</h2>
+        
+        <!-- Mock Test 1 -->
+        <div class="test-card">
+            <div class="test-info">
+                <h3>Mock Test - 1 (Full Length)</h3>
+                <div class="test-details">
+                    <span>📝 200 Questions</span>
+                    <span>⏱️ 120 Mins</span>
+                    <span>🏆 200 Marks</span>
+                </div>
+            </div>
+            <!-- Yeh button aapke test ko khol dega -->
+            <a href="cpo_test.html" class="start-btn">Start Test ▶</a>
+        </div>
+
+        <!-- Mock Test 2 -->
+        <div class="test-card" style="border-left-color: #95a5a6;">
+            <div class="test-info">
+                <h3>Mock Test - 2 (Previous Year 2023)</h3>
+                <div class="test-details">
+                    <span>📝 200 Questions</span>
+                    <span>⏱️ 120 Mins</span>
+                    <span>🏆 200 Marks</span>
+                </div>
+            </div>
+            <!-- Yeh button abhi locked hai -->
+            <button class="start-btn locked" onclick="alert('Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
+        </div>
+
+        <!-- Mock Test 3 -->
+        <div class="test-card" style="border-left-color: #95a5a6;">
+            <div class="test-info">
+                <h3>Mock Test - 3 (Expected Paper)</h3>
+                <div class="test-details">
+                    <span>📝 200 Questions</span>
+                    <span>⏱️ 120 Mins</span>
+                    <span>🏆 200 Marks</span>
+                </div>
+            </div>
+            <button class="start-btn locked" onclick="alert('Mock Test 3 will be uploaded soon!')">🔒 Locked</button>
+        </div>
+
+    </div>
+
+</body>
+</html>
