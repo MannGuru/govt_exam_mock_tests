@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CPO Mock Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f6f7; }
+        .header { background-color: #2c3e50; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .exam-title { font-size: 20px; font-weight: bold; }
+        .timer { font-size: 18px; color: #f1c40f; font-weight: bold; }
+        .container { display: flex; padding: 20px; gap: 20px; }
+        .question-section { flex: 3; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .palette-section { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .question-text { font-size: 18px; margin-bottom: 20px; font-weight: bold; }
+        .option { margin-bottom: 12px; font-size: 16px; display: flex; align-items: center; gap: 10px; }
+        input[type="radio"] { transform: scale(1.2); }
+        .buttons { margin-top: 30px; display: flex; gap: 15px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; font-weight: bold; color: white; }
+        .btn-save { background-color: #27ae60; }
+        .btn-clear { background-color: #e67e22; }
+        .btn-review { background-color: #3498db; }
+        .btn-submit { background-color: #e74c3c; width: 100%; margin-top: 20px; }
+        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
+        .q-number { width: 35px; height: 35px; background: #ecf0f1; border: 1px solid #bdc3c7; display: flex; justify-content: center; align-items: center; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="exam-title">SSC CPO Pre - Mock Test 1</div>
+        <div class="timer">Time Left: 120:00</div>
+    </div>
+
+    <div class="container">
+        <!-- Left Side: Question Area -->
+        <div class="question-section">
+            <div class="question-text">Q1. Which of the following articles of the Constitution of India deals with the Right to Equality?</div>
+            
+            <div class="option">
+                <input type="radio" name="q1" id="opt1">
+                <label for="opt1">Article 14 to 18</label>
+            </div>
+            <div class="option">
+                <input type="radio" name="q1" id="opt2">
+                <label for="opt2">Article 19 to 22</label>
+            </div>
+            <div class="option">
+                <input type="radio" name="q1" id="opt3">
+                <label for="opt3">Article 23 to 24</label>
+            </div>
+            <div class="option">
+                <input type="radio" name="q1" id="opt4">
+                <label for="opt4">Article 25 to 28</label>
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-save">Save & Next</button>
+                <button class="btn btn-clear">Clear Response</button>
+                <button class="btn btn-review">Mark for Review</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Question Palette -->
+        <div class="palette-section">
+            <h3 style="margin-top:0;">Question Palette</h3>
+            <div class="palette-grid">
+                <div class="q-number" style="background:#2ecc71; color:white; border-color:#27ae60;">1</div>
+                <div class="q-number">2</div>
+                <div class="q-number">3</div>
+                <div class="q-number">4</div>
+                <div class="q-number">5</div>
+            </div>
+            <button class="btn btn-submit">Submit Exam</button>
+        </div>
+    </div>
+
+</body>
+</html>
