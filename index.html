@@ -10,9 +10,12 @@
         
         .navbar { background: rgba(255, 255, 255, 0.85); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); font-weight: bold; font-size: 18px; color: #2c3e50; }
         
-        .wa-banner { text-align: center; margin: 15px 0; }
+        /* Buttons Styling */
+        .banner-container { text-align: center; margin: 15px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; padding: 0 10px; }
         .wa-btn { background: #25D366; color: white; text-decoration: none; padding: 8px 20px; border-radius: 25px; font-weight: bold; display: inline-block; font-size: 14px; box-shadow: 0 4px 6px rgba(37, 211, 102, 0.3); }
+        .yt-btn { background: #FF0000; color: white; text-decoration: none; padding: 8px 20px; border-radius: 25px; font-weight: bold; display: inline-block; font-size: 14px; box-shadow: 0 4px 6px rgba(255, 0, 0, 0.3); }
         
+        /* Updates styling */
         .updates { background: #3b5998; color: white; display: flex; align-items: center; font-size: 14px; }
         .update-tag { background: #e74c3c; padding: 6px 15px; font-weight: bold; z-index: 1; }
         .marquee-text { padding: 6px; flex: 1; overflow: hidden; white-space: nowrap; }
@@ -20,7 +23,7 @@
         .main-content { padding: 30px 20px; text-align: center; }
         .badge { background: #4a90e2; color: white; padding: 5px 15px; border-radius: 15px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 12px; }
         .title { font-size: 26px; font-weight: 900; color: #1a1a1a; margin-bottom: 5px; }
-        .subtitle { font-size: 14px; color: #444; margin-bottom: 40px; }
+        .subtitle { font-size: 14px; color: #444; margin-bottom: 40px; font-weight: 500; }
         
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
         
@@ -37,24 +40,25 @@
     <!-- Header -->
     <div class="navbar">🎓 SSC Mock Test Portal</div>
 
-    <!-- WhatsApp Button -->
-    <div class="wa-banner">
-        <a href="#" class="wa-btn">💬 हमारे WhatsApp Channel से जुड़ें</a>
+    <!-- WhatsApp & YouTube Buttons -->
+    <div class="banner-container">
+        <a href="https://whatsapp.com/channel/0029VbBuzgx4o7qKCZoeCT00" target="_blank" class="wa-btn">💬 हमारे WhatsApp Channel से जुड़ें</a>
+        <a href="https://youtube.com/@mannguruedusat?si=Auomgl8BR9w3jcZl" target="_blank" class="yt-btn">▶️ Subscribe our YouTube Channel</a>
     </div>
 
-    <!-- Scrolling Updates -->
+    <!-- Scrolling Updates (Yahan se SSC CPO aur CGL hata diya gaya hai) -->
     <div class="updates">
         <div class="update-tag">Updates</div>
         <div class="marquee-text">
-            <marquee scrollamount="5">🔴 SSC CPO Notification Out &nbsp; | &nbsp; 💻 New SSC CGL Mock Test Added Today</marquee>
+            <marquee scrollamount="5"></marquee>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="badge">Staff Selection Commission</div>
-        <h1 class="title">SSC MOCK TEST BY MAANSIR</h1>
-        <p class="subtitle">(Narendra Kumar Sub inspector Delhi Police)</p>
+        <h1 class="title">SSC MOCK TEST BY MANN GURU</h1>
+        <p class="subtitle">(Naren Yadav Sub inspector Delhi Police)</p>
 
         <!-- Exam Cards Grid -->
         <div class="grid-container">
@@ -64,7 +68,6 @@
                 <div class="icon-circle">🛡️</div>
                 <div class="card-title">SSC CPO</div>
                 <div class="card-desc">Sub-Inspector in Delhi Police & CAPFs Full Mock Tests</div>
-                <!-- Is button par click karne se ab 'cpo_test.html' khulega -->
                 <button class="start-btn" onclick="window.location.href='cpo_test.html'">Start Practice</button>
             </div>
 
@@ -97,7 +100,7 @@
                 <div class="icon-circle">🏃‍♂️</div>
                 <div class="card-title">SSC GD</div>
                 <div class="card-desc">Constable (General Duty) in CAPFs & Rifleman Practice Sets</div>
-                <button class="start-btn" onclick="alert('SSC GD Test is coming soon!')">Start Practice</button>
+                <button class="start-btn" onclick="window.location.href='gd_test.html'">Start Practice</button>
             </div>
 
         </div>
