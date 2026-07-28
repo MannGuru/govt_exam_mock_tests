@@ -1,460 +1,421 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC CPO 2025 Previous Year - MANN GURU</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
-        body, html { background-color: #f4f6f7; height: 100%; overflow: hidden; }
-        
-        /* Header */
-        .header { background-color: #2c3e50; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #3498db; }
-        .exam-name { font-size: 16px; font-weight: bold; }
-        .timer-box { font-size: 16px; font-weight: bold; color: #f1c40f; display: flex; align-items: center; gap: 5px; }
-        
-        /* Layout Grid */
-        .main-container { display: flex; flex-direction: row; height: calc(100% - 46px); }
-        
-        /* Left Panel - Questions */
-        .left-panel { flex: 1; display: flex; flex-direction: column; background: white; border-right: 2px solid #ccc; overflow: hidden; }
-        .section-tabs { display: flex; background: #e0e0e0; overflow-x: auto; flex-shrink: 0; }
-        .tab { padding: 12px 15px; cursor: pointer; font-weight: bold; color: #555; border-right: 1px solid #ccc; white-space: nowrap; font-size: 14px; }
-        .tab.active { background: #3498db; color: white; }
-        
-        .question-area { flex: 1; padding: 20px; overflow-y: auto; }
-        
-        /* Bilingual Header Setup */
-        .question-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .q-info { font-weight: bold; color: #333; font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
-        .lang-toggle { background: #e8f4f8; padding: 5px 10px; border-radius: 5px; border: 1px solid #b3d4fc; display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: bold; color: #2c3e50; }
-        .lang-toggle select { padding: 3px; font-size: 13px; font-weight: bold; border: 1px solid #ccc; border-radius: 3px; cursor: pointer; outline: none; }
-        
-        .question-text { font-size: 16px; margin-bottom: 20px; line-height: 1.6; font-weight: 500; }
-        .options { display: flex; flex-direction: column; gap: 12px; }
-        .option-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; padding: 5px 0; }
-        input[type="radio"] { transform: scale(1.3); cursor: pointer; }
-        
-        /* Action Buttons */
-        .action-buttons { padding: 15px; background: #f9f9f9; border-top: 1px solid #ccc; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; flex-shrink: 0; }
-        .btn { padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; flex: 1; min-width: 110px; text-align: center; }
-        .btn-mark { background: #e67e22; color: white; border-color: #d35400; }
-        .btn-clear { background: white; color: #333; }
-        .btn-save { background: #27ae60; color: white; border-color: #2ecc71; }
-        
-        /* Right Panel - Palette */
-        .right-panel { background: #fff; display: flex; flex-direction: column; width: 300px; flex-shrink: 0; }
-        .candidate-info { padding: 15px; border-bottom: 1px solid #ccc; text-align: center; background: #f8f9fa; }
-        .legend-box { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 1px solid #ccc; font-size: 12px; flex-shrink: 0; background: #fafafa; }
-        .legend-item { display: flex; align-items: center; gap: 6px; }
-        .legend-icon { width: 20px; height: 20px; display: inline-block; }
-        
-        .palette-area { padding: 15px; flex: 1; overflow-y: auto; }
-        .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 10px; margin-top: 10px; margin-bottom: 20px; }
-        
-        .q-bubble { width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; border: 1px solid #ccc; font-size: 14px; margin: 0 auto; transition: 0.2s; }
-        .not-visited { background: #f0f0f0; color: #333; border-radius: 4px; }
-        .not-answered { background: #e74c3c; color: white; border-color: #c0392b; border-bottom-left-radius: 15px; border-top-right-radius: 15px; }
-        .answered { background: #27ae60; color: white; border-color: #2ecc71; border-top-left-radius: 15px; border-bottom-right-radius: 15px; }
-        .review { background: #9b59b6; color: white; border-color: #8e44ad; border-radius: 50%; }
-        .answered-review { background: #9b59b6; color: white; border-color: #8e44ad; border-radius: 50%; position: relative; }
-        .answered-review::after { content: '✔'; position: absolute; bottom: -2px; right: -2px; font-size: 10px; color: white; background: #27ae60; border-radius: 50%; width: 15px; height: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; border: 1px solid white; }
-        
-        .btn-submit { background: #3498db; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; flex-shrink: 0; margin-top: auto; }
-        
-        .scorecard-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
-        .scorecard { background: white; padding: 30px; border-radius: 10px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .score-row { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; font-size: 16px; }
-
-        @media(max-width: 767px) {
-            body, html { height: auto; overflow: auto; }
-            .main-container { flex-direction: column; height: auto; }
-            .left-panel { border-right: none; overflow: visible; }
-            .question-area { overflow: visible; min-height: 300px; }
-            .action-buttons { position: sticky; bottom: 0; z-index: 10; box-shadow: 0 -3px 8px rgba(0,0,0,0.1); }
-            .right-panel { width: 100%; height: auto; border-top: 4px solid #2c3e50; }
-            .candidate-info { display: none; }
-            .palette-area { overflow: visible; padding-bottom: 30px; }
-            .lang-toggle { padding: 3px 6px; font-size: 12px; }
-        }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SSC CPO 2025 Mock Test - MANN GURU</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-grad-1:#4facfe;--bg-grad-2:#00f2fe;--bg-grad-3:#a18cd1;--bg-grad-4:#fbc2eb;--glass-bg:rgba(255,255,255,0.9);--glass-border:rgba(255,255,255,0.6);--glass-shadow:rgba(31,38,135,0.15);--text-main:#1f2937;--text-muted:#64748b;--primary:#2563eb;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--purple:#8b5cf6;--option-bg:rgba(243,244,246,0.8);--option-selected:rgba(219,234,254,0.9);--card-bg:rgba(255,255,255,0.95)}
+[data-theme="dark"]{--bg-grad-1:#0f2027;--bg-grad-2:#203a43;--bg-grad-3:#2c5364;--bg-grad-4:#141e30;--glass-bg:rgba(17,25,40,0.85);--glass-border:rgba(255,255,255,0.15);--glass-shadow:rgba(0,0,0,0.5);--text-main:#f9fafb;--text-muted:#94a3b8;--primary:#3b82f6;--option-bg:rgba(55,65,81,0.7);--option-selected:rgba(30,58,138,0.8);--card-bg:rgba(31,41,55,0.95)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Mukta','Poppins',sans-serif;transition:background-color .3s,color .3s;touch-action:manipulation}
+body{height:100vh;height:100dvh;background:linear-gradient(45deg,var(--bg-grad-1),var(--bg-grad-2),var(--bg-grad-3),var(--bg-grad-4));background-size:400% 400%;animation:gBG 15s ease infinite;color:var(--text-main);display:flex;flex-direction:column;overflow:hidden}
+@keyframes gBG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.glass-panel{background:var(--glass-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);box-shadow:0 8px 32px 0 var(--glass-shadow);border-radius:12px}
+.btn{font-family:'Poppins',sans-serif;background:var(--primary);color:#fff;border:none;padding:10px 16px;border-radius:6px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:.2s}
+.btn:active{transform:scale(0.95)}.btn-outline{background:transparent;border:1.5px solid var(--primary);color:var(--primary)}.btn-warning{background:var(--warning)}.btn-clear{background:var(--card-bg);color:var(--text-main);border:1px solid var(--glass-border)}.btn-mark{background:var(--purple)}.btn-prev{background:var(--text-muted)}
+.screen{display:none;flex-direction:column;height:100%;width:100vw;position:absolute;top:0;left:0}.screen.active{display:flex}
+#dashboard-screen{overflow-y:auto;background:var(--card-bg);align-items:center;padding-bottom:30px}
+.dash-header-top{background:#1e293b;color:#fff;width:100%;padding:15px 20px;font-size:16px;font-weight:600;display:flex;align-items:center;gap:15px;position:sticky;top:0;z-index:100}
+.dash-content{width:100%;max-width:800px;padding:20px}
+.section-title{font-weight:600;color:var(--primary);margin:15px 0 10px;border-left:4px solid var(--primary);padding-left:10px;font-size:15px}
+.dash-card{background:var(--card-bg);border-radius:12px;padding:24px;border:1px solid var(--glass-border);box-shadow:0 4px 12px rgba(0,0,0,0.05);margin-bottom:15px}
+header.test-head{padding:10px 15px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 16px 16px;margin-bottom:10px;margin-inline:10px}
+.header-title{font-size:16px;font-weight:700;color:var(--primary)}.header-controls{display:flex;gap:8px;align-items:center}
+.timer-box{font-size:14px;font-weight:700;background:var(--card-bg);border:1px solid var(--glass-border);color:var(--danger);padding:5px 12px;border-radius:20px}
+.main-area{display:flex;flex:1;overflow:hidden;gap:10px;padding:0 10px 10px}
+.question-section{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.q-header{padding:15px;border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;font-weight:600;font-size:15px}
+.q-body{flex:1;padding:20px 15px;overflow-y:auto;font-size:16px;line-height:1.6}
+.options-list{margin-top:20px;display:flex;flex-direction:column;gap:12px;padding-bottom:10px}
+.option{padding:12px 15px;border:2px solid var(--glass-border);border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:15px;background:var(--option-bg);font-weight:500;font-size:15px}
+.option.selected{border-color:var(--primary);background:var(--option-selected);color:var(--primary)}
+.opt-label{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--card-bg);border:1px solid var(--glass-border);display:flex;justify-content:center;align-items:center;font-weight:700}
+.option.selected .opt-label{background:var(--primary);color:#fff;border-color:var(--primary)}
+.q-footer{padding:15px;border-top:1px solid var(--glass-border);flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;border-radius:0 0 12px 12px}
+.palette-section{width:320px;display:flex;flex-direction:column;flex-shrink:0}
+.palette-header{padding:15px;border-bottom:1px solid var(--glass-border);text-align:center;font-weight:700;font-size:15px}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:15px;font-size:12px;border-bottom:1px solid var(--glass-border);font-weight:500}
+.stat-item{display:flex;align-items:center;gap:8px}
+.badge{width:22px;height:22px;border-radius:4px;display:flex;justify-content:center;align-items:center;color:#fff;font-size:11px;font-weight:700}
+.s-0{background:var(--card-bg);color:var(--text-main);border:1px solid var(--glass-border)}.s-1{background:var(--success)}.s-2{background:var(--danger)}.s-3{background:var(--purple)}.s-4{background:var(--primary);position:relative}
+.s-4::after{content:'✔';position:absolute;bottom:-4px;right:-4px;width:12px;height:12px;background:#fff;color:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px}
+.palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:15px;overflow-y:auto;flex:1;align-content:start}
+.p-btn{width:100%;aspect-ratio:1;border:none;border-radius:6px;font-weight:700;cursor:pointer;color:#fff;font-size:13px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.p-btn.s-0{background:var(--card-bg);color:var(--text-main);border:1px solid var(--glass-border)}.p-btn.active{outline:3px solid var(--primary);outline-offset:2px;transform:scale(1.1)}
+.submit-area{padding:15px;border-top:1px solid var(--glass-border);border-radius:0 0 12px 12px}
+#result-screen,#solution-screen{overflow-y:auto;align-items:center;padding:20px}
+.sol-card{padding:20px;margin-bottom:15px;width:100%;max-width:800px}
+.sol-opt{padding:12px;margin:8px 0;border-radius:8px;border:1px solid var(--glass-border);display:flex;gap:12px;align-items:center;font-size:15px;background:var(--card-bg)}
+.sol-opt.correct{background:rgba(16,185,129,0.15);border-color:var(--success);color:var(--success);font-weight:700}
+.sol-opt.wrong{background:rgba(239,68,68,0.15);border-color:var(--danger);color:var(--danger);text-decoration:line-through}
+.sol-exp{margin-top:15px;padding:15px;background:rgba(37,99,235,0.05);border:1px solid var(--glass-border);border-left:4px solid var(--primary);border-radius:8px;font-size:14.5px;line-height:1.6}
+#pause-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);z-index:200;display:none;justify-content:center;align-items:center;color:#fff;flex-direction:column}
+.math-trick{color:#d97706;font-weight:700;font-size:15px}
+.grammar-rule{color:#8b5cf6;font-weight:700}
+.vocab{color:#059669;font-weight:700}
+@media(max-width:992px){.main-area{flex-direction:column;overflow-y:auto}.question-section{flex:none;min-height:450px}.palette-section{width:100%;flex:none;min-height:350px}.q-footer .btn{padding:12px;font-size:14px}}
+svg { max-width: 100%; height: auto; }
+</style>
 </head>
-<body>
+<body oncontextmenu="return false;" oncopy="return false;" onselectstart="return false;">
 
-    <div class="header">
-        <div class="exam-name">SSC CPO 2025 previous year</div>
-        <div class="timer-box">⏱️ <span id="time">120:00</span></div>
-    </div>
-
-    <div class="main-container" id="exam-container">
-        <div class="left-panel">
-            <div class="section-tabs" id="section-tabs"></div>
-            <div class="question-area">
-                <div class="question-header">
-                    <div class="q-info">
-                        <span id="q-no">Question No. 1</span>
-                        <span style="color:#e74c3c; font-size:12px;">Marks: +1, -0.25</span>
-                    </div>
-                    <div class="lang-toggle">
-                        <label for="lang-select">View in:</label>
-                        <select id="lang-select" onchange="changeLanguage()">
-                            <option value="en">English</option>
-                            <option value="hi">हिंदी (Hindi)</option>
-                        </select>
-                    </div>
+<div id="dashboard-screen" class="screen active">
+    <div class="dash-header-top"><span style="font-size:20px;cursor:pointer;">&#8592;</span> SSC CPO Mock Tests</div>
+    <div class="dash-content">
+        <div id="dash-unattempted" style="display:none;">
+            <div class="section-title">Suggested Next Test</div>
+            <div class="dash-card">
+                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO PYP (27 June 2024 - S1)</div>
+                <div style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">200 Qs • 120 mins • 200.0 Marks</div>
+                <button class="btn btn-outline" style="width:100%;padding:12px;font-size:16px;" onclick="startTest()">Start Test 🚀</button>
+                <div style="font-size:13px;color:var(--primary);border-top:1px solid var(--glass-border);padding-top:15px;margin-top:20px;">Syllabus: General Intelligence and Reasoning, General Knowledge, Quantitative Aptitude, English Comprehension</div>
+            </div>
+        </div>
+        <div id="dash-attempted" style="display:none;">
+            <div class="dash-card">
+                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO PYP (27 June 2024 - S1)</div>
+                <div style="font-size:15px;color:var(--text-muted);margin-bottom:15px;font-weight:500;" id="dash-score-text">0/200.0 Marks</div>
+                <div style="width:100%;height:8px;background:var(--glass-border);border-radius:4px;margin:20px 0;overflow:hidden;"><div id="dash-progress-bar" style="height:100%;background:#fbc02d;width:0%;transition:width 0.5s;"></div></div>
+                <div style="display:flex;gap:12px;margin-top:20px;">
+                    <button class="btn btn-outline" style="flex:1;padding:12px;" onclick="viewSavedResults()">View Results</button>
+                    <button class="btn btn-outline" style="flex:1;padding:12px;" onclick="reattemptTest()">Reattempt &rarr;</button>
                 </div>
-                <div class="question-text" id="q-text">Loading...</div>
-                <div class="options" id="options-container"></div>
             </div>
+        </div>
+    </div>
+</div>
 
-            <div class="action-buttons">
-                <button class="btn btn-mark" onclick="markForReview()">Review & Next</button>
+<div id="pause-overlay">
+    <h2 style="margin-bottom:20px;font-size:2rem;">Test Paused ⏸️</h2>
+    <button class="btn btn-primary" style="font-size:1.2rem;padding:10px 30px;" onclick="togglePause()">Resume Test ▶️</button>
+</div>
+
+<div id="test-screen" class="screen">
+    <header class="glass-panel test-head">
+        <div class="header-title">SSC CPO Mock</div>
+        <div class="header-controls">
+            <button class="btn btn-clear" style="padding:4px 10px;font-size:12px;border-radius:20px;" onclick="toggleTheme()">🌓 Theme</button>
+            <button class="btn btn-warning" style="padding:4px 10px;font-size:12px;border-radius:20px;" onclick="togglePause()">⏸ Pause</button>
+            <div class="timer-box">⏱ <span id="timer-display">120:00</span></div>
+        </div>
+    </header>
+    <div class="main-area">
+        <div class="glass-panel question-section">
+            <div class="q-header"><span id="q-no">Question 1</span><span style="color:var(--success);font-weight:bold;">+1 <span style="color:var(--text-muted);font-weight:normal;">|</span> <span style="color:var(--danger);">-0.25</span></span></div>
+            <div class="q-body">
+                <div id="q-text" style="font-weight:600;">Loading...</div>
+                <div class="options-list" id="options-box"></div>
+            </div>
+            <div class="q-footer">
+                <button class="btn btn-mark" onclick="markReview()">Mark & Next</button>
                 <button class="btn btn-clear" onclick="clearResponse()">Clear</button>
-                <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
+                <button class="btn btn-prev" onclick="changeQ(-1)">Previous</button>
+                <button class="btn btn-primary" onclick="saveNext()">Save & Next</button>
             </div>
         </div>
-
-        <div class="right-panel">
-            <div class="candidate-info">
-                <strong style="font-size:18px;">MANN GURU</strong><br>
-                <small>Mock Test Series</small>
+        <div class="glass-panel palette-section">
+            <div class="palette-header">Question Palette</div>
+            <div class="stats-grid">
+                <div class="stat-item"><div class="badge s-1" id="c-ans">0</div> Ans</div>
+                <div class="stat-item"><div class="badge s-2" id="c-notans">0</div> Not Ans</div>
+                <div class="stat-item"><div class="badge s-0" id="c-notvis">100</div> Not Visit</div>
+                <div class="stat-item"><div class="badge s-3" id="c-mark">0</div> Marked</div>
             </div>
-            
-            <div class="legend-box">
-                <div class="legend-item"><div class="q-bubble answered legend-icon"></div> Answered</div>
-                <div class="legend-item"><div class="q-bubble not-answered legend-icon"></div> Not Answered</div>
-                <div class="legend-item"><div class="q-bubble not-visited legend-icon"></div> Not Visited</div>
-                <div class="legend-item"><div class="q-bubble review legend-icon"></div> Review</div>
-            </div>
-            
-            <div class="palette-area">
-                <h4 style="margin-bottom:15px; color:#2c3e50; border-bottom:1px solid #ccc; padding-bottom:5px;" id="palette-title">Section</h4>
-                <div class="palette-grid" id="palette-grid"></div>
-            </div>
-            <button class="btn-submit" onclick="showScorecard()">Submit Exam</button>
+            <div class="palette-grid" id="q-grid"></div>
+            <div class="submit-area"><button class="btn btn-primary" style="width:100%;background:var(--success);font-size:15px;padding:12px;" onclick="submitTest()">Submit Test</button></div>
         </div>
     </div>
+</div>
 
-    <div class="scorecard-overlay" id="scorecard">
-        <div class="scorecard">
-            <h2>📊 CPO Scorecard</h2>
-            <hr style="margin:15px 0">
-            <div class="score-row"><span>Total Questions:</span> <strong id="res-total"></strong></div>
-            <div class="score-row"><span>Attempted:</span> <strong id="res-att"></strong></div>
-            <div class="score-row"><span>Correct ✅:</span> <strong style="color:#27ae60" id="res-right"></strong></div>
-            <div class="score-row"><span>Incorrect ❌:</span> <strong style="color:#e74c3c" id="res-wrong"></strong></div>
-            <div class="score-row"><span>Positive Marks:</span> <strong id="res-pos"></strong></div>
-            <div class="score-row"><span>Negative Marks:</span> <strong id="res-neg"></strong></div>
-            <hr style="margin:15px 0">
-            <h3 style="color:#3498db; margin-bottom:20px; font-size:22px;">Final Score: <span id="res-score"></span></h3>
-            <button class="btn btn-submit" style="border-radius:25px;" onclick="window.location.href='index.html'">Back to Dashboard</button>
+<div id="result-screen" class="screen">
+    <div style="width:100%;max-width:800px;margin-bottom:15px;"><button class="btn btn-clear" onclick="showScreen('dashboard-screen')">&#8592; Back to Dashboard</button></div>
+    <div class="glass-panel" style="max-width:800px;width:100%;padding:30px;">
+        <h1 style="color:var(--primary);text-align:center;">Test Submitted Successfully! 🎉</h1>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:15px;margin:30px 0;">
+            <div class="glass-panel" style="padding:20px;text-align:center;"><h2 id="r-score" style="color:var(--primary);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Score</p></div>
+            <div class="glass-panel" style="padding:20px;text-align:center;"><h2 id="r-attempt" style="color:var(--success);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Attempted</p></div>
+            <div class="glass-panel" style="padding:20px;text-align:center;"><h2 id="r-wrong" style="color:var(--danger);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Wrong</p></div>
+            <div class="glass-panel" style="padding:20px;text-align:center;"><h2 id="r-acc" style="color:var(--purple);font-size:2rem;">0%</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Accuracy</p></div>
         </div>
+        <button class="btn btn-primary" style="width:100%;padding:15px;font-size:16px;" onclick="viewSolutions()">📝 View Detailed Solutions</button>
     </div>
+</div>
 
-    <script>
-        const examData = [
-            {
-                sectionName: "Reasoning",
-                questions: [
-                    { 
-                        id: 1, 
-                        text_en: "The sequence of folding a paper and the manner in which the folded paper is cut is shown in the following figures. How would this paper look when unfolded?<br><br><img src='q1_q.jpg' style='max-width:100%; border:1px solid #ccc;'>", 
-                        text_hi: "कागज मोड़ने का क्रम और जिस तरीके से मुड़ा हुआ कागज काटा जाता है, उसे निम्नलिखित आकृतियों में दिखाया गया है। यह कागज खोले जाने पर कैसा दिखेगा?<br><br><img src='q1_q.jpg' style='max-width:100%; border:1px solid #ccc;'>",
-                        options_en: ["<img src='q1_a.jpg' style='height:60px;'>", "<img src='q1_b.jpg' style='height:60px;'>", "<img src='q1_c.jpg' style='height:60px;'>", "<img src='q1_d.jpg' style='height:60px;'>"], 
-                        options_hi: ["<img src='q1_a.jpg' style='height:60px;'>", "<img src='q1_b.jpg' style='height:60px;'>", "<img src='q1_c.jpg' style='height:60px;'>", "<img src='q1_d.jpg' style='height:60px;'>"], 
-                        answer: 3 
-                    },
-                    { 
-                        id: 2, 
-                        text_en: "Identify the figure given in the options which when put in place of '?' will logically complete the series.<br><br><img src='q2_q.jpg' style='max-width:100%; border:1px solid #ccc;'>", 
-                        text_hi: "विकल्पों में दी गई उस आकृति को पहचानें जिसे '?' के स्थान पर रखने पर श्रृंखला तार्किक रूप से पूरी हो जाएगी।<br><br><img src='q2_q.jpg' style='max-width:100%; border:1px solid #ccc;'>",
-                        options_en: ["<img src='q2_a.jpg' style='height:60px;'>", "<img src='q2_b.jpg' style='height:60px;'>", "<img src='q2_c.jpg' style='height:60px;'>", "<img src='q2_d.jpg' style='height:60px;'>"], 
-                        options_hi: ["<img src='q2_a.jpg' style='height:60px;'>", "<img src='q2_b.jpg' style='height:60px;'>", "<img src='q2_c.jpg' style='height:60px;'>", "<img src='q2_d.jpg' style='height:60px;'>"], 
-                        answer: 0 
-                    },
-                    { 
-                        id: 3, 
-                        text_en: "Select the Venn diagram that best illustrates the relationship between the following classes: Potatoes, Vegetables, Grapes", 
-                        text_hi: "उस वेन आरेख का चयन करें जो निम्नलिखित वर्गों के बीच संबंधों को सबसे अच्छा दर्शाता है: आलू, सब्जियां, अंगूर",
-                        options_en: ["<img src='q3_a.jpg' style='height:60px;'>", "<img src='q3_b.jpg' style='height:60px;'>", "<img src='q3_c.jpg' style='height:60px;'>", "<img src='q3_d.jpg' style='height:60px;'>"], 
-                        options_hi: ["<img src='q3_a.jpg' style='height:60px;'>", "<img src='q3_b.jpg' style='height:60px;'>", "<img src='q3_c.jpg' style='height:60px;'>", "<img src='q3_d.jpg' style='height:60px;'>"], 
-                        answer: 1 
-                    },
-                    { 
-                        id: 4, 
-                        text_en: "15 is related to 45 following a certain logic. Following the same logic, 25 is related to 125. Which of the following numbers is related to 80 using the same logic?", 
-                        text_hi: "15 एक निश्चित तर्क के अनुसार 45 से संबंधित है। उसी तर्क के अनुसार, 25, 125 से संबंधित है। निम्नलिखित में से कौन सी संख्या उसी तर्क का उपयोग करके 80 से संबंधित है?",
-                        options_en: ["20", "21", "18", "22"], 
-                        options_hi: ["20", "21", "18", "22"], 
-                        answer: 0 
-                    },
-                    { 
-                        id: 5, 
-                        text_en: "In a code language, 'DINESH' is coded as 12-27-42-15-57-24 and 'VIRAT' is coded as 66-27-54-3-60. How will 'GAUTAM' be coded in the same language?", 
-                        text_hi: "एक कूट भाषा में, 'DINESH' को 12-27-42-15-57-24 और 'VIRAT' को 66-27-54-3-60 के रूप में कूटबद्ध किया जाता है। उसी भाषा में 'GAUTAM' को कैसे कूटबद्ध किया जाएगा?",
-                        options_en: ["24-7-61-34-5-31", "26-7-25-67-4-37", "21-3-63-60-3-39", "29-9-55-47-8-28"], 
-                        options_hi: ["24-7-61-34-5-31", "26-7-25-67-4-37", "21-3-63-60-3-39", "29-9-55-47-8-28"], 
-                        answer: 2 
-                    },
-                    { 
-                        id: 6, 
-                        text_en: "Select the option figure in which the given figure is embedded as its part (rotation is NOT allowed).<br><br><img src='q6_q.jpg' style='max-width:100%;'>", 
-                        text_hi: "उस विकल्प आकृति का चयन करें जिसमें दी गई आकृति उसके भाग के रूप में सन्निहित है (घुमाने की अनुमति नहीं है)।<br><br><img src='q6_q.jpg' style='max-width:100%;'>",
-                        options_en: ["<img src='q6_a.jpg' style='height:60px;'>", "<img src='q6_b.jpg' style='height:60px;'>", "<img src='q6_c.jpg' style='height:60px;'>", "<img src='q6_d.jpg' style='height:60px;'>"], 
-                        options_hi: ["<img src='q6_a.jpg' style='height:60px;'>", "<img src='q6_b.jpg' style='height:60px;'>", "<img src='q6_c.jpg' style='height:60px;'>", "<img src='q6_d.jpg' style='height:60px;'>"], 
-                        answer: 1 
-                    },
-                    { 
-                        id: 7, 
-                        text_en: "Select the set in which the numbers are related in the same way as are the numbers of the following sets: (247, 349), (261, 363)", 
-                        text_hi: "उस सेट का चयन करें जिसमें संख्याएं उसी तरह से संबंधित हैं जैसे निम्नलिखित सेटों की संख्याएं हैं: (247, 349), (261, 363)",
-                        options_en: ["(282, 382)", "(294, 396)", "(253, 358)", "(265, 369)"], 
-                        options_hi: ["(282, 382)", "(294, 396)", "(253, 358)", "(265, 369)"], 
-                        answer: 1 
-                    },
-                    { 
-                        id: 8, 
-                        text_en: "Which of the following terms will replace the question mark (?) in the given series? CHO, DIP, EJQ, ?", 
-                        text_hi: "निम्नलिखित में से कौन सा पद दी गई श्रृंखला में प्रश्नवाचक चिह्न (?) का स्थान लेगा? CHO, DIP, EJQ, ?",
-                        options_en: ["EJL", "FKR", "DIL", "HMR"], 
-                        options_hi: ["EJL", "FKR", "DIL", "HMR"], 
-                        answer: 1 
-                    },
-                    { 
-                        id: 9, 
-                        text_en: "Select the correct combination of mathematical signs to replace the * signs and balance the given equation: 13 * 7 * 12 * 4 * 15 * 65", 
-                        text_hi: "गणितीय चिह्नों के उस सही संयोजन का चयन करें जो * चिह्नों को प्रतिस्थापित कर सके और दिए गए समीकरण को संतुलित कर सके: 13 * 7 * 12 * 4 * 15 * 65",
-                        options_en: ["-, x, =", "+, +, +, =", "+, =, -, x", "+, -, x, ="], 
-                        options_hi: ["-, x, =", "+, +, +, =", "+, =, -, x", "+, -, x, ="], 
-                        answer: 2 
-                    },
-                    { 
-                        id: 10, 
-                        text_en: "At a wedding reception, a man pointed to the groom and described him as the brother of the son of the son of his grandfather. How is the groom related to that man?", 
-                        text_hi: "एक शादी के रिसेप्शन में, एक व्यक्ति ने दूल्हे की ओर इशारा किया और दूल्हे को अपने दादा के पुत्र के पुत्र का भाई बताया। दूल्हा उस आदमी का क्या लगता है?",
-                        options_en: ["Uncle", "Father", "Brother", "Brother-in-law"], 
-                        options_hi: ["चाचा", "पिता", "भाई", "साला/जीजा"], 
-                        answer: 0 
-                    },
-                    { 
-                        id: 11, 
-                        text_en: "Which two signs should be interchanged to make the given equation correct? 10 ÷ 63 x 7 + 90 - 80 = 100", 
-                        text_hi: "दिए गए समीकरण को सही बनाने के लिए किन दो चिह्नों को आपस में बदला जाना चाहिए? 10 ÷ 63 x 7 + 90 - 80 = 100",
-                        options_en: ["÷ and +", "x and -", "+ and -", "x and ÷"], 
-                        options_hi: ["÷ और +", "x और -", "+ और -", "x और ÷"], 
-                        answer: 3 
-                    },
-                    { 
-                        id: 12, 
-                        text_en: "If + means -, - means x, x means ÷, ÷ means +, what will come in place of the question mark (?) in the given equation? 22 x 11 - 4 ÷ 50 + 500 = ?", 
-                        text_hi: "यदि + का अर्थ - है, - का अर्थ x है, x का अर्थ ÷ है, ÷ का अर्थ + है, तो दिए गए समीकरण में प्रश्नवाचक चिह्न (?) के स्थान पर क्या आएगा? 22 x 11 - 4 ÷ 50 + 500 = ?",
-                        options_en: ["350", "650", "550", "450"], 
-                        options_hi: ["350", "650", "550", "450"], 
-                        answer: 1 
-                    },
-                    { 
-                        id: 13, 
-                        text_en: "Select the option that is related to the fifth letter-cluster in the same way as the second letter-cluster is related to the first... CARS : HFWX :: BOAT : GTFY :: FUSE : ?", 
-                        text_hi: "उस विकल्प का चयन करें जो पांचवें अक्षर-समूह से उसी प्रकार संबंधित है जैसे दूसरा अक्षर-समूह पहले से संबंधित है... CARS : HFWX :: BOAT : GTFY :: FUSE : ?",
-                        options_en: ["LAYK", "KZWI", "LAXJ", "KZXJ"], 
-                        options_hi: ["LAYK", "KZWI", "LAXJ", "KZXJ"], 
-                        answer: 3 
-                    },
-                    { 
-                        id: 14, 
-                        text_en: "Two different positions of the same dice are given below. Which is the number on the face opposite the face containing 1?<br><br><img src='q14_q.jpg' style='max-width:100%; border:1px solid #ccc;'>", 
-                        text_hi: "एक ही पासे की दो अलग-अलग स्थितियां नीचे दी गई हैं। 1 वाले फलक के विपरीत फलक पर कौन सी संख्या है?<br><br><img src='q14_q.jpg' style='max-width:100%; border:1px solid #ccc;'>",
-                        options_en: ["3", "4", "2", "6"], 
-                        options_hi: ["3", "4", "2", "6"], 
-                        answer: 3 
-                    },
-                    { 
-                        id: 15, 
-                        text_en: "Six students - Aman, Bobby, Chintu, Gita, Pranay and Ram - are sitting around a circular table, facing the centre. Ram is sitting second to the right of Gita... Who among the following is the immediate neighbour of both Ram and Bobby?", 
-                        text_hi: "छह छात्र - अमन, बॉबी, चिंटू, गीता, प्रणय और राम - एक गोलाकार मेज के चारों ओर केंद्र की ओर मुख करके बैठे हैं... निम्नलिखित में से कौन राम और बॉबी दोनों का निकटतम पड़ोसी है?",
-                        options_en: ["Pranay", "Chintu", "Aman", "Gita"], 
-                        options_hi: ["प्रणय", "चिंटू", "अमन", "गीता"], 
-                        answer: 2 
-                    },
-                    { 
-                        id: 16, 
-                        text_en: "Sally drives a mini school bus. She starts at the school gate and drives 7 km north for her first pick-up. She then turns right and drives 10 km... How far would Sally need to drive to reach back to the school gate again?", 
-                        text_hi: "सैली एक मिनी स्कूल बस चलाती है। वह स्कूल के गेट से शुरू करती है और अपने पहले पिक-अप के लिए उत्तर की ओर 7 किमी चलती है। फिर वह दाएं मुड़ती है... सैली को फिर से स्कूल के गेट तक पहुंचने के लिए कितनी दूर ड्राइव करना होगा?",
-                        options_en: ["17 km", "22 km", "10 km", "12 km"], 
-                        options_hi: ["17 किमी", "22 किमी", "10 किमी", "12 किमी"], 
-                        answer: 0 
-                    },
-                    { 
-                        id: 17, 
-                        text_en: "Select the Venn diagram that best illustrates the relationship between the following classes: Cheetah, Bird, Eagle", 
-                        text_hi: "उस वेन आरेख का चयन कीजिये जो निम्नलिखित वर्गों के बीच के संबंध को सर्वश्रेष्ठ रूप से दर्शाता है: 'चीता, पक्षी, चील'",
-                        options_en: ["<img src='q17_a.jpg' style='height:60px;'>", "<img src='q17_b.jpg' style='height:60px;'>", "<img src='q17_c.jpg' style='height:60px;'>", "<img src='q17_d.jpg' style='height:60px;'>"], 
-                        options_hi: ["<img src='q17_a.jpg' style='height:60px;'>", "<img src='q17_b.jpg' style='height:60px;'>", "<img src='q17_c.jpg' style='height:60px;'>", "<img src='q17_d.jpg' style='height:60px;'>"], 
-                        answer: 2 
-                    },
-                    { 
-                        id: 18, 
-                        text_en: "Which of the following numbers will replace the question marks (?) in the given series? 1, 6, 15, 28, ?, ?, 91", 
-                        text_hi: "निम्नलिखित में से कौन सी संख्या दी गई श्रृंखला में प्रश्नवाचक चिह्न (?) का स्थान लेगी? 1, 6, 15, 28, ?, ?, 91",
-                        options_en: ["40, 60", "42, 54", "45, 66", "44, 54"], 
-                        options_hi: ["40, 60", "42, 54", "45, 66", "44, 54"], 
-                        answer: 2 
-                    },
-                    { 
-                        id: 19, 
-                        text_en: "Select the Venn diagram that best illustrates the relationship between the following classes: Bananas, Apple, Grapes", 
-                        text_hi: "उस वेन आरेख का चयन करें जो निम्नलिखित वर्गों के बीच संबंधों को सबसे अच्छा दर्शाता है: केले, सेब, अंगूर",
-                        options_en: ["<img src='q19_a.jpg' style='height:60px;'>", "<img src='q19_b.jpg' style='height:60px;'>", "<img src='q19_c.jpg' style='height:60px;'>", "<img src='q19_d.jpg' style='height:60px;'>"], 
-                        options_hi: ["<img src='q19_a.jpg' style='height:60px;'>", "<img src='q19_b.jpg' style='height:60px;'>", "<img src='q19_c.jpg' style='height:60px;'>", "<img src='q19_d.jpg' style='height:60px;'>"], 
-                        answer: 1 
-                    },
-                    { 
-                        id: 20, 
-                        text_en: "In a code language, 'LAND' is written as 'IWKZ', and 'GOLD' is written as 'DKIZ'. How will 'TEAM' be written in that language?", 
-                        text_hi: "एक कूट भाषा में, 'LAND' को 'IWKZ', और 'GOLD' को 'DKIZ' लिखा जाता है। उसी भाषा में 'TEAM' को कैसे लिखा जाएगा?",
-                        options_en: ["QAXI", "XJQB", "QXJB", "JXQB"], 
-                        options_hi: ["QAXI", "XJQB", "QXJB", "JXQB"], 
-                        answer: 0 
-                    }
-                ]
-            },
-            {
-                sectionName: "General Knowledge",
-                questions: [
-                    { 
-                        id: 1, 
-                        text_en: "According to Hindu calendar, Diwali falls in which of the following months?", 
-                        text_hi: "हिंदू कैलेंडर के अनुसार, दीवाली निम्नलिखित में से किस महीने में आती है?",
-                        options_en: ["Magha", "Ashwin", "Chaitra", "Kartika"], 
-                        options_hi: ["माघ", "अश्विन", "चैत्र", "कार्तिक"], 
-                        answer: 3 
-                    }
-                ]
-            }
-        ];
+<div id="solution-screen" class="screen">
+    <div style="max-width:800px;width:100%;margin:0 auto;">
+        <div class="glass-panel" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:15px 20px;position:sticky;top:5px;z-index:10;">
+            <h3 style="color:var(--primary);">Detailed Solutions</h3>
+            <button class="btn btn-clear" style="padding:6px 15px;" onclick="showScreen('result-screen')">&#8592; Back</button>
+        </div>
+        <div id="sol-container"></div>
+    </div>
+</div>
 
-        let currentSec = 0, currentQ = 0;
-        let currentLang = 'en'; 
-        let uState = examData.map(sec => sec.questions.map(() => 'not-visited'));
-        let uAns = examData.map(sec => sec.questions.map(() => null));
+<script>
+// Data Format: [ "Question Hindi", "Question Eng (Leave blank if Hindi only needed)", ["Opt A hi", "Opt A en", "Opt B hi", "Opt B en"...], Answer Index, Category (1=GK, 2=Math/Reasoning, 3=English), ["Solution Line 1", "Solution Line 2"] ]
+const rawData = [
+    // ---------------- REASONING ----------------
+    ["Q1. 15 एक निश्चित तर्क के अनुसार 45 से संबंधित है। उसी तर्क के अनुसार, 25, 125 से संबंधित है। निम्नलिखित में से कौन सी संख्या उसी तर्क का उपयोग करके 80 से संबंधित है?", "", 
+    ["20", "", "21", "", "18", "", "22", ""], 0, 2, 
+    ["तर्क यह है: संख्या को उसी संख्या के 5वें भाग से गुणा किया गया है [ N × (N/5) ]।", "15 × (15/5) = 15 × 3 = 45", "25 × (25/5) = 25 × 5 = 125", "माना वह संख्या x है: x × (x/5) = 80 ➔ x² = 400 ➔ x = 20."]],
 
-        function initExam() { renderTabs(); loadQ(0, 0); startTimer(120 * 60); }
+    ["Q2. उस वेन आरेख का चयन करें जो निम्नलिखित वर्गों के बीच संबंधों को सबसे अच्छा दर्शाता है:<br><b>आलू, सब्जियां, अंगूर</b>", "", 
+    [
+        "<svg viewBox='0 0 100 50' width='120' height='60'><circle cx='25' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='50' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='75' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/></svg>", "", 
+        "<svg viewBox='0 0 100 50' width='120' height='60'><circle cx='30' cy='25' r='20' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='30' cy='25' r='8' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='75' cy='25' r='12' stroke='var(--text-main)' stroke-width='2' fill='none'/></svg>", "", 
+        "<svg viewBox='0 0 100 50' width='120' height='60'><circle cx='35' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='50' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='65' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/></svg>", "", 
+        "<svg viewBox='0 0 100 50' width='120' height='60'><circle cx='50' cy='25' r='22' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='38' cy='25' r='10' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='62' cy='25' r='10' stroke='var(--text-main)' stroke-width='2' fill='none'/></svg>", ""
+    ], 1, 2, 
+    ["आलू एक सब्जी है, इसलिए आलू का वृत्त (circle) सब्जियों के वृत्त के पूरी तरह से अंदर आएगा।", "अंगूर एक फल है, इसलिए इसका वृत्त दोनों से पूरी तरह अलग रहेगा। विकल्प B सही आरेख है।"]],
 
-        function renderTabs() {
-            let html = "";
-            examData.forEach((sec, idx) => {
-                html += `<div class="tab ${idx === currentSec ? 'active' : ''}" onclick="switchSec(${idx})">${sec.sectionName}</div>`;
-            });
-            document.getElementById('section-tabs').innerHTML = html;
+    ["Q3. एक कूट भाषा में, 'DINESH' को 12-27-42-15-57-24 और 'VIRAT' को 66-27-54-3-60 के रूप में कूटबद्ध किया जाता है। उसी भाषा में 'GAUTAM' को कैसे कूटबद्ध किया जाएगा?", "", 
+    ["24-7-61-34-5-31", "", "26-7-25-67-4-37", "", "21-3-63-60-3-39", "", "29-9-55-47-8-28", ""], 2, 2, 
+    ["प्रत्येक अक्षर के स्थानीय मान (Place Value) को 3 से गुणा किया गया है।", "D(4)×3=12, I(9)×3=27, N(14)×3=42, E(5)×3=15, S(19)×3=57, H(8)×3=24.", "GAUTAM: G(7)×3=21, A(1)×3=3, U(21)×3=63, T(20)×3=60, A(1)×3=3, M(13)×3=39.", "उत्तर: 21-3-63-60-3-39"]],
+
+    ["Q4. एक शादी के रिसेप्शन में, एक व्यक्ति ने दूल्हे की ओर इशारा किया और दूल्हे को अपने दादा के पुत्र के पुत्र का भाई बताया। दूल्हा उस आदमी का क्या लगता है?", "", 
+    ["चाचा", "", "पिता", "", "भाई", "", "साला/जीजा", ""], 2, 2, 
+    ["व्यक्ति के दादा का पुत्र = व्यक्ति का पिता (या चाचा)।", "दादा के पुत्र का पुत्र = स्वयं वह व्यक्ति (या उसका भाई)।", "उस पुत्र का भाई = व्यक्ति का अपना भाई या चचेरा भाई।", "चूँकि विकल्प में भाई मौजूद है, अतः दूल्हा उस आदमी का 'भाई' लगता है।"]],
+
+    ["Q5. दिए गए समीकरण को सही बनाने के लिए किन दो चिह्नों को आपस में बदला जाना चाहिए?<br> 10 ÷ 63 x 7 + 90 - 80 = 100", "", 
+    ["÷ और +", "", "x और -", "", "+ और -", "", "x और ÷", ""], 3, 2, 
+    ["विकल्प D (x और ÷) को बदलने पर:", "समीकरण: 10 x 63 ÷ 7 + 90 - 80 = 100", "BODMAS के अनुसार: 10 x 9 + 90 - 80", "90 + 90 - 80 = 180 - 80 = 100. (समीकरण संतुलित है)"]],
+
+    ["Q6. उस वेन आरेख का चयन कीजिये जो निम्नलिखित वर्गों के बीच के संबंध को सर्वश्रेष्ठ रूप से दर्शाता है:<br><b>चीता, पक्षी, चील</b>", "", 
+    [
+        "<svg viewBox='0 0 100 50' width='120' height='60'><circle cx='35' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='50' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='65' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/></svg>", "", 
+        "<svg viewBox='0 0 100 50' width='120' height='60'><circle cx='25' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='50' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='75' cy='25' r='15' stroke='var(--text-main)' stroke-width='2' fill='none'/></svg>", "", 
+        "<svg viewBox='0 0 100 50' width='120' height='60'><circle cx='30' cy='25' r='20' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='30' cy='25' r='8' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='75' cy='25' r='12' stroke='var(--text-main)' stroke-width='2' fill='none'/></svg>", "", 
+        "<svg viewBox='0 0 100 50' width='120' height='60'><circle cx='50' cy='25' r='22' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='38' cy='25' r='10' stroke='var(--text-main)' stroke-width='2' fill='none'/><circle cx='62' cy='25' r='10' stroke='var(--text-main)' stroke-width='2' fill='none'/></svg>", ""
+    ], 2, 2, 
+    ["चील एक पक्षी है, इसलिए चील का वृत्त पक्षियों के वृत्त के अंदर आएगा।", "चीता एक जानवर है, इसलिए इसका वृत्त पक्षी और चील दोनों से अलग रहेगा। विकल्प C (आरेख 3) सही है।"]],
+
+    // ---------------- GK ----------------
+    ["Q7. सुकन्या समृद्धि खाता योजना के तहत, एक वित्तीय वर्ष में न्यूनतम कितनी राशि जमा करने की आवश्यकता होती है?", "", 
+    ["₹250", "", "₹150", "", "₹100", "", "₹200", ""], 0, 1, 
+    ["सुकन्या समृद्धि योजना (SSY) 'बेटी बचाओ बेटी पढ़ाओ' अभियान के तहत शुरू की गई थी।", "इसमें एक वित्तीय वर्ष में न्यूनतम ₹250 और अधिकतम ₹1.5 लाख जमा किए जा सकते हैं।"]],
+
+    ["Q8. केंद्र सरकार ने राष्ट्रीय वायु खेल नीति (National Air Sports Policy) किस वर्ष शुरू की?", "", 
+    ["2020", "", "2021", "", "2019", "", "2022", ""], 3, 1, 
+    ["भारत सरकार के नागरिक उड्डयन मंत्रालय ने वर्ष 2022 में राष्ट्रीय वायु खेल नीति (NASP) लॉन्च की।", "इसका लक्ष्य 2030 तक भारत को शीर्ष वायु खेल वाले देशों में शामिल करना है।"]],
+
+    ["Q9. हिंदू कैलेंडर के अनुसार, दीवाली निम्नलिखित में से किस महीने में आती है?", "", 
+    ["माघ", "", "अश्विन", "", "चैत्र", "", "कार्तिक", ""], 3, 1, 
+    ["हिंदू पंचांग के अनुसार, दीपावली का त्योहार कार्तिक मास की अमावस्या के दिन मनाया जाता है।"]],
+
+    // ---------------- MATH ----------------
+    ["Q10. निम्नलिखित व्यंजक का मान किसके बराबर है?<br> 35 - [ 28 - (60 ÷ 4 + 26 ÷ 13) ]", "", 
+    ["22", "", "24", "", "27", "", "26", ""], 1, 2, 
+    ["BODMAS नियम के अनुसार, सबसे पहले छोटे कोष्ठक () को हल करेंगे:", "(60 ÷ 4 + 26 ÷ 13) = (15 + 2) = 17", "अब मंझले कोष्ठक [] को हल करेंगे: [28 - 17] = 11", "अंत में: 35 - 11 = 24."]],
+
+    ["Q11. दी गई तालिका (बार-ग्राफ) का अध्ययन करें और प्रश्न का उत्तर दें। यह बार-ग्राफ चार वर्षों में कंपनी Z की बिक्री (सफेद बार) और लाभ (काले बार) (करोड़ रुपये में) दर्शाता है।<br><br><b>2016 में कंपनी Z के राजस्व (Revenue) पर अनुमानित लाभ मार्जिन प्रतिशत क्या था?</b><br><br><svg viewBox='0 0 300 200' width='100%' height='200' style='background:white; border:1px solid #ccc;'><line x1='40' y1='160' x2='280' y2='160' stroke='black'/><line x1='40' y1='20' x2='40' y2='160' stroke='black'/><rect x='60' y='100' width='15' height='60' fill='none' stroke='black'/><rect x='75' y='110' width='15' height='50' fill='black'/><rect x='110' y='40' width='15' height='120' fill='none' stroke='black'/><rect x='125' y='100' width='15' height='60' fill='black'/><rect x='160' y='45' width='15' height='115' fill='none' stroke='black'/><rect x='175' y='95' width='15' height='65' fill='black'/><rect x='210' y='25' width='15' height='135' fill='none' stroke='black'/><rect x='225' y='75' width='15' height='85' fill='black'/><text x='110' y='35' font-size='10' fill='black'>2057</text><text x='130' y='95' font-size='10' fill='black'>847</text><text x='120' y='175' font-size='12' fill='black'>2016</text></svg>", "", 
+    ["70%", "", "54.64%", "", "41.18%", "", "60%", ""], 2, 2, 
+    ["ग्राफ के अनुसार, 2016 में कंपनी Z की बिक्री (Sales/Revenue) = 2057 करोड़ रुपये।", "2016 में लाभ (Profit) = 847 करोड़ रुपये।", "लाभ मार्जिन % = (Profit / Sales) × 100", "= (847 / 2057) × 100 = 41.176%", "अनुमानित रूप से यह 41.18% है।"]],
+
+    ["Q12. 36 वस्तुओं का क्रय मूल्य N वस्तुओं के विक्रय मूल्य के समान है। यदि लाभ 20% है, तो N का मान क्या है?", "", 
+    ["40", "", "30", "", "25", "", "42", ""], 1, 2, 
+    ["प्रश्नानुसार: 36 × CP = N × SP  ➔  SP/CP = 36/N", "लाभ = 20% = 1/5. अतः CP अगर 5 है तो SP 6 होगा।", "अनुपात बराबर करने पर: SP/CP = 6/5", "6/5 = 36/N  ➔  6N = 180  ➔  N = 30."]],
+
+    // ---------------- ENGLISH ----------------
+    ["Q13. Select the word from the sentence below, which is an antonym for the word <b>'uniformity'</b>.<br><br><i>A great variety of birds is found in the sanctuaries of India.</i>", "", 
+    ["Great", "", "Variety", "", "Found", "", "Sanctuaries", ""], 1, 3, 
+    ["'Uniformity' का अर्थ होता है 'एकरूपता' या 'समानता' (sameness or lack of variation)।", "दिए गए वाक्य में प्रयुक्त शब्द 'Variety' का अर्थ है 'विविधता' या 'विभिन्नता' (diversity)।", "अतः 'Variety' सही विलोम (Antonym) है।"]],
+
+    ["Q14. Select the most appropriate meaning of the given phrase.<br><br><b>Hit the sack</b>", "", 
+    ["Running on the beach", "", "Cracking the exams", "", "Going to sleep", "", "Making money quickly", ""], 2, 3, 
+    ["'Hit the sack' अंग्रेजी का एक मुहावरा (Idiom) है।", "इसका अर्थ होता है 'सोने जाना' या 'बिस्तर पर जाना' (to go to bed in order to sleep)।", "वाक्य प्रयोग: I am exhausted, it's time to hit the sack."]],
+
+    ["Q15. The following sentence has been divided into four segments. One of them contains an error. Select the segment that contains the error from the given options.<br><br><i>I am understanding; / you like her / because she has / a generous nature.</i>", "", 
+    ["you like her", "", "I am understanding;", "", "a generous nature", "", "because she has", ""], 1, 3, 
+    ["'Understand' एक Stative Verb है, जो मानसिक स्थिति (mental state) को दर्शाता है।", "सामान्यतः Stative verbs का इस्तेमाल Continuous Tense (ing form) में नहीं किया जाता है।", "इसलिए 'I am understanding' व्याकरण के अनुसार गलत है, इसकी जगह 'I understand' होना चाहिए।"]],
+    
+    ["Q16. Select the option that can be used as a one-word substitute for the given group of words.<br><br><i>A woman having more than one husband at the same time</i>", "", 
+    ["Endogamy", "", "Polymathy", "", "Polyandry", "", "Monogamy", ""], 2, 3, 
+    ["'Polyandry' का अर्थ है 'बहुपतित्व' यानी एक ही समय में एक से अधिक पति होना।", "Endogamy: अपनी ही जाति या समूह में विवाह करना।", "Monogamy: एक समय में केवल एक ही व्यक्ति से विवाह (एकल विवाह)।"]],
+    
+    ["Q17. Select the INCORRECTLY spelt word.", "", 
+    ["Mountan", "", "Weekend", "", "Journey", "", "Vacation", ""], 0, 3, 
+    ["'Mountan' की स्पेलिंग गलत है। सही स्पेलिंग 'Mountain' (पहाड़) होती है।", "अन्य सभी शब्दों की स्पेलिंग (Weekend, Journey, Vacation) सही है।"]]
+];
+
+const finalQuestions = rawData.map(d => {
+    let qText = d[1] ? `${d[0]}<br><span class='bilingual-eng'>${d[1]}</span>` : d[0];
+    let opts = [];
+    for(let i=0; i<8; i+=2) {
+        opts.push(d[2][i] === d[2][i+1] || d[2][i+1] === "" ? d[2][i] : `${d[2][i]} / ${d[2][i+1]}`);
+    }
+    let ansIdx = d[3];
+    let cat = d[4];
+    let expText = "";
+    let ansStr = opts[ansIdx];
+    
+    if(cat === 1) { // GK
+        let facts = d[5].map(f => `<li>${f}</li>`).join('');
+        expText = `<b>हल / Solution:</b> ${ansStr}<br><br>💡 <b>प्रमुख तथ्य / Key Facts:</b><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
+    } else if (cat === 2) { // Math/Reasoning
+        let facts = d[5].map(f => `<li>${f}</li>`).join('');
+        expText = `<b>हल / Solution:</b> ${ansStr}<br><br><span class='math-trick'>🔥 तर्क एवं विश्लेषण / Reasoning & Analysis:</span><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
+    } else if (cat === 3) { // English
+        let facts = d[5].map(f => `<li>${f}</li>`).join('');
+        expText = `<b>हल / Solution:</b> ${ansStr}<br><br><span class='grammar-rule'>📖 Grammar Rule & Explanation:</span><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
+    }
+    return { q: qText, o: opts, a: ansIdx, e: expText };
+});
+
+const STORAGE_KEY = 'cpo_mock_27june_s1_active'; 
+const COMPLETED_KEY = 'cpo_mock_27june_s1_comp';
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { started: false, submitted: false, currentQ: 0, answers: {}, status: {}, timeLeft: 120 * 60 };
+let timerInterval;
+
+window.addEventListener('DOMContentLoaded', () => { initDashboard(); });
+
+function initDashboard() {
+    let completedData = null;
+    try { const dataStr = localStorage.getItem(COMPLETED_KEY); if(dataStr) completedData = JSON.parse(dataStr); } catch(e) {}
+    if (state.submitted || completedData) {
+        document.getElementById('dash-unattempted').style.display = 'none';
+        document.getElementById('dash-attempted').style.display = 'block';
+        if(completedData) {
+            document.getElementById('dash-score-text').innerText = `${completedData.score}/${finalQuestions.length}.0 Marks`;
+            let percentage = (completedData.score / finalQuestions.length) * 100;
+            document.getElementById('dash-progress-bar').style.width = `${percentage}%`;
         }
+    } else {
+        document.getElementById('dash-attempted').style.display = 'none';
+        document.getElementById('dash-unattempted').style.display = 'block';
+    }
+    if (state.started && !state.submitted) {
+        showScreen('test-screen'); startTimer(); renderPalette(); loadQuestion(state.currentQ);
+    } else { showScreen('dashboard-screen'); }
+}
 
-        function switchSec(idx) { currentSec = idx; renderTabs(); loadQ(idx, 0); }
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(d => { if(d.id !== 'pause-overlay') d.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+}
 
-        function changeLanguage() {
-            currentLang = document.getElementById('lang-select').value;
-            loadQ(currentSec, currentQ); 
+function startTest() {
+    state = { started: true, submitted: false, currentQ: 0, answers: {}, status: {}, timeLeft: 120 * 60 };
+    for(let i=0; i<finalQuestions.length; i++) state.status[i] = 0; 
+    saveState(); showScreen('test-screen'); startTimer(); renderPalette(); loadQuestion(0);
+}
+
+function reattemptTest() {
+    if(confirm("क्या आप निश्चित रूप से एक नया टेस्ट शुरू करना चाहते हैं?")) {
+        localStorage.removeItem(COMPLETED_KEY); startTest();
+    }
+}
+
+function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+function loadQuestion(idx) {
+    if (idx < 0) idx = 0; if (idx >= finalQuestions.length) idx = finalQuestions.length - 1;
+    state.currentQ = idx; if(state.status[idx] === 0) state.status[idx] = 1; 
+    document.getElementById('q-no').innerText = `Question ${idx + 1} of ${finalQuestions.length}`;
+    document.getElementById('q-text').innerHTML = finalQuestions[idx].q;
+    let optsHTML = ''; let labels = ['A', 'B', 'C', 'D'];
+    finalQuestions[idx].o.forEach((opt, i) => {
+        let isSel = state.answers[idx] === i; let selClass = isSel ? 'selected' : '';
+        optsHTML += `<div class="glass-panel option ${selClass}" onclick="selectOption(${i})"><div class="opt-label">${labels[i]}</div><div style="flex:1;">${opt}</div></div>`;
+    });
+    document.getElementById('options-box').innerHTML = optsHTML;
+    saveState(); renderPalette();
+}
+
+function selectOption(optIdx) { state.answers[state.currentQ] = optIdx; loadQuestion(state.currentQ); }
+function saveNext() {
+    if(state.answers[state.currentQ] !== undefined) state.status[state.currentQ] = 2; else state.status[state.currentQ] = 1; 
+    if(state.currentQ < finalQuestions.length - 1) loadQuestion(state.currentQ + 1); else { saveState(); renderPalette(); }
+}
+function markReview() {
+    if(state.answers[state.currentQ] !== undefined) state.status[state.currentQ] = 4; else state.status[state.currentQ] = 3; 
+    if(state.currentQ < finalQuestions.length - 1) loadQuestion(state.currentQ + 1); else { saveState(); renderPalette(); }
+}
+function clearResponse() { delete state.answers[state.currentQ]; state.status[state.currentQ] = 1; loadQuestion(state.currentQ); }
+function changeQ(step) { if(state.currentQ + step >= 0 && state.currentQ + step < finalQuestions.length) { loadQuestion(state.currentQ + step); } }
+
+function renderPalette() {
+    let html = ''; let counts = { ans: 0, notAns: 0, notVis: 0, marked: 0 };
+    for(let i=0; i<finalQuestions.length; i++) {
+        let s = state.status[i]; let cls = 's-0';
+        if(s === 0) { cls = 's-0'; counts.notVis++; } if(s === 1) { cls = 's-2'; counts.notAns++; }
+        if(s === 2) { cls = 's-1'; counts.ans++; } if(s === 3) { cls = 's-3'; counts.marked++; }
+        if(s === 4) { cls = 's-4'; counts.ans++; counts.marked++; }
+        let active = (i === state.currentQ) ? 'active' : ''; if(active && s === 0) cls = 's-2'; 
+        html += `<button class="p-btn ${cls} ${active}" onclick="loadQuestion(${i})">${i+1}</button>`;
+    }
+    document.getElementById('q-grid').innerHTML = html;
+    document.getElementById('c-ans').innerText = counts.ans; document.getElementById('c-notans').innerText = counts.notAns;
+    document.getElementById('c-notvis').innerText = counts.notVis; document.getElementById('c-mark').innerText = counts.marked;
+}
+
+function startTimer() {
+    if(timerInterval) clearInterval(timerInterval); updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        if (state.timeLeft <= 0) { clearInterval(timerInterval); submitTest(); return; }
+        state.timeLeft--; updateTimerDisplay();
+        if(state.timeLeft % 10 === 0) saveState();
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    let m = Math.floor(state.timeLeft / 60).toString(); let s = (state.timeLeft % 60).toString().padStart(2, '0');
+    if(m.length < 2) m = m.padStart(2, '0'); document.getElementById('timer-display').innerText = `${m}:${s}`;
+}
+
+function togglePause() {
+    let modal = document.getElementById('pause-overlay');
+    if (modal.style.display === 'flex') { modal.style.display = 'none'; startTimer(); } else { clearInterval(timerInterval); modal.style.display = 'flex'; }
+}
+
+function submitTest() {
+    if(!confirm("क्या आप निश्चित रूप से टेस्ट सबमिट करना चाहते हैं?")) return;
+    clearInterval(timerInterval); state.submitted = true; saveState(); calculateResult();
+}
+
+function calculateResult() {
+    let correct = 0, wrong = 0, attempted = 0;
+    for(let i=0; i<finalQuestions.length; i++) {
+        if(state.answers[i] !== undefined) {
+            attempted++;
+            if(state.answers[i] === finalQuestions[i].a) correct++; else wrong++;
         }
+    }
+    
+    // Applying SSC CPO Negative Marking: +1 for correct, -0.25 for incorrect
+    let positiveMarks = correct * 1;
+    let negativeMarks = wrong * 0.25;
+    let finalScore = positiveMarks - negativeMarks;
 
-        function loadQ(sIdx, qIdx) {
-            currentSec = sIdx; currentQ = qIdx;
-            const q = examData[sIdx].questions[qIdx];
-            
-            if(uState[sIdx][qIdx] === 'not-visited') uState[sIdx][qIdx] = 'not-answered';
+    const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const completedData = { score: finalScore.toFixed(2), attempted: attempted, wrong: wrong, date: today };
+    localStorage.setItem(COMPLETED_KEY, JSON.stringify(completedData));
+    
+    document.getElementById('r-score').innerText = finalScore.toFixed(2); 
+    document.getElementById('r-attempt').innerText = attempted;
+    document.getElementById('r-wrong').innerText = wrong; 
+    document.getElementById('r-acc').innerText = attempted > 0 ? Math.round((correct/attempted)*100) + '%' : '0%';
+    showScreen('result-screen');
+}
 
-            document.getElementById('q-no').innerText = `Question No. ${qIdx + 1}`;
-            
-            document.getElementById('q-text').innerHTML = currentLang === 'en' ? q.text_en : q.text_hi;
-            
-            let opts = "";
-            let currentOptions = currentLang === 'en' ? q.options_en : q.options_hi;
-            
-            currentOptions.forEach((opt, i) => {
-                let chk = uAns[sIdx][qIdx] === i ? "checked" : "";
-                opts += `<label class="option-label"><input type="radio" name="opt" value="${i}" ${chk}> ${opt}</label>`;
-            });
-            document.getElementById('options-container').innerHTML = opts;
-            renderPalette();
-        }
+function viewSavedResults() { calculateResult(); }
 
-        function getAns() {
-            let s = document.querySelector('input[name="opt"]:checked');
-            return s ? parseInt(s.value) : null;
-        }
-
-        function saveAndNext() {
-            let a = getAns();
-            if (a !== null) { uAns[currentSec][currentQ] = a; uState[currentSec][currentQ] = 'answered'; } 
-            else { uState[currentSec][currentQ] = 'not-answered'; }
-            nextQ();
-        }
-
-        function markForReview() {
-            let a = getAns();
-            if (a !== null) { uAns[currentSec][currentQ] = a; uState[currentSec][currentQ] = 'answered-review'; } 
-            else { uState[currentSec][currentQ] = 'review'; }
-            nextQ();
-        }
-
-        function clearResponse() {
-            let r = document.querySelectorAll('input[name="opt"]');
-            r.forEach(x => x.checked = false);
-            uAns[currentSec][currentQ] = null;
-            uState[currentSec][currentQ] = 'not-answered';
-            renderPalette();
-        }
-
-        function nextQ() {
-            if (currentQ < examData[currentSec].questions.length - 1) loadQ(currentSec, currentQ + 1);
-            else if (currentSec < examData.length - 1) switchSec(currentSec + 1);
-            else { renderPalette(); alert("End of test! Scroll down and click 'Submit Exam'."); window.scrollTo(0, document.body.scrollHeight); }
-        }
-
-        function renderPalette() {
-            document.getElementById('palette-title').innerText = examData[currentSec].sectionName;
-            let html = "";
-            examData[currentSec].questions.forEach((q, i) => {
-                let cls = uState[currentSec][i];
-                let bdr = (i === currentQ) ? "border: 2px solid black; transform: scale(1.1);" : "";
-                html += `<div class="q-bubble ${cls}" style="${bdr}" onclick="loadQ(${currentSec}, ${i})">${i + 1}</div>`;
-            });
-            document.getElementById('palette-grid').innerHTML = html;
-        }
-
-        function showScorecard() {
-            let tQ = 0, att = 0, crt = 0, wrg = 0;
-            examData.forEach((sec, sIdx) => {
-                sec.questions.forEach((q, qIdx) => {
-                    tQ++;
-                    if (uAns[sIdx][qIdx] !== null) {
-                        att++;
-                        if (uAns[sIdx][qIdx] === q.answer) crt++; else wrg++;
-                    }
-                });
-            });
-
-            let pos = crt * 1, neg = wrg * 0.25;
-            document.getElementById('res-total').innerText = tQ;
-            document.getElementById('res-att').innerText = att;
-            document.getElementById('res-right').innerText = crt;
-            document.getElementById('res-wrong').innerText = wrg;
-            document.getElementById('res-pos').innerText = `+${pos}`;
-            document.getElementById('res-neg').innerText = `-${neg}`;
-            document.getElementById('res-score').innerText = `${(pos - neg).toFixed(2)} / ${tQ}`;
-
-            document.getElementById('exam-container').style.display = 'none';
-            document.getElementById('scorecard').style.display = 'flex';
-        }
-
-        function startTimer(sec) {
-            setInterval(() => {
-                if(sec <= 0) { showScorecard(); return; }
-                sec--;
-                let m = Math.floor(sec / 60), s = sec % 60;
-                document.getElementById('time').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
-            }, 1000);
-        }
-
-        initExam();
-    </script>
+function viewSolutions() {
+    showScreen('solution-screen'); let html = ''; let labels = ['A', 'B', 'C', 'D'];
+    finalQuestions.forEach((q, i) => {
+        let uAns = state.answers[i]; let cAns = q.a; let optsHtml = '';
+        q.o.forEach((opt, oIdx) => {
+            let cls = ''; let icon = '';
+            if(oIdx === cAns) { cls = 'correct'; icon = ' ✔'; }
+            else if(oIdx === uAns && uAns !== cAns) { cls = 'wrong'; icon = ' ❌ (Your Answer)'; }
+            optsHtml += `<div class="glass-panel sol-opt ${cls}"><strong>${labels[oIdx]}.</strong> <div style="flex:1;">${opt} <span style="float:right">${icon}</span></div></div>`;
+        });
+        let userStatus = uAns === null || uAns === undefined ? "<span style='color:var(--text-muted)'>हल नहीं किया (Unattempted)</span>" : 
+                       (uAns === cAns ? "<span style='color:var(--success)'>सही (Correct)</span>" : "<span style='color:var(--danger)'>गलत (Incorrect)</span>");
+        html += `<div class="glass-panel sol-card"><div style="font-weight:700; font-size:18px; margin-bottom:15px; color:var(--primary);">Q${i+1}. ${q.q}</div>${optsHtml}<div style="font-weight:bold; margin:15px 0; color:var(--text-muted);">Status: ${userStatus}</div><div class="glass-panel sol-exp">${q.e}</div></div>`;
+    });
+    document.getElementById('sol-container').innerHTML = html;
+}
+function toggleTheme() { document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+</script>
 </body>
 </html>
