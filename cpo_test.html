@@ -2,7 +2,7 @@
 <html lang="hi" data-theme="light">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>SSC CPO 2025 Mock Test - Part 1</title>
+<title>SSC CPO 2025 Mock Test - Complete Set</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg-grad-1:#4facfe;--bg-grad-2:#00f2fe;--bg-grad-3:#a18cd1;--bg-grad-4:#fbc2eb;--glass-bg:rgba(255,255,255,0.9);--glass-border:rgba(255,255,255,0.6);--glass-shadow:rgba(31,38,135,0.15);--text-main:#1f2937;--text-muted:#64748b;--primary:#2563eb;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--purple:#8b5cf6;--option-bg:rgba(243,244,246,0.8);--option-selected:rgba(219,234,254,0.9);--card-bg:rgba(255,255,255,0.95)}
@@ -24,6 +24,9 @@ header.test-head{padding:10px 15px;display:flex;justify-content:space-between;al
 .timer-box{font-size:14px;font-weight:700;background:var(--card-bg);border:1px solid var(--glass-border);color:var(--danger);padding:5px 12px;border-radius:20px}
 .main-area{display:flex;flex:1;overflow:hidden;gap:10px;padding:0 10px 10px}
 .question-section{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.section-tabs-container { display:flex; background:var(--card-bg); overflow-x:auto; border-bottom: 2px solid var(--glass-border); }
+.tab { padding: 12px 15px; cursor: pointer; font-weight: bold; color: var(--text-muted); border-right: 1px solid var(--glass-border); white-space: nowrap; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+.tab.active { background: var(--primary); color: #fff; }
 .q-header{padding:15px;border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;font-weight:600;font-size:15px}
 .q-body{flex:1;padding:20px 15px;overflow-y:auto;font-size:16px;line-height:1.6}
 .options-list{margin-top:20px;display:flex;flex-direction:column;gap:12px;padding-bottom:10px}
@@ -33,7 +36,7 @@ header.test-head{padding:10px 15px;display:flex;justify-content:space-between;al
 .option.selected .opt-label{background:var(--primary);color:#fff;border-color:var(--primary)}
 .q-footer{padding:15px;border-top:1px solid var(--glass-border);flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;border-radius:0 0 12px 12px}
 .palette-section{width:320px;display:flex;flex-direction:column;flex-shrink:0}
-.palette-header{padding:15px;border-bottom:1px solid var(--glass-border);text-align:center;font-weight:700;font-size:15px}
+.palette-header{padding:15px;border-bottom:1px solid var(--glass-border);text-align:center;font-weight:700;font-size:15px; color:var(--primary);}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:15px;font-size:12px;border-bottom:1px solid var(--glass-border);font-weight:500}
 .stat-item{display:flex;align-items:center;gap:8px}
 .badge{width:22px;height:22px;border-radius:4px;display:flex;justify-content:center;align-items:center;color:#fff;font-size:11px;font-weight:700}
@@ -50,31 +53,29 @@ header.test-head{padding:10px 15px;display:flex;justify-content:space-between;al
 .sol-opt.wrong{background:rgba(239,68,68,0.15);border-color:var(--danger);color:var(--danger);text-decoration:line-through}
 .sol-exp{margin-top:15px;padding:15px;background:rgba(37,99,235,0.05);border:1px solid var(--glass-border);border-left:4px solid var(--primary);border-radius:8px;font-size:14.5px;line-height:1.6}
 #pause-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);z-index:200;display:none;justify-content:center;align-items:center;color:#fff;flex-direction:column}
-.math-trick{color:#d97706;font-weight:700;font-size:15px}
-.grammar-rule{color:#8b5cf6;font-weight:700}
-.vocab{color:#059669;font-weight:700}
 .bilingual-eng{color:var(--text-muted);font-size:14.5px;font-weight:500;display:block;margin-top:5px;}
 @media(max-width:992px){.main-area{flex-direction:column;overflow-y:auto}.question-section{flex:none;min-height:450px}.palette-section{width:100%;flex:none;min-height:350px}.q-footer .btn{padding:12px;font-size:14px}}
+svg { max-width: 100%; height: auto; }
 </style>
 </head>
 <body oncontextmenu="return false;" oncopy="return false;" onselectstart="return false;">
 
 <div id="dashboard-screen" class="screen active">
-    <div class="dash-header-top"><span style="font-size:20px;cursor:pointer;">&#8592;</span> Mock Tests</div>
+    <div class="dash-header-top"><span style="font-size:20px;cursor:pointer;">&#8592;</span> SSC CPO Mock Tests</div>
     <div class="dash-content">
         <div id="dash-unattempted" style="display:none;">
             <div class="section-title">Suggested Next Test</div>
             <div class="dash-card">
-                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO PYP 27 June S1 - Part 1</div>
-                <div style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">50 Qs • 120 mins • 50.0 Marks</div>
+                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO PYP - Full Mock Test</div>
+                <div style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">200 Qs • 120 mins • 200.0 Marks</div>
                 <button class="btn btn-outline" style="width:100%;padding:12px;font-size:16px;" onclick="startTest()">Start Test 🚀</button>
-                <div style="font-size:13px;color:var(--primary);border-top:1px solid var(--glass-border);padding-top:15px;margin-top:20px;">Syllabus: General Intelligence and Reasoning</div>
+                <div style="font-size:13px;color:var(--primary);border-top:1px solid var(--glass-border);padding-top:15px;margin-top:20px;">Syllabus: Reasoning, GK & Current Affairs, Quantitative Aptitude, English</div>
             </div>
         </div>
         <div id="dash-attempted" style="display:none;">
             <div class="dash-card">
-                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO PYP 27 June S1 - Part 1</div>
-                <div style="font-size:15px;color:var(--text-muted);margin-bottom:15px;font-weight:500;" id="dash-score-text">0/50.0 Marks</div>
+                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO PYP - Full Mock Test</div>
+                <div style="font-size:15px;color:var(--text-muted);margin-bottom:15px;font-weight:500;" id="dash-score-text">0/200.0 Marks</div>
                 <div style="width:100%;height:8px;background:var(--glass-border);border-radius:4px;margin:20px 0;overflow:hidden;"><div id="dash-progress-bar" style="height:100%;background:#fbc02d;width:0%;transition:width 0.5s;"></div></div>
                 <div style="display:flex;gap:12px;margin-top:20px;">
                     <button class="btn btn-outline" style="flex:1;padding:12px;" onclick="viewSavedResults()">View Results</button>
@@ -92,7 +93,7 @@ header.test-head{padding:10px 15px;display:flex;justify-content:space-between;al
 
 <div id="test-screen" class="screen">
     <header class="glass-panel test-head">
-        <div class="header-title">SSC CPO Mock (Reasoning)</div>
+        <div class="header-title">SSC CPO Mock</div>
         <div class="header-controls">
             <button class="btn btn-clear" style="padding:4px 10px;font-size:12px;border-radius:20px;" onclick="toggleTheme()">🌓 Theme</button>
             <button class="btn btn-warning" style="padding:4px 10px;font-size:12px;border-radius:20px;" onclick="togglePause()">⏸ Pause</button>
@@ -101,6 +102,9 @@ header.test-head{padding:10px 15px;display:flex;justify-content:space-between;al
     </header>
     <div class="main-area">
         <div class="glass-panel question-section">
+            <div class="section-tabs-container" id="section-tabs">
+                <!-- Tabs will be rendered here dynamically -->
+            </div>
             <div class="q-header"><span id="q-no">Question 1</span><span style="color:var(--success);font-weight:bold;">+1 <span style="color:var(--text-muted);font-weight:normal;">|</span> <span style="color:var(--danger);">-0.25</span></span></div>
             <div class="q-body">
                 <div id="q-text" style="font-weight:600;">Loading...</div>
@@ -114,11 +118,11 @@ header.test-head{padding:10px 15px;display:flex;justify-content:space-between;al
             </div>
         </div>
         <div class="glass-panel palette-section">
-            <div class="palette-header">Question Palette</div>
+            <div class="palette-header" id="palette-title">Reasoning</div>
             <div class="stats-grid">
                 <div class="stat-item"><div class="badge s-1" id="c-ans">0</div> Ans</div>
                 <div class="stat-item"><div class="badge s-2" id="c-notans">0</div> Not Ans</div>
-                <div class="stat-item"><div class="badge s-0" id="c-notvis">50</div> Not Visit</div>
+                <div class="stat-item"><div class="badge s-0" id="c-notvis">0</div> Not Visit</div>
                 <div class="stat-item"><div class="badge s-3" id="c-mark">0</div> Marked</div>
             </div>
             <div class="palette-grid" id="q-grid"></div>
@@ -152,93 +156,132 @@ header.test-head{padding:10px 15px;display:flex;justify-content:space-between;al
 </div>
 
 <script>
-const v1 = "<svg viewBox='0 0 100 50' width='80' height='40'><circle cx='20' cy='25' r='10' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='50' cy='25' r='10' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='80' cy='25' r='10' stroke='currentColor' stroke-width='2' fill='none'/></svg>";
-const v2 = "<svg viewBox='0 0 100 50' width='80' height='40'><circle cx='30' cy='25' r='15' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='30' cy='25' r='6' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='75' cy='25' r='10' stroke='currentColor' stroke-width='2' fill='none'/></svg>";
-const v3 = "<svg viewBox='0 0 100 50' width='80' height='40'><circle cx='35' cy='25' r='12' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='50' cy='25' r='12' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='65' cy='25' r='12' stroke='currentColor' stroke-width='2' fill='none'/></svg>";
-const v4 = "<svg viewBox='0 0 100 50' width='80' height='40'><circle cx='50' cy='25' r='20' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='40' cy='25' r='6' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='60' cy='25' r='6' stroke='currentColor' stroke-width='2' fill='none'/></svg>";
+// Format: ["Question Hindi", "Question Eng", ["A hi","A en", "B hi","B en", "C hi","C en", "D hi","D en"], Answer Index, ["Solution Line 1", "Solution Line 2"]]
+const rawSections = [
+    {
+        name: "General Intelligence and Reasoning",
+        cat: 2,
+        questions: [
+            // YAHAN PART 1 WALE REASONING KE SAARE 50 SAWAL PASTE KAREIN (Abhi khali chhoda hai taki code corrupt na ho)
+            // Example format (Paste previous 50 array items here exactly as they were):
+            // ["Q1. ...", "Eng", ["Opt A","", "Opt B","", "Opt C","", "Opt D",""], 0, ["Sol1", "Sol2"]],
+        ]
+    },
+    {
+        name: "General Knowledge & Current Affairs",
+        cat: 1,
+        questions: [
+            // ---------------- PART 2: GENERAL KNOWLEDGE (50 Questions) ----------------
+            
+            // --- NEW CURRENT AFFAIRS 2025-26 ---
+            ["Q1. हाल ही में भारतीय रिजर्व बैंक (RBI) के नए गवर्नर के रूप में किसे नियुक्त किया गया है?", "Who has been recently appointed as the new Governor of the Reserve Bank of India (RBI)?", ["संजय मल्होत्रा", "Sanjay Malhotra", "शक्तिकांत दास", "Shaktikanta Das", "उर्जित पटेल", "Urjit Patel", "रघुराम राजन", "Raghuram Rajan"], 0, ["संजय मल्होत्रा को भारतीय रिजर्व बैंक (RBI) का नया गवर्नर नियुक्त किया गया है।", "RBI की स्थापना 1 अप्रैल 1935 को हुई थी।"]],
+            ["Q2. वर्तमान में भारत के मुख्य चुनाव आयुक्त (Chief Election Commissioner) कौन हैं?", "Who is the current Chief Election Commissioner of India?", ["ज्ञानेश कुमार", "Gyanesh Kumar", "राजीव कुमार", "Rajiv Kumar", "सुनील अरोड़ा", "Sunil Arora", "सुशील चंद्रा", "Sushil Chandra"], 0, ["ज्ञानेश कुमार भारत के वर्तमान मुख्य चुनाव आयुक्त हैं।", "भारतीय चुनाव आयोग की स्थापना 25 जनवरी 1950 को हुई थी (अनुच्छेद 324)।"]],
+            ["Q3. भारत के वर्तमान मुख्य न्यायाधीश (CJI) कौन हैं?", "Who is the current Chief Justice of India (CJI)?", ["जस्टिस सूर्य कांत", "Justice Surya Kant", "जस्टिस डी.वाई. चंद्रचूड़", "Justice D.Y. Chandrachud", "जस्टिस संजीव खन्ना", "Justice Sanjiv Khanna", "जस्टिस यू.यू. ललित", "Justice U.U. Lalit"], 0, ["जस्टिस सूर्य कांत वर्तमान में भारत के मुख्य न्यायाधीश (CJI) हैं।", "भारत के सर्वोच्च न्यायालय की स्थापना 28 जनवरी 1950 को हुई थी।"]],
+            ["Q4. 'खेलो इंडिया यूथ गेम्स 2025' (Khelo India Youth Games 2025) की मेजबानी कौन सा राज्य करेगा?", "Which state will host the 'Khelo India Youth Games 2025'?", ["बिहार", "Bihar", "हरियाणा", "Haryana", "मध्य प्रदेश", "Madhya Pradesh", "तमिलनाडु", "Tamil Nadu"], 0, ["खेलो इंडिया यूथ गेम्स 2025 का आयोजन बिहार राज्य में किया जा रहा है।", "इन खेलों का उद्देश्य ग्रासरूट स्तर पर खेल प्रतिभाओं को निखारना है।"]],
+            ["Q5. वर्ष 2025 में G20 शिखर सम्मेलन (G20 Summit 2025) का आयोजन किस देश में किया जाएगा?", "Which country will host the G20 Summit in 2025?", ["दक्षिण अफ्रीका", "South Africa", "ब्राजील", "Brazil", "भारत", "India", "इटली", "Italy"], 0, ["G20 शिखर सम्मेलन 2025 की अध्यक्षता और मेजबानी दक्षिण अफ्रीका करेगा।", "2023 में इसकी अध्यक्षता भारत ने और 2024 में ब्राज़ील ने की थी।"]],
+            ["Q6. 'BRICS शिखर सम्मेलन 2025' की अध्यक्षता कौन सा देश कर रहा है?", "Which country is hosting the 'BRICS Summit 2025'?", ["ब्राज़ील", "Brazil", "रूस", "Russia", "भारत", "India", "चीन", "China"], 0, ["BRICS शिखर सम्मेलन 2025 का आयोजन ब्राज़ील में होगा।", "BRICS में मूल रूप से ब्राज़ील, रूस, भारत, चीन और दक्षिण अफ्रीका शामिल हैं।"]],
+            ["Q7. ICC पुरुष 'T20 विश्व कप 2026' की सह-मेजबानी कौन से दो देश करेंगे?", "Which two countries will co-host the ICC Men's 'T20 World Cup 2026'?", ["भारत और श्रीलंका", "India and Sri Lanka", "भारत और बांग्लादेश", "India and Bangladesh", "ऑस्ट्रेलिया और न्यूजीलैंड", "Australia and New Zealand", "इंग्लैंड और वेस्टइंडीज", "England and West Indies"], 0, ["ICC T20 वर्ल्ड कप 2026 का आयोजन भारत और श्रीलंका द्वारा संयुक्त रूप से किया जाएगा।"]],
 
-const rawData = [
-["Q1. कागज मोड़ने का क्रम और जिस तरीके से मुड़ा हुआ कागज काटा जाता है, उसे निम्नलिखित आकृतियों में दिखाया गया है। यह कागज खोले जाने पर कैसा दिखेगा?<br><svg viewBox='0 0 120 40' width='120' height='40'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><line x1='20' y1='5' x2='20' y2='35' stroke='currentColor' stroke-dasharray='2,2'/><path d='M45 5 L75 5 L75 35 L45 35 Z' fill='none' stroke='currentColor'/><circle cx='60' cy='20' r='3' fill='currentColor'/></svg>","The sequence of folding a paper and the manner in which the folded paper is cut is shown in the following figures. How would this paper look when unfolded?",["<svg viewBox='0 0 40 40' width='50' height='50'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><circle cx='15' cy='15' r='2' fill='currentColor'/><circle cx='25' cy='25' r='2' fill='currentColor'/></svg>","<svg viewBox='0 0 40 40' width='50' height='50'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><circle cx='15' cy='15' r='2' fill='currentColor'/><circle cx='25' cy='25' r='2' fill='currentColor'/></svg>","<svg viewBox='0 0 40 40' width='50' height='50'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><circle cx='10' cy='20' r='2' fill='currentColor'/><circle cx='30' cy='20' r='2' fill='currentColor'/></svg>","<svg viewBox='0 0 40 40' width='50' height='50'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><circle cx='10' cy='20' r='2' fill='currentColor'/><circle cx='30' cy='20' r='2' fill='currentColor'/></svg>","<svg viewBox='0 0 40 40' width='50' height='50'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><circle cx='20' cy='10' r='2' fill='currentColor'/><circle cx='20' cy='30' r='2' fill='currentColor'/></svg>","<svg viewBox='0 0 40 40' width='50' height='50'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><circle cx='20' cy='10' r='2' fill='currentColor'/><circle cx='20' cy='30' r='2' fill='currentColor'/></svg>","<svg viewBox='0 0 40 40' width='50' height='50'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><circle cx='15' cy='20' r='2' fill='currentColor'/><circle cx='25' cy='20' r='2' fill='currentColor'/></svg>","<svg viewBox='0 0 40 40' width='50' height='50'><rect x='5' y='5' width='30' height='30' fill='none' stroke='currentColor'/><circle cx='15' cy='20' r='2' fill='currentColor'/><circle cx='25' cy='20' r='2' fill='currentColor'/></svg>"],3,2,["खोलने पर दर्पण प्रतिबिंब बनेगा, जिससे 2 क्षैतिज बिंदु दिखाई देंगे।"]],
-["Q2. विकल्पों में दी गई उस आकृति को पहचानें जिसे '?' के स्थान पर रखने पर श्रृंखला तार्किक रूप से पूरी हो जाएगी।<br> ◯ ➔ ✧ ➔ ◯ ➔ ✧ ➔ ?","Identify the figure given in the options which when put in place of '?' will logically complete the series.",["✧","✧","◯","◯","◇","◇","▱","▱"],0,2,["आकृतियाँ एकांतर (Alternate) क्रम में आ रही हैं। वृत्त के बाद सितारा/समचतुर्भुज है।"]],
-["Q3. उस वेन आरेख का चयन करें जो निम्नलिखित वर्गों के बीच संबंधों को सबसे अच्छा दर्शाता है: आलू, सब्जियां, अंगूर","Select the Venn diagram that best illustrates the relationship between the following classes: Potatoes, Vegetables, Grapes",[v3,v3,v2,v2,v1,v1,v4,v4],1,2,["आलू एक सब्जी है (अंदर आएगा), अंगूर फल है (बाहर रहेगा)।"]],
-["Q4. 15 एक निश्चित तर्क के अनुसार 45 से संबंधित है। उसी तर्क के अनुसार, 25, 125 से संबंधित है। निम्नलिखित में से कौन सी संख्या उसी तर्क का उपयोग करके 80 से संबंधित है?","15 is related to 45 following a certain logic. Following the same logic, 25 is related to 125. Which of the following numbers is related to 80 using the same logic?",["20","20","21","21","18","18","22","22"],0,2,["N × (N/5) = Result. x × (x/5) = 80 ➔ x² = 400 ➔ x = 20."]],
-["Q5. एक कूट भाषा में, 'DINESH' को 12-27-42-15-57-24 और 'VIRAT' को 66-27-54-3-60 के रूप में कूटबद्ध किया जाता है। उसी भाषा में 'GAUTAM' को कैसे कूटबद्ध किया जाएगा?","In a code language, 'DINESH' is coded as 12-27-42-15-57-24 and 'VIRAT' is coded as 66-27-54-3-60. How will 'GAUTAM' be coded in the same language?",["24-7-61-34-5-31","24-7-61-34-5-31","26-7-25-67-4-37","26-7-25-67-4-37","21-3-63-60-3-39","21-3-63-60-3-39","29-9-55-47-8-28","29-9-55-47-8-28"],2,2,["प्रत्येक अक्षर के स्थानीय मान (Place Value) को 3 से गुणा किया गया है।"]],
-["Q6. उस विकल्प आकृति का चयन करें जिसमें दी गई आकृति उसके भाग के रूप में सन्निहित है (घुमाने की अनुमति नहीं है)।<br><svg viewBox='0 0 50 50' width='50' height='50'><path d='M10 10 L40 10 L40 40' stroke='currentColor' stroke-width='4' fill='none'/><line x1='10' y1='10' x2='40' y2='40' stroke='currentColor' stroke-width='4'/></svg>","Select the option figure in which the given figure is embedded as its part (rotation is NOT allowed).",["<svg viewBox='0 0 50 50' width='40' height='40'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><line x1='5' y1='5' x2='45' y2='45' stroke='currentColor'/></svg>","<svg viewBox='0 0 50 50' width='40' height='40'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><line x1='5' y1='5' x2='45' y2='45' stroke='currentColor'/></svg>","<svg viewBox='0 0 50 50' width='40' height='40'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><path d='M5 5 L45 5 L45 45' stroke='currentColor' stroke-width='3' fill='none'/><line x1='5' y1='5' x2='45' y2='45' stroke='currentColor' stroke-width='3'/></svg>","<svg viewBox='0 0 50 50' width='40' height='40'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><path d='M5 5 L45 5 L45 45' stroke='currentColor' stroke-width='3' fill='none'/><line x1='5' y1='5' x2='45' y2='45' stroke='currentColor' stroke-width='3'/></svg>","<svg viewBox='0 0 50 50' width='40' height='40'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><circle cx='25' cy='25' r='10' stroke='currentColor' fill='none'/></svg>","<svg viewBox='0 0 50 50' width='40' height='40'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><circle cx='25' cy='25' r='10' stroke='currentColor' fill='none'/></svg>","<svg viewBox='0 0 50 50' width='40' height='40'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><line x1='5' y1='45' x2='45' y2='5' stroke='currentColor'/></svg>","<svg viewBox='0 0 50 50' width='40' height='40'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><line x1='5' y1='45' x2='45' y2='5' stroke='currentColor'/></svg>"],1,2,["आकृति समकोण त्रिभुज का ऊपरी हिस्सा है जो विकल्प B में छिपा है।"]],
-["Q7. उस सेट का चयन करें जिसमें संख्याएं उसी तरह से संबंधित हैं: (247, 349), (261, 363)","Select the set in which the numbers are related in the same way: (247, 349), (261, 363)",["(282, 382)","(282, 382)","(294, 396)","(294, 396)","(253, 358)","(253, 358)","(265, 369)","(265, 369)"],1,2,["पहली संख्या + 102 = दूसरी संख्या। 294 + 102 = 396."]],
-["Q8. दी गई श्रृंखला में प्रश्नवाचक चिह्न (?) का स्थान लेगा? CHO, DIP, EJQ, ?","Which of the following terms will replace the question mark (?) in the given series? CHO, DIP, EJQ, ?",["EJL","EJL","FKR","FKR","DIL","DIL","HMR","HMR"],1,2,["प्रत्येक अक्षर में +1 किया गया है। E(+1)=F, J(+1)=K, Q(+1)=R."]],
-["Q9. दिए गए समीकरण को संतुलित करने के लिए गणितीय चिह्नों के सही संयोजन का चयन करें: 13 * 7 * 12 * 4 * 15 * 65","Select the correct combination of mathematical signs to balance the given equation: 13 * 7 * 12 * 4 * 15 * 65",["-, x, =","-, x, =","+, +, +, =","+, +, +, =","+, =, -, x","+, =, -, x","+, -, x, =","+, -, x, ="],2,2,["विकल्प C: 13 + 7 = 12 - 4 x 15 (समीकरण संतुलित)।"]],
-["Q10. एक शादी के रिसेप्शन में, एक व्यक्ति ने दूल्हे की ओर इशारा किया और दूल्हे को अपने दादा के पुत्र के पुत्र का भाई बताया। दूल्हा उस आदमी का क्या लगता है?","At a wedding reception, a man pointed to the groom and described him as the brother of the son of the son of his grandfather. How is the groom related to that man?",["चाचा","Uncle","पिता","Father","भाई","Brother","साला/जीजा","Brother-in-law"],2,2,["दादा का पुत्र = पिता। पिता का पुत्र = स्वयं या भाई। पुत्र का भाई = भाई।"]],
-["Q11. दिए गए समीकरण को सही बनाने के लिए किन दो चिह्नों को आपस में बदला जाना चाहिए? 10 ÷ 63 x 7 + 90 - 80 = 100","Which two signs should be interchanged to make the given equation correct? 10 ÷ 63 x 7 + 90 - 80 = 100",["÷ और +","÷ and +","x और -","x and -","+ और -","+ and -","x और ÷","x and ÷"],3,2,["x और ÷ को बदलने पर: 10 x 63 ÷ 7 + 90 - 80 = 10 x 9 + 10 = 100."]],
-["Q12. यदि + का अर्थ -, - का अर्थ x, x का अर्थ ÷, ÷ का अर्थ + है, तो: 22 x 11 - 4 ÷ 50 + 500 = ?","If + means -, - means x, x means ÷, ÷ means +, then 22 x 11 - 4 ÷ 50 + 500 = ?",["350","350","650","650","550","550","450","450"],1,2,["चिह्न बदलने पर: 22 ÷ 11 x 4 + 50 - 500 = 8 + 50 - 500 (SSC Key: 650)."]],
-["Q13. CARS : HFWX :: BOAT : GTFY :: FUSE : ?","CARS : HFWX :: BOAT : GTFY :: FUSE : ?",["LAYK","LAYK","KZWI","KZWI","LAXJ","LAXJ","KZXJ","KZXJ"],3,2,["अक्षरों में +5 किया गया है। F(+5)=K, U(+5)=Z, S(+5)=X, E(+5)=J."]],
-["Q14. एक ही पासे की दो अलग-अलग स्थितियां दी गई हैं। 1 वाले फलक के विपरीत कौन सी संख्या है?<br><svg viewBox='0 0 100 50' width='100' height='50'><rect x='10' y='10' width='25' height='25' fill='none' stroke='currentColor'/><text x='18' y='28' fill='currentColor'>6</text><text x='12' y='18' font-size='8' fill='currentColor'>3</text><text x='28' y='32' font-size='8' fill='currentColor'>4</text> <rect x='50' y='10' width='25' height='25' fill='none' stroke='currentColor'/><text x='58' y='28' fill='currentColor'>6</text><text x='52' y='18' font-size='8' fill='currentColor'>2</text><text x='68' y='32' font-size='8' fill='currentColor'>5</text></svg>","Two different positions of the same dice are given. Which is the number on the face opposite 1?",["3","3","4","4","2","2","6","6"],3,2,["दोनों में 6 कॉमन है। क्लॉकवाइज घूमने पर शेष 1 बचता है जो 6 के विपरीत होगा।"]],
-["Q15. छह छात्र - अमन, बॉबी, चिंटू, गीता, प्रणय और राम - एक गोलाकार मेज के चारों ओर केंद्र की ओर मुख करके बैठे हैं... राम और बॉबी दोनों का निकटतम पड़ोसी कौन है?","Six students - Aman, Bobby... Who is the immediate neighbour of both Ram and Bobby?",["प्रणय","Pranay","चिंटू","Chintu","अमन","Aman","गीता","Gita"],2,2,["क्रम: गीता ➔ प्रणय ➔ बॉबी ➔ अमन ➔ राम ➔ चिंटू। बॉबी और राम के बीच अमन है।"]],
-["Q16. सैली एक मिनी स्कूल बस चलाती है... उसे कितनी दूर ड्राइव करना होगा?","Sally drives a mini school bus... How far would Sally need to drive to reach back to the school gate again?",["17 किमी","17 km","22 किमी","22 km","10 किमी","10 km","12 किमी","12 km"],2,2,["दिशा के अनुसार वह शुरुआती बिंदु से 10km दूर है।"]],
-["Q17. उस वेन आरेख का चयन कीजिये जो निम्नलिखित वर्गों के बीच के संबंध को दर्शाता है: चीता, पक्षी, चील","Select the Venn diagram: Cheetah, Bird, Eagle",[v3,v3,v1,v1,v2,v2,v4,v4],2,2,["चील एक पक्षी है, चीता जानवर है (अलग वृत्त)।"]],
-["Q18. दी गई श्रृंखला में प्रश्नवाचक चिह्न (?) का स्थान लेगी? 1, 6, 15, 28, ?, ?, 91","Which numbers will replace (?) in the series? 1, 6, 15, 28, ?, ?, 91",["40, 60","40, 60","42, 54","42, 54","45, 66","45, 66","44, 54","44, 54"],2,2,["अंतर: +5, +9, +13, +17, +21. 28+17=45, 45+21=66."]],
-["Q19. उस वेन आरेख का चयन करें: केले, सेब, अंगूर","Select the Venn diagram: Bananas, Apple, Grapes",[v2,v2,v1,v1,v3,v3,v4,v4],1,2,["तीनों अलग-अलग फल हैं, अतः 3 अलग-अलग वृत्त बनेंगे।"]],
-["Q20. एक कूट भाषा में, 'LAND' को 'IWKZ', और 'GOLD' को 'DKIZ' लिखा जाता है। उसी भाषा में 'TEAM' को कैसे लिखा जाएगा?","'LAND' is written as 'IWKZ'... 'TEAM' will be?",["QAXI","QAXI","XJQB","XJQB","QXJB","QXJB","JXQB","JXQB"],0,2,["अक्षरों में -3 किया गया है। T(-3)=Q."]],
-["Q21. श्रृंखला में प्रश्नवाचक चिह्न (?) का स्थान लेगी। 1, 1, 2, 3, 5, 8, 13, ?","1, 1, 2, 3, 5, 8, 13, ?",["22","22","21","21","24","24","20","20"],1,2,["फाइबोनैचि श्रृंखला: पिछली दो संख्याओं का योग अगली संख्या है (8+13 = 21)।"]],
-["Q22. विकल्पों में दी गई उस आकृति को पहचानें जिसे '?' के स्थान पर रखने पर श्रृंखला तार्किक रूप से पूरी हो जाएगी। ⇧ ➔ ✧ ➔ ⇧ ➔ ✧ ➔ ?","Identify the figure to complete the series.",["✧","✧","◯","◯","◇","◇","⇧","⇧"],3,2,["आकृतियों के रोटेशन के आधार पर।"]],
-["Q23. दी गई आकृति का सही दर्पण प्रतिबिंब (Mirror Image) चुनें।<br> <b style='font-size:18px;'>R k g E y w</b> | MN","Select the correct mirror image of the given figure.",["yw 3gR","yw 3gR","<span style='display:inline-block; transform:scaleX(-1); font-size:18px;'>RkgEyw</span>","<span style='display:inline-block; transform:scaleX(-1); font-size:18px;'>RkgEyw</span>","w y E g k R","w y E g k R","M y E g k R","M y E g k R"],1,2,["दर्पण प्रतिबिंब में अक्षर उल्टे हो जाते हैं (Left to Right)।"]],
-["Q24. किन दो चिह्नों को आपस में बदला जाना चाहिए? 2 + 10 x 12 - 4 ÷ 24 = 8","Find the two signs to be interchanged: 2 + 10 x 12 - 4 ÷ 24 = 8",["÷ और +","÷ and +","÷ और -","÷ and -","x और +","x and +","- और +","- and +"],1,2,["÷ और - को बदलने पर: 2 + 10 x 12 ÷ 4 - 24 = 2 + 30 - 24 = 8."]],
-["Q25. प्रीति बिंदु A से शुरू करती है... बिंदु B से बिंदु A तक पहुँचने के लिए कितनी दूर ड्राइव करना चाहिए?","Preeti starts from point A... How far should Preeti drive to reach point A from point B?",["9 किमी","9 km","6 किमी","6 km","7 किमी","7 km","8 किमी","8 km"],0,2,["दिशा के अनुसार वह A से 9km पूर्व में है।"]],
-["Q26. 'CUTE' को 'FQWA' और 'BLUE' को 'EHXA' लिखा जाता है। 'VOTE' को कैसे लिखा जाएगा?","'CUTE' is 'FQWA'... 'VOTE' is?",["AYWK","AYWK","YWAK","YWAK","YKAW","YKAW","YKWA","YKWA"],3,2,["व्यंजनों में +3 और स्वरों में -4 किया गया है। V(+3)=Y, O(-4)=K."]],
-["Q27. HEWC, KIRI, ?, QQHU, TUCA","HEWC, KIRI, ?, QQHU, TUCA",["NMMO","NMMO","PRZO","PRZO","NBTO","NBTO","JLSO","JLSO"],0,2,["H(+3)=K(+3)=N."]],
-["Q28. ABUSE : ASUBE :: BEGIN : BIGEN :: OTHER : ?","ABUSE : ASUBE :: BEGIN : BIGEN :: OTHER : ?",["ORTHE","ORTHE","OHTER","OHTER","OTHRE","OTHRE","OEHTR","OEHTR"],3,2,["बीच के तीन अक्षरों को रिवर्स किया गया है। T-H-E ➔ E-H-T."]],
-["Q29. तीन अक्षर-समूह एक निश्चित तरीके से समान हैं। कौन सा संबंधित नहीं है?","Which letter-cluster does not belong?",["PMS","PMS","URX","URX","JGM","JGM","SPU","SPU"],3,2,["P(-3)=M(+6)=S. S(-3)=P(+5)=U (यह अलग है)।"]],
-["Q30. 25, 40, 70, 115, 175, ?","25, 40, 70, 115, 175, ?",["200","200","275","275","250","250","225","225"],2,2,["अंतर: +15, +30, +45, +60, +75. 175+75=250."]],
-["Q31. (12, 36, 6) और (18, 54, 9) से संबंधित सेट?","Select the set related to (12, 36, 6) and (18, 54, 9)",["(28, 84, 16)","(28, 84, 16)","(28, 86, 14)","(28, 86, 14)","(28, 84, 14)","(28, 84, 14)","(26, 84, 14)","(26, 84, 14)"],2,2,["पहली संख्या × 3 = दूसरी संख्या। पहली संख्या ÷ 2 = तीसरी संख्या। 28 × 3 = 84, 28 ÷ 2 = 14."]],
-["Q32. 10 * 2 * 1 * 8 * 11 * 8 = ?","Replace * signs: 10 * 2 * 1 * 8 * 11 * 8",["-, x, =","-, x, =","+, ÷, +, =","+, ÷, +, =","+, -, x, +, =","+, -, x, +, =","+, =, -, x, +","+, =, -, x, +"],3,2,["विकल्प D सही है।"]],
-["Q33. उस विकल्प आकृति का चयन करें जिसमें दी गई आकृति सन्निहित है।<br> <svg viewBox='0 0 50 50' width='40' height='40'><path d='M10 10 L40 10 L40 40 L10 40 Z' stroke='currentColor' stroke-width='2' fill='none'/><line x1='10' y1='10' x2='40' y2='40' stroke='currentColor' stroke-width='2'/></svg>","Select the option figure embedded.",["<svg viewBox='0 0 50 50' width='30' height='30'><circle cx='25' cy='25' r='15' stroke='currentColor' fill='none'/></svg>","<svg viewBox='0 0 50 50' width='30' height='30'><circle cx='25' cy='25' r='15' stroke='currentColor' fill='none'/></svg>","<svg viewBox='0 0 50 50' width='30' height='30'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/></svg>","<svg viewBox='0 0 50 50' width='30' height='30'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/></svg>","<svg viewBox='0 0 50 50' width='30' height='30'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><line x1='5' y1='5' x2='45' y2='45' stroke='currentColor'/></svg>","<svg viewBox='0 0 50 50' width='30' height='30'><rect x='5' y='5' width='40' height='40' stroke='currentColor' fill='none'/><line x1='5' y1='5' x2='45' y2='45' stroke='currentColor'/></svg>","<svg viewBox='0 0 50 50' width='30' height='30'><path d='M10 40 L40 10' stroke='currentColor' fill='none'/></svg>","<svg viewBox='0 0 50 50' width='30' height='30'><path d='M10 40 L40 10' stroke='currentColor' fill='none'/></svg>"],2,2,["प्रश्न में एक वर्ग और उसका विकर्ण है जो विकल्प C में है।"]],
-["Q34. 7, 16, 43, 124, 367, ?","7, 16, 43, 124, 367, ?",["1086","1086","1096","1096","1066","1066","1076","1076"],1,2,["अंतर: 3², 3³, 3⁴, 3⁵... अगला 3⁶ (729)। 367+729=1096."]],
-["Q35. A + B का अर्थ... 'G + K - L ÷ M x Q' में G, Q से किस प्रकार संबंधित है?","Based on the relations, how is G related to Q in 'G+K-L÷MxQ'?",["बेटी","Daughter","बहन","Sister","पत्नी की बहन","Wife's Sister","बेटे की पत्नी","Son's wife"],3,2,["G, Q के बेटे की पत्नी / बहू है।"]],
-["Q36. 'FIND' को 'CLFB' और 'HOW' को 'VME' लिखा जाता है। 'WILL' को कैसे लिखा जाएगा?","'FIND' is 'CLFB'... 'WILL' is?",["KSFJ","KSFJ","SJFK","SJFK","SFJK","SFJK","KJFS","KJFS"],0,2,["क्रॉस कोडिंग और -3 पैटर्न लागू है।"]],
-["Q37. एक पासे पर 10, 20, 30, 40, 50 और 60 हैं। 50 के विपरीत क्या है?<br> पासा 1: 40, 20, 60. पासा 2: 30, 10, 60.","A dice has 10,20... Which face is opposite to 50?",["30","30","40","40","60","60","10","10"],2,2,["60 दोनों में कॉमन है, अतः 50, 60 के विपरीत होगा।"]],
-["Q38. अंग्रेजी शब्दकोश में सही क्रम? 1. Consistence 2. Conscience 3. Conflagration 4. Consequence 5. Considerable 6. Consignment","Dictionary order: 1. Consistence 2. Conscience...",["4, 3, 2, 5, 6, 1","4, 3, 2, 5, 6, 1","4, 2, 3, 5, 1, 6","4, 2, 3, 5, 1, 6","3, 4, 2, 5, 6, 1","3, 4, 2, 5, 6, 1","4, 3, 2, 4, 5, 6, 1","4, 3, 2, 4, 5, 6, 1"],3,2,["TCS की उत्तर कुंजी के अनुसार।"]],
-["Q39. '+' और 'x' तथा '-' और '÷' को आपस में बदलने पर? 14 - 7 x 10 ÷ 1 + 7 = ?","Interchange +/x and -/÷: 14 - 7 x 10 ÷ 1 + 7 = ?",["5","5","26","26","45","45","77","77"],0,2,["14 ÷ 7 + 10 - 1 x 7 = 2 + 10 - 7 = 5."]],
-["Q40. 'DICE' को 'EKFI'... 'LUDO' को कैसे लिखा जाएगा?","'DICE' is 'EKFI'... 'LUDO' is?",["NXES","NXES","NWES","NWES","MWGS","MWGS","MXES","MXES"],2,2,["L(+1)=M, U(+2)=W, D(+3)=G, O(+4)=S. उत्तर: MWGS."]],
-["Q41. 12 ➔ 40, 9 ➔ 31, 16 ➔ ?","12 ➔ 40, 9 ➔ 31, 16 ➔ ?",["52","52","51","51","61","61","63","63"],0,2,["तर्क: N × 3 + 4. 16 × 3 + 4 = 52."]],
-["Q42. FDKI, GCMG, ?, IAQC","FDKI, GCMG, ?, IAQC",["HBNF","HBNF","HBOE","HBOE","HBPF","HBPF","HBLE","HBLE"],1,2,["पहला अक्षर +1, दूसरा -1, तीसरा +2, चौथा -2."]],
-["Q43. (9, 36, 12) और (12, 48, 16) से संबंधित सेट?","Set related to (9, 36, 12)",["(21, 84, 24)","(21, 84, 24)","(21, 81, 28)","(21, 81, 28)","(21, 81, 24)","(21, 81, 24)","(21, 84, 28)","(21, 84, 28)"],3,2,["पहली संख्या × 4 = दूसरी संख्या। दूसरी संख्या ÷ 3 = तीसरी संख्या। 84 ÷ 3 = 28."]],
-["Q44. दी गई आकृति का सही दर्पण प्रतिबिंब चुनें।<br> <b style='font-size:18px;'>L 2 7 A e f</b> | MN","Select the correct mirror image.",["f e A 7 2 L","f e A 7 2 L","f e A 7 2 L","f e A 7 2 L","f e A 7 2 L","f e A 7 2 L","<span style='display:inline-block; transform:scaleX(-1); font-size:18px;'>L27Aef</span>","<span style='display:inline-block; transform:scaleX(-1); font-size:18px;'>L27Aef</span>"],3,2,["अक्षर उल्टे हो जाएंगे।"]],
-["Q45. 'RACE' को 'VWGA'... 'STEM' को कैसे लिखा जाएगा?","'RACE' is 'VWGA'... 'STEM' is?",["IIWP","IIWP","WIPI","WIPI","WIIP","WIIP","WPII","WPII"],3,2,["पैटर्न लागू करने पर WPII आता है।"]],
-["Q46. अंग्रेजी शब्दकोश में सही क्रम? 1- Literacy 2- Literature 3- Litany 4- Listen 5- Lithograph","Dictionary order: 1- Literacy 2- Literature...",["4, 3, 1, 2, 5","4, 3, 1, 2, 5","3, 4, 1, 2, 5","3, 4, 1, 2, 5","1, 4, 3, 2, 5","1, 4, 3, 2, 5","4, 1, 3, 5, 2","4, 1, 3, 5, 2"],0,2,["Listen, Litany, Literacy..."]],
-["Q47. 6 _ 2 _ 0 _ 8 = 20","6 _ 2 _ 0 _ 8 = 20",["+, -, +","+, -, +","+, +, x","+, +, x","x, +, +","x, +, +","-, ÷, +","-, ÷, +"],2,2,["6 x 2 + 0 + 8 = 12 + 8 = 20."]],
-["Q48. एक ही पासे की दो अलग-अलग स्थितियाँ हैं। 8 के विपरीत क्या होगा? पासा 1: 5, 6, 3. पासा 2: 7, 2, 8.","Dice. Opposite to 8?",["6","6","2","2","3","3","7","7"],3,2,["TCS उत्तर कुंजी के अनुसार 8 के विपरीत 7 होगा।"]],
-["Q49. प्रश्नवाचक चिह्न (?) को प्रतिस्थापित करने वाली आकृति?","Figure to replace (?)",["A","A","B","B","C","C","D","D"],1,2,["रोटेशन और शिफ्टिंग पैटर्न के आधार पर।"]],
-["Q50. उस वेन आरेख का चयन करें: कुत्ते, बिल्लियां, लैब्राडोर","Select the Venn diagram: Dogs, Cats, Labradors",[v3,v3,v2,v2,v1,v1,v4,v4],1,2,["लैब्राडोर कुत्तों की नस्ल है (अंदर), बिल्लियां अलग हैं (बाहर)।"]]
+            // --- PREVIOUS YEAR QUESTIONS (SSC CPO 27 June 2024 S1) ---
+            ["Q8. सुकन्या समृद्धि खाता योजना के तहत, एक वित्तीय वर्ष में न्यूनतम कितनी राशि जमा करने की आवश्यकता होती है?", "Under the Sukanya Samriddhi Account Yojana, minimum how much money needs to be deposited in one financial year?", ["₹250", "₹250", "₹150", "₹150", "₹100", "₹100", "₹200", "₹200"], 0, ["सुकन्या समृद्धि योजना (SSY) में एक वित्तीय वर्ष में न्यूनतम ₹250 जमा करने होते हैं।", "यह योजना 'बेटी बचाओ बेटी पढ़ाओ' अभियान का एक हिस्सा है।"]],
+            ["Q9. केंद्र सरकार ने किस वर्ष राष्ट्रीय वायु खेल नीति (National Air Sports Policy) शुरू की थी?", "The Central Government launched the National Air Sports Policy in the year", ["2020", "2020", "2021", "2021", "2019", "2019", "2022", "2022"], 3, ["नागरिक उड्डयन मंत्रालय ने जून 2022 में राष्ट्रीय वायु खेल नीति (NASP 2022) लॉन्च की।"]],
+            ["Q10. कौन सी घटना ठोसकरण (Solidification) के विपरीत है?", "Which phenomenon is opposite to solidification?", ["गलन (Fusion)", "Fusion", "वाष्पीकरण (Vaporisation)", "Vaporisation", "ऊर्ध्वपातन (Sublimation)", "Sublimation", "संघनन (Condensation)", "Condensation"], 0, ["ठोस का द्रव में बदलना गलन (Fusion) कहलाता है, जो ठोसकरण (तरल से ठोस) का विपरीत है।"]],
+            ["Q11. भारतीय संविधान के किस अनुच्छेद में उल्लेख है कि जब एक ही व्यक्ति को दो या अधिक राज्यों का राज्यपाल नियुक्त किया जाता है, तो उसे देय परलब्धियां उन राज्यों के बीच आवंटित की जाएंगी?", "Which Article mentions that where the same person is appointed as Governor of two or more states, emoluments shall be allocated?", ["अनुच्छेद 160", "Article 160", "अनुच्छेद 155", "Article 155", "अनुच्छेद 158", "Article 158", "अनुच्छेद 157", "Article 157"], 2, ["अनुच्छेद 158(3A) के अनुसार, यदि एक ही व्यक्ति दो या अधिक राज्यों का राज्यपाल बनता है, तो उसका वेतन राज्यों द्वारा तय अनुपात में साझा किया जाता है।"]],
+            ["Q12. निम्नलिखित में से 'द गाइड' (The Guide) पुस्तक के लेखक कौन हैं?", "Who among the following is the author of the book 'The Guide'?", ["आर. के. नारायण", "R.K. Narayan", "विक्रम चंद्रा", "Vikram Chandra", "शशि थरूर", "Shashi Tharoor", "रोहिंटन मिस्त्री", "Rohinton Mistry"], 0, ["'द गाइड' के लेखक प्रसिद्ध भारतीय अंग्रेजी साहित्यकार आर. के. नारायण हैं।"]],
+            ["Q13. निम्नलिखित में से कौन सा नृत्य उड़िया संस्कृति का हिस्सा नहीं है?", "Which of the following dances is NOT a part of the Odia culture?", ["कथकली", "Kathakali", "गोतीपुआ", "Gotipua", "पाइका", "Paika", "डालखाई", "Dalkhai"], 0, ["कथकली केरल का शास्त्रीय नृत्य है, जबकि गोतीपुआ, पाइका और डालखाई ओडिशा के सांस्कृतिक नृत्य हैं।"]],
+            ["Q14. गतिशील जीवाणु कोशिकाओं में उनकी कोशिका भित्ति से निकलने वाले पतले तंतुमय विस्तार को क्या कहा जाता है?", "What are the thin filamentous extensions that motile bacterial cells have from their cell wall called?", ["कशाभिका (Flagella)", "Flagella", "पिली (Pili)", "Pili", "फ़िमब्री (Fimbriae)", "Fimbriae", "लैमेले (Lamellae)", "Lamellae"], 0, ["जीवाणुओं में गति के लिए जिम्मेदार पतले तंतुमय विस्तार को 'कशाभिका' (Flagella) कहा जाता है।"]],
+            ["Q15. प्रसिद्ध संगीतकार भूपेन हजारिका को किस वर्ष 'भारत रत्न' से सम्मानित किया गया था?", "Famous musician Bhupen Hazarika was awarded the 'Bharat Ratna' in which year?", ["2017", "2017", "2015", "2015", "2011", "2011", "2019", "2019"], 3, ["असम के महान संगीतकार भूपेन हजारिका को वर्ष 2019 में मरणोपरांत भारत रत्न दिया गया।"]],
+            ["Q16. भारत में 'स्वयं सहायता समूह - बैंक लिंक कार्यक्रम' (SHG-BLP) किस वर्ष शुरू किया गया था?", "In which year was 'Self Help Group - Bank Linkage Programme' (SHG-BLP) introduced in India?", ["1996", "1996", "2000", "2000", "1992", "1992", "1984", "1984"], 2, ["NABARD द्वारा 1992 में स्वयं सहायता समूह - बैंक लिंक कार्यक्रम की शुरुआत की गई थी।"]],
+            ["Q17. हिंदू कैलेंडर के अनुसार, दिवाली निम्नलिखित में से किस महीने में आती है?", "According to Hindu calendar, Diwali falls in which of the following months?", ["माघ", "Magha", "अश्विन", "Ashwin", "चैत्र", "Chaitra", "कार्तिक", "Kartika"], 3, ["दिवाली कार्तिक मास की अमावस्या को मनाई जाती है।"]],
+            ["Q18. भारत के वित्त आयोग (Finance Commission) का उल्लेख किस अनुच्छेद में मिलता है?", "In which Article does the Finance Commission of India find a mention?", ["अनुच्छेद 370", "Article 370", "अनुच्छेद 280", "Article 280", "अनुच्छेद 375", "Article 375", "अनुच्छेद 292", "Article 292"], 1, ["भारतीय संविधान के अनुच्छेद 280 के तहत वित्त आयोग के गठन का प्रावधान है।"]],
+            ["Q19. जैविक विविधता अधिनियम 2002 ने राज्य के नीति निर्देशक तत्वों के किस अनुच्छेद के आदर्शों को पूरा किया?", "Biological Diversity Act 2002 fulfilled ideals of which article of DPSP in Indian Constitution?", ["अनुच्छेद 48", "Article 48", "अनुच्छेद 48A", "Article 48A", "अनुच्छेद 49", "Article 49", "अनुच्छेद 47", "Article 47"], 1, ["अनुच्छेद 48A पर्यावरण के संरक्षण और संवर्धन तथा वनों एवं वन्यजीवों की रक्षा से संबंधित है।"]],
+            ["Q20. मणिपुरी नृत्य में लास्य और तांडव तत्वों के अनुरूप दो मुख्य भाग कौन से हैं?", "What are the two main parts corresponding to Lasya and Tandava elements in Manipuri dance?", ["भंगी और स्त्री", "Bhangi and Stri", "जागोई और चोलम", "Jagoi and Cholom", "वर्णम और परन", "Varnam and Paran", "वीरा और तोडा", "Vira and Toda"], 1, ["मणिपुरी नृत्य में जागोई (लास्य) और चोलम (तांडव) दो प्रमुख भाग हैं।"]],
+            ["Q21. श्यामामणि देवी को संगीत में उनके योगदान के लिए 2022 में पद्म श्री से सम्मानित किया गया था। वह किस संगीत से जुड़ी हैं?", "Shyamamani Devi was awarded the Padma Shri in 2022 for her contributions to music.", ["ओडिशा (Odishi)", "Odishi", "गुजराती", "Gujarati", "तमिल", "Tamil", "मलयाली", "Malayali"], 0, ["श्यामामणि देवी ओडिशा की प्रसिद्ध शास्त्रीय गायिका हैं।"]],
+            ["Q22. निम्नलिखित में से कौन सा पंचवर्षीय योजनाओं के चार प्राथमिक लक्ष्यों में से एक नहीं था?", "Which of the following is NOT one of the four primary explicit goals of five-year plans?", ["समानता (Equity)", "Equity", "आत्मनिर्भरता (Self-reliance)", "Self-reliance", "शिक्षा (Education)", "Education", "समृद्धि (Growth)", "Growth"], 2, ["पंचवर्षीय योजनाओं के 4 मुख्य लक्ष्य थे: विकास (Growth), आधुनिकीकरण (Modernisation), आत्मनिर्भरता (Self-reliance) और समानता (Equity)।"]],
+            ["Q23. भारतीय संविधान के किस अनुच्छेद के अनुसार मंत्री परिषद सामूहिक रूप से लोकसभा के प्रति उत्तरदायी होती है?", "As per which Article of the Indian Constitution, the Council of Ministers are collectively responsible to Lok Sabha?", ["अनुच्छेद 75(3)", "Article 75(3)", "अनुच्छेद 74(1)", "Article 74(1)", "अनुच्छेद 73(2)", "Article 73(2)", "अनुच्छेद 72(1)", "Article 72(1)"], 0, ["अनुच्छेद 75(3) के अनुसार मंत्रिपरिषद सामूहिक रूप से लोकसभा के प्रति उत्तरदायी होती है।"]],
+            ["Q24. निम्नलिखित में से कौन सा कारक किसी स्थान की जलवायु को नियंत्रित नहीं करता है?", "Which of the following factors does NOT control the climate of a place?", ["अक्षांश", "Latitude", "दो शहरों के बीच की दूरी", "Distance between two cities", "महासागरीय धाराएं", "Ocean currents", "उच्चावच लक्षण", "Relief features"], 1, ["दो शहरों के बीच की दूरी किसी स्थान की जलवायु को प्रभावित नहीं करती है।"]],
+            ["Q25. भारतीय शासकों से घनिष्ठ संबंध रखने वाले शैलेंद्र राजा किस धर्म के अनुयायी थे?", "The Shailendra kings who had close contacts with Indian rulers were followers of which religion?", ["जैन धर्म", "Jainism", "वैष्णव धर्म", "Vaishnavism", "शैव धर्म", "Shaivism", "बौद्ध धर्म", "Buddhism"], 3, ["इंडोनेशिया के शैलेंद्र राजवंश के राजा महायान बौद्ध धर्म के अनुयायी थे।"]],
+            ["Q26. CH3-CH2-CH2-CH2-CH2-CH3 संरचनात्मक सूत्र वाले हाइड्रोकार्बन का नाम क्या है?", "Select the name of the hydrocarbon with a structural formula CH3-CH2-CH2-CH2-CH2-CH3.", ["2,2-डाइमिथाइलब्यूटेन", "2,2-Dimethylbutane", "3-मिथाइल हेक्सेन", "3-methyl hexane", "n-हेक्सेन (n-Hexane)", "n-Hexane", "2-मिथाइलपेंटेन", "2-Methylpentane"], 2, ["6 कार्बन परमाणुओं की सीधी श्रृंखला वाले संतृप्त हाइड्रोकार्बन को n-Hexane (n-हेक्सेन) कहते हैं।"]],
+            ["Q27. भारत के पूर्वी घाटों की औसत ऊंचाई कितनी है?", "What is the average elevation of the Eastern Ghats of India?", ["400 मीटर", "400 metres", "200 मीटर", "200 metres", "900 मीटर", "900 metres", "600 मीटर", "600 metres"], 3, ["पूर्वी घाट की औसत ऊंचाई लगभग 600 मीटर है, जबकि पश्चिमी घाट की औसत ऊंचाई 900-1600 मीटर है।"]],
+            ["Q28. सेल्यूकस प्रथम द्वारा चंद्रगुप्त मौर्य के दरबार में निम्नलिखित में से किस राजदूत को भेजा गया था?", "Who among the following envoys was sent by Seleucus I to the court of Chandragupta Maurya?", ["फाहियान", "Fa-Hien", "डिमैचस", "Deimachus", "अल-बिरूनी", "Al-Biruni", "मेगास्थनीज (Megasthenes)", "Megasthenes"], 3, ["यूनानी राजा सेल्यूकस निकेटर ने मेगास्थनीज को चंद्रगुप्त मौर्य के दरबार में भेजा था, जिसने 'इंडिका' लिखी।"]],
+            ["Q29. मुद्रा (MUDRA) योजना में M का क्या अर्थ है?", "What does M stand for in MUDRA yojana?", ["माइक्रो (Micro)", "Micro", "मनी", "Money", "मेजर", "Major", "मैक्रो", "Macro"], 0, ["MUDRA का पूर्ण रूप 'Micro Units Development and Refinance Agency' है।"]],
+            ["Q30. उस्ताद असद अली खान किस वाद्ययंत्र के उस्ताद थे?", "Ustad Asad Ali Khan was one of the masters of the", ["मृदंगम", "mridangam", "रुद्र वीणा (Rudra veena)", "rudra veena", "सारंगी", "sarangi", "तानपुरा", "tanpura"], 1, ["उस्ताद असद अली खान भारत के प्रसिद्ध 'रुद्र वीणा' वादक थे।"]],
+            ["Q31. निम्नलिखित में से कौन सा कार्यक्रम दसवीं पंचवर्षीय योजना का हिस्सा नहीं है?", "Which of the following programmes is NOT a part of the Tenth Five-Year Plan?", ["जूट प्रौद्योगिकी मिशन", "Jute Technology Mission", "सूखा प्रवण क्षेत्र कार्यक्रम (Drought Prone Area Prog)", "Drought Prone Area Programme", "राष्ट्रीय बागवानी मिशन", "National Horticulture Mission", "सूक्ष्म सिंचाई कार्यक्रम", "Micro Irrigation Programme"], 1, ["सूखा प्रवण क्षेत्र कार्यक्रम (DPAP) चौथी पंचवर्षीय योजना (1973-74) में शुरू किया गया था।"]],
+            ["Q32. स्वस्थ भोजन के लिए भारतीय खाद्य गाइड पिरामिड में निम्नलिखित में से किसे शामिल नहीं किया गया है?", "Which of the following is NOT included in the Indian Food Guide Pyramid for healthy eating?", ["वसा और चीनी", "Fats and sugar", "दालें और फलियां", "Pulses and legumes", "दूध और मांस उत्पाद", "Milk, meat and products", "मादक पेय (Alcoholic beverages)", "Alcoholic beverages"], 3, ["भारतीय खाद्य पिरामिड में मादक पेय (शराब) को शामिल नहीं किया गया है।"]],
+            ["Q33. दक्षिण आंध्र प्रदेश का कौन सा बायोस्फीयर रिजर्व लाल चंदन और स्लेंडर लोरिस के लिए प्रसिद्ध है?", "Which biosphere of Southern Andhra Pradesh is home to Red Sanders and Slender Loris?", ["कोल डेजर्ट", "Cold Desert", "शेषाचलम (Seshachalam)", "Seshachalam", "पचमढ़ी", "Pachmarhi", "अगस्त्यमलाई", "Agasthyamalai"], 1, ["शेषाचलम बायोस्फीयर रिजर्व आंध्र प्रदेश के पूर्वी घाटों में स्थित है।"]],
+            ["Q34. निम्नलिखित में से कौन सा भारतीय नागरिक का मौलिक कर्तव्य नहीं है?", "Which of the following is NOT a fundamental duty of an Indian citizen?", ["सांस्कृतिक विरासत का संरक्षण", "Preserve rich heritage", "सार्वजनिक चुनावों में मतदान करना (To vote in public elections)", "To vote in public elections", "सार्वजनिक संपत्ति की सुरक्षा", "Safeguard public property", "भारत की संप्रभुता की रक्षा", "Uphold sovereignty"], 1, ["आम चुनावों में मतदान करना एक कानूनी/संवैधानिक अधिकार है, मौलिक कर्तव्य नहीं।"]],
+            ["Q35. निम्नलिखित में से कौन सी पर्वत चोटी काराकोरम श्रेणी में स्थित है?", "Which of the following mountain peaks is located in the Karakoram Range?", ["त्रिशूल", "Trishul", "नंदा देवी", "Nanda Devi", "K2 (गॉडविन ऑस्टिन)", "K2", "कामेत", "Kamet"], 2, ["K2 (गॉडविन ऑस्टिन) भारत की सबसे ऊंची चोटी है जो काराकोरम श्रेणी में स्थित है।"]],
+            ["Q36. बैगा समुदाय के आदिवासी नर्तक अर्जुन सिंह धुर्वे को 2022 में किस सम्मान से सम्मानित किया गया?", "Arjun Singh Dhurve, a tribal dancer from the Baiga community, received Padma Shri in 2022.", ["पद्म श्री", "Padma Shri", "पद्म भूषण", "Padma Bhushan", "पद्म विभूषण", "Padma Vibhushan", "संगीत नाटक अकादमी", "Sangeet Natak Akademi"], 0, ["बैगा लोक नृत्य को बढ़ावा देने के लिए अर्जुन सिंह धुर्वे को पद्म श्री मिला।"]],
+            ["Q37. यूरोप से भारत तक समुद्री मार्ग की खोज करने वाला वास्कोडिगामा किस देश का निवासी था?", "Vasco da Gama, who discovered the sea route to India, belonged to which nation?", ["स्पेन", "Spain", "पुर्तगाल (Portugal)", "Portugal", "इंग्लैंड", "England", "जर्मनी", "Germany"], 1, ["वास्कोडिगामा पुर्तगाल का नाविक था जो 1498 में कालीकट (केरल) पहुंचा था।"]],
+            ["Q38. किस चक्र में अवसादी (Sedimentary) और गैसीय (Gaseous) दोनों चक्र शामिल होते हैं?", "Which cycle consists of sedimentary and gaseous cycles?", ["जैव-भू-रासायनिक चक्र (Biogeochemical cycle)", "Biogeochemical cycle", "बायोजियोगैसीय चक्र", "Biogeogaseous cycle", "जैव रासायनिक चक्र", "Biochemical cycle", "बायोजियो चक्र", "Biogeo cycle"], 0, ["जैव-भू-रासायनिक चक्र (Biogeochemical cycle) दो प्रकार के होते हैं: गैसीय (नाइट्रोजन, कार्बन) और अवसादी (फास्फोरस, सल्फर)।"]],
+            ["Q39. 'कथासरित्सागर' (Kathasaritsagara) मूल रूप से किस भाषा में रची गई थी?", "Kathasaritsagara was originally composed in which language?", ["तमिल", "Tamil", "प्राकृत", "Prakrit", "संस्कृत (Sanskrit)", "Sanskrit", "पालि", "Pali"], 2, ["कथासरित्सागर की रचना 11वीं शताब्दी में सोमदेव द्वारा संस्कृत भाषा में की गई थी।"]],
+            ["Q40. महाराष्ट्र में विधवा पुनर्विवाह के अग्रदूत कौन थे जिन्होंने अपनी पत्नी के साथ पूना में लड़कियों का स्कूल खोला?", "Who was the pioneer of widow remarriages in Maharashtra and started a girls' school in Poona?", ["बी.आर. अंबेडकर", "BR Ambedkar", "ज्योतिराव गोविंदराव फुले", "Jyotirao Govindrao Phule", "गोपाल हरि देशमुख", "Gopal Hari Deshmukh", "महात्मा गांधी", "Mahatma Gandhi"], 1, ["महात्मा ज्योतिबा फुले और उनकी पत्नी सावित्रीबाई फुले ने 1848 में पुणे में भारत का पहला बालिका विद्यालय खोला था।"]],
+            ["Q41. NHAI द्वारा निर्मित स्वर्ण चतुर्भुज (Golden Quadrilateral) की कुल लंबाई कितनी है?", "What is the total length of Golden Quadrilateral built by NHAI?", ["4658 किमी", "4658 km", "5790 किमी", "5790 km", "5978 किमी", "5978 km", "5846 किमी", "5846 km"], 3, ["स्वर्णिम चतुर्भुज भारत के चार प्रमुख महानगरों (दिल्ली, मुंबई, चेन्नई, कोलकाता) को जोड़ता है और इसकी लंबाई 5846 किमी है।"]],
+            ["Q42. 2011 की जनगणना के अनुसार भारत में सबसे कम साक्षरता दर किस राज्य की है?", "Which state has the lowest literacy rate as per Census of India 2011?", ["ओडिशा", "Odisha", "बिहार (Bihar)", "Bihar", "झारखंड", "Jharkhand", "तमिलनाडु", "Tamil Nadu"], 1, ["2011 की जनगणना के अनुसार बिहार की साक्षरता दर सबसे कम (61.8%) दर्ज की गई थी।"]],
+            ["Q43. 1872 में एक जर्मन पत्रिका में प्रकाशित मेंडलीव की आवर्त सारणी में कितने समूह (Groups) थे?", "Which represented Mendeleev's Periodic Table published in 1872?", ["8 समूह (VIII Groups)", "VIII Groups", "6 समूह", "VI Groups", "7 समूह", "VII Groups", "10 समूह", "X Groups"], 0, ["मेंडलीव की मूल आवर्त सारणी में 8 वर्टिकल कॉलम थे जिन्हें समूह (Groups I to VIII) कहा गया।"]],
+            ["Q44. हिंदू कैलेंडर के किस महीने में दशहरा मनाया जाता है?", "Dussehra is celebrated in which month of the Hindu calendar?", ["चैत्र", "Chaitra", "आश्विन (Ashvina)", "Ashvina", "कार्तिक", "Kartika", "आषाढ़", "Asada"], 1, ["दशहरा (विजयादशमी) का त्योहार आश्विन मास के शुक्ल पक्ष की दशमी तिथि को मनाया जाता है।"]],
+            ["Q45. बांधों और नदियों का सही मिलान करें: (a) हीराकुड (b) नागार्जुन सागर (c) सरदार सरोवर (d) टिहरी", "Match: (a) Hirakud (b) Nagarjuna Sagar (c) Sardar Sarovar (d) Tehri with Rivers", ["a-iv, b-iii, c-ii, d-v", "a-iv, b-iii, c-ii, d-v", "a-iii, b-iv, c-ii, d-v", "a-iii, b-iv, c-ii, d-v", "a-i, b-iii, c-ii, d-v", "a-i, b-iii, c-ii, d-v", "a-iv, b-ii, c-iii, d-v", "a-iv, b-ii, c-iii, d-v"], 0, ["हीराकुड ➔ महानदी, नागार्जुन सागर ➔ कृष्णा, सरदार सरोवर ➔ नर्मदा, टिहरी ➔ भागीरथी।"]],
+            ["Q46. निम्नलिखित में से कौन सा विराम के जड़त्व (Inertia at rest) का उदाहरण नहीं है?", "Which of the following is NOT an example of inertia at rest?", ["कपड़ा झाड़ते समय धूल कण गिरना", "Dust falling while dusting", "वाहन चालू होने पर पीछे गिरना", "Falling backward when vehicle starts", "पेड़ हिलाने पर फल गिरना", "Detachment of fruits", "वाहन में अचानक ब्रेक लगाना", "Sudden application of brakes"], 3, ["चलती वाहन में अचानक ब्रेक लगाने पर आगे झुकना 'गति के जड़त्व' (Inertia of motion) का उदाहरण है।"]],
+            ["Q47. किस अभिनेता की आत्मकथा का शीर्षक 'बैड मैन' (Bad Man) है?", "Which actor's autobiography is titled 'Bad Man'?", ["अमरीश पुरी", "Amrish Puri", "आशीष विद्यार्थी", "Ashish Vidyarthi", "रजा मुराद", "Raza Murad", "गुलशन ग्रोवर (Gulshan Grover)", "Gulshan Grover"], 3, ["बॉलीवुड के प्रसिद्ध खलनायक गुलशन ग्रोवर की आत्मकथा का नाम 'बैड मैन' है।"]],
+            ["Q48. आंदोलनों को उनके संस्थापकों से मिलाएं: (a) फराइजी आंदोलन (b) वहाबी आंदोलन", "Match Movements: (a) Faraizi Movement (b) Wahabi Movement", ["a-हाजी शरीअतुल्लाह, b-सैयद अहमद", "a-Haji Shariatullah, b-Sayyid Ahmad", "a-सैयद अहमद, b-हाजी शरीअतुल्लाह", "a-Sayyid Ahmad, b-Haji Shariatullah", "a-सर सैयद, b-नवाब लतीफ", "a-Sir Syed, b-Nawab Latif", "a-नवाब लतीफ, b-सर सैयद", "a-Nawab Latif, b-Sir Syed"], 0, ["फराइजी आंदोलन की शुरुआत हाजी शरीअतुल्लाह ने और वहाबी आंदोलन की शुरुआत रायबरेली के सैयद अहमद ने की थी।"]],
+            ["Q49. अनाज में कौन सा प्रोटीन पाया जाता है?", "Which protein is found in grains?", ["ग्लूटेन / आर्जिनिन (Arginine)", "Arginine / Gluten", "गम प्रोटीन", "Gum protein", "डेल्टा प्रोटीन", "Delta protein", "एल्ब्यूमिन", "Albumin"], 0, ["अनाज (जैसे गेहूं, चावल) में आर्जिनिन (Arginine) एमीनो एसिड और मुख्य रूप से ग्लूटेन (Gluten) प्रोटीन पाया जाता है।"]],
+            ["Q50. कॉमनवेल्थ फेंसिंग चैंपियनशिप 2022 की मेजबानी किस देश ने की थी?", "The Commonwealth Fencing Championship 2022 was hosted by:", ["ऑस्ट्रेलिया", "Australia", "यूनाइटेड किंगडम (UK)", "United Kingdom", "कनाडा", "Canada", "भारत", "India"], 1, ["कॉमनवेल्थ फेंसिंग चैंपियनशिप 2022 यूनाइटेड किंगडम (लंदन) में आयोजित की गई थी।"]]
+        ]
+    },
+    {
+        name: "Quantitative Aptitude",
+        cat: 2,
+        questions: []
+    },
+    {
+        name: "English Comprehension",
+        cat: 3,
+        questions: []
+    }
 ];
 
-const finalQuestions = rawData.map(d => {
-    let qText = d[1] ? `${d[0]}<br><span class='bilingual-eng'>${d[1]}</span>` : d[0];
-    let opts = [];
-    for(let i=0; i<8; i+=2) {
-        opts.push(d[2][i] === d[2][i+1] || d[2][i+1] === "" ? d[2][i] : `${d[2][i]} / ${d[2][i+1]}`);
-    }
-    let ansIdx = d[3];
-    let cat = d[4];
-    let expText = "";
-    let ansStr = opts[ansIdx];
-    
-    let facts = (d[5] && Array.isArray(d[5])) ? d[5].map(f => `<li>${f}</li>`).join('') : "";
+let examData = rawSections.map(sec => {
+    return {
+        sectionName: sec.name,
+        questions: sec.questions.map(d => {
+            let qText = d[1] ? `${d[0]}<br><span class='bilingual-eng'>${d[1]}</span>` : d[0];
+            let opts = [];
+            for(let i=0; i<8; i+=2) {
+                opts.push(d[2][i] === d[2][i+1] || d[2][i+1] === "" ? d[2][i] : `${d[2][i]} / ${d[2][i+1]}`);
+            }
+            let ansIdx = d[3];
+            let expText = "";
+            let ansStr = opts[ansIdx];
+            let facts = (d[4] && Array.isArray(d[4])) ? d[4].map(f => `<li>${f}</li>`).join('') : "";
 
-    if(cat === 1) { // GK
-        expText = `<b>हल / Solution:</b> ${ansStr}<br><br>💡 <b>प्रमुख तथ्य / Key Facts:</b><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
-    } else if (cat === 2) { // Math/Reasoning
-        expText = `<b>हल / Solution:</b> ${ansStr}<br><br><span class='math-trick'>🔥 तर्क एवं विश्लेषण / Reasoning & Analysis:</span><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
-    } else if (cat === 3) { // English
-        expText = `<b>हल / Solution:</b> ${ansStr}<br><br><span class='grammar-rule'>📖 Grammar Rule & Explanation:</span><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
-    }
-    return { q: qText, o: opts, a: ansIdx, e: expText };
+            if(sec.cat === 1) { 
+                expText = `<b>हल / Solution:</b> ${ansStr}<br><br>💡 <b>प्रमुख तथ्य / Key Facts:</b><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
+            } else if (sec.cat === 2) { 
+                expText = `<b>हल / Solution:</b> ${ansStr}<br><br><span class='math-trick'>🔥 तर्क एवं विश्लेषण / Reasoning & Analysis:</span><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
+            } else if (sec.cat === 3) { 
+                expText = `<b>हल / Solution:</b> ${ansStr}<br><br><span class='grammar-rule'>📖 Grammar Rule & Explanation:</span><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
+            }
+            return { q: qText, o: opts, a: ansIdx, e: expText };
+        })
+    };
 });
 
-const STORAGE_KEY = 'cpo_mock_part1_active'; 
-const COMPLETED_KEY = 'cpo_mock_part1_comp';
-let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { started: false, submitted: false, currentQ: 0, answers: {}, status: {}, timeLeft: 120 * 60 };
+const STORAGE_KEY = 'cpo_mock_master_active'; 
+const COMPLETED_KEY = 'cpo_mock_master_comp';
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { started: false, submitted: false, currentSec: 0, currentQ: 0, answers: [], status: [], timeLeft: 120 * 60 };
 let timerInterval;
 
-window.addEventListener('DOMContentLoaded', () => { initDashboard(); });
+function initializeStateArrays() {
+    if(!state.answers || state.answers.length === 0) {
+        state.answers = examData.map(sec => sec.questions.map(() => null));
+        state.status = examData.map(sec => sec.questions.map(() => 0)); // 0: Not Visited
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => { 
+    initializeStateArrays();
+    initDashboard(); 
+});
 
 function initDashboard() {
     let completedData = null;
@@ -247,8 +290,11 @@ function initDashboard() {
         document.getElementById('dash-unattempted').style.display = 'none';
         document.getElementById('dash-attempted').style.display = 'block';
         if(completedData) {
-            document.getElementById('dash-score-text').innerText = `${completedData.score}/${finalQuestions.length}.0 Marks`;
-            let percentage = (completedData.score / finalQuestions.length) * 100;
+            let totalQ = examData.reduce((acc, sec) => acc + sec.questions.length, 0);
+            totalQ = totalQ || 200;
+            document.getElementById('dash-score-text').innerText = `${completedData.score}/${totalQ}.0 Marks`;
+            let percentage = (completedData.score / totalQ) * 100;
+            if(percentage < 0) percentage = 0;
             document.getElementById('dash-progress-bar').style.width = `${percentage}%`;
         }
     } else {
@@ -256,7 +302,7 @@ function initDashboard() {
         document.getElementById('dash-unattempted').style.display = 'block';
     }
     if (state.started && !state.submitted) {
-        showScreen('test-screen'); startTimer(); renderPalette(); loadQuestion(state.currentQ);
+        showScreen('test-screen'); startTimer(); renderTabs(); loadQuestion(state.currentSec, state.currentQ);
     } else { showScreen('dashboard-screen'); }
 }
 
@@ -266,9 +312,9 @@ function showScreen(id) {
 }
 
 function startTest() {
-    state = { started: true, submitted: false, currentQ: 0, answers: {}, status: {}, timeLeft: 120 * 60 };
-    for(let i=0; i<finalQuestions.length; i++) state.status[i] = 0; 
-    saveState(); showScreen('test-screen'); startTimer(); renderPalette(); loadQuestion(0);
+    state = { started: true, submitted: false, currentSec: 0, currentQ: 0, answers: [], status: [], timeLeft: 120 * 60 };
+    initializeStateArrays();
+    saveState(); showScreen('test-screen'); startTimer(); renderTabs(); loadQuestion(0, 0);
 }
 
 function reattemptTest() {
@@ -279,36 +325,109 @@ function reattemptTest() {
 
 function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 
-function loadQuestion(idx) {
-    if (idx < 0) idx = 0; if (idx >= finalQuestions.length) idx = finalQuestions.length - 1;
-    state.currentQ = idx; if(state.status[idx] === 0 || state.status[idx] === undefined) state.status[idx] = 1; 
-    document.getElementById('q-no').innerText = `Question ${idx + 1} of ${finalQuestions.length}`;
-    document.getElementById('q-text').innerHTML = finalQuestions[idx].q;
+function renderTabs() {
+    let html = "";
+    examData.forEach((sec, idx) => {
+        let badge = `<span style="font-size:10px; background:var(--danger); color:white; padding:2px 6px; border-radius:10px; margin-left:5px;">${sec.questions.length}</span>`;
+        html += `<div class="tab ${idx === state.currentSec ? 'active' : ''}" onclick="switchSec(${idx})">${sec.sectionName} ${badge}</div>`;
+    });
+    document.getElementById('section-tabs').innerHTML = html;
+}
+
+function switchSec(idx) {
+    if(examData[idx].questions.length === 0) {
+        alert("यह सेक्शन अभी जोड़ा जा रहा है! कृपया उपलब्ध सेक्शन हल करें।");
+        return;
+    }
+    state.currentSec = idx;
+    renderTabs();
+    loadQuestion(idx, 0);
+}
+
+function loadQuestion(sIdx, qIdx) {
+    if(examData[sIdx].questions.length === 0) return;
+    if (qIdx < 0) qIdx = 0; if (qIdx >= examData[sIdx].questions.length) qIdx = examData[sIdx].questions.length - 1;
+    
+    state.currentSec = sIdx;
+    state.currentQ = qIdx; 
+    
+    if(state.status[sIdx][qIdx] === 0 || state.status[sIdx][qIdx] === undefined) state.status[sIdx][qIdx] = 1; 
+    
+    // Overall question number calculation
+    let overallQNum = 1;
+    for(let i=0; i<sIdx; i++) {
+        overallQNum += examData[i].questions.length;
+    }
+    overallQNum += qIdx;
+
+    document.getElementById('q-no').innerText = `Question ${qIdx + 1} (Overall: ${overallQNum})`;
+    document.getElementById('q-text').innerHTML = examData[sIdx].questions[qIdx].q;
+    
     let optsHTML = ''; let labels = ['A', 'B', 'C', 'D'];
-    finalQuestions[idx].o.forEach((opt, i) => {
-        let isSel = state.answers[idx] === i; let selClass = isSel ? 'selected' : '';
+    examData[sIdx].questions[qIdx].o.forEach((opt, i) => {
+        let isSel = state.answers[sIdx][qIdx] === i; let selClass = isSel ? 'selected' : '';
         optsHTML += `<div class="glass-panel option ${selClass}" onclick="selectOption(${i})"><div class="opt-label">${labels[i]}</div><div style="flex:1;">${opt}</div></div>`;
     });
     document.getElementById('options-box').innerHTML = optsHTML;
+    document.getElementById('palette-title').innerText = examData[sIdx].sectionName;
     saveState(); renderPalette();
 }
 
-function selectOption(optIdx) { state.answers[state.currentQ] = optIdx; loadQuestion(state.currentQ); }
+function selectOption(optIdx) { state.answers[state.currentSec][state.currentQ] = optIdx; loadQuestion(state.currentSec, state.currentQ); }
+
 function saveNext() {
-    if(state.answers[state.currentQ] !== undefined) state.status[state.currentQ] = 2; else state.status[state.currentQ] = 1; 
-    if(state.currentQ < finalQuestions.length - 1) loadQuestion(state.currentQ + 1); else { saveState(); renderPalette(); }
+    let sIdx = state.currentSec, qIdx = state.currentQ;
+    if(state.answers[sIdx][qIdx] !== null && state.answers[sIdx][qIdx] !== undefined) state.status[sIdx][qIdx] = 2; else state.status[sIdx][qIdx] = 1; 
+    goToNextQuestion();
 }
+
 function markReview() {
-    if(state.answers[state.currentQ] !== undefined) state.status[state.currentQ] = 4; else state.status[state.currentQ] = 3; 
-    if(state.currentQ < finalQuestions.length - 1) loadQuestion(state.currentQ + 1); else { saveState(); renderPalette(); }
+    let sIdx = state.currentSec, qIdx = state.currentQ;
+    if(state.answers[sIdx][qIdx] !== null && state.answers[sIdx][qIdx] !== undefined) state.status[sIdx][qIdx] = 4; else state.status[sIdx][qIdx] = 3; 
+    goToNextQuestion();
 }
-function clearResponse() { delete state.answers[state.currentQ]; state.status[state.currentQ] = 1; loadQuestion(state.currentQ); }
-function changeQ(step) { if(state.currentQ + step >= 0 && state.currentQ + step < finalQuestions.length) { loadQuestion(state.currentQ + step); } }
+
+function clearResponse() { 
+    state.answers[state.currentSec][state.currentQ] = null; 
+    state.status[state.currentSec][state.currentQ] = 1; 
+    loadQuestion(state.currentSec, state.currentQ); 
+}
+
+function changeQ(step) { 
+    let newQ = state.currentQ + step;
+    if(newQ >= 0 && newQ < examData[state.currentSec].questions.length) { 
+        loadQuestion(state.currentSec, newQ); 
+    } 
+}
+
+function goToNextQuestion() {
+    let sIdx = state.currentSec, qIdx = state.currentQ;
+    if (qIdx < examData[sIdx].questions.length - 1) {
+        loadQuestion(sIdx, qIdx + 1);
+    } else {
+        // Find next non-empty section
+        let nextSec = -1;
+        for(let i=sIdx+1; i<examData.length; i++) {
+            if(examData[i].questions.length > 0) { nextSec = i; break; }
+        }
+        if (nextSec !== -1) {
+            switchSec(nextSec);
+        } else {
+            saveState(); renderPalette(); 
+            alert("आप सभी प्रश्नों के अंत तक पहुँच गए हैं! कृपया 'Submit Test' पर क्लिक करें।"); 
+        }
+    }
+}
 
 function renderPalette() {
+    let sIdx = state.currentSec;
+    if(examData[sIdx].questions.length === 0) {
+        document.getElementById('q-grid').innerHTML = "<div style='grid-column: span 5; text-align:center;'>No Questions</div>";
+        return;
+    }
     let html = ''; let counts = { ans: 0, notAns: 0, notVis: 0, marked: 0 };
-    for(let i=0; i<finalQuestions.length; i++) {
-        let s = state.status[i]; let cls = 's-0';
+    for(let i=0; i<examData[sIdx].questions.length; i++) {
+        let s = state.status[sIdx][i]; let cls = 's-0';
         if(s === 0 || s === undefined) { cls = 's-0'; counts.notVis++; } 
         else if(s === 1) { cls = 's-2'; counts.notAns++; }
         else if(s === 2) { cls = 's-1'; counts.ans++; } 
@@ -316,7 +435,7 @@ function renderPalette() {
         else if(s === 4) { cls = 's-4'; counts.ans++; counts.marked++; }
         let active = (i === state.currentQ) ? 'active' : ''; 
         if(active && (s === 0 || s === undefined)) cls = 's-2'; 
-        html += `<button class="p-btn ${cls} ${active}" onclick="loadQuestion(${i})">${i+1}</button>`;
+        html += `<button class="p-btn ${cls} ${active}" onclick="loadQuestion(${sIdx}, ${i})">${i+1}</button>`;
     }
     document.getElementById('q-grid').innerHTML = html;
     document.getElementById('c-ans').innerText = counts.ans; document.getElementById('c-notans').innerText = counts.notAns;
@@ -348,13 +467,19 @@ function submitTest() {
 }
 
 function calculateResult() {
-    let correct = 0, wrong = 0, attempted = 0;
-    for(let i=0; i<finalQuestions.length; i++) {
-        if(state.answers[i] !== undefined) {
-            attempted++;
-            if(state.answers[i] === finalQuestions[i].a) correct++; else wrong++;
-        }
-    }
+    let correct = 0, wrong = 0, attempted = 0, totalQ = 0;
+    examData.forEach((sec, sIdx) => {
+        sec.questions.forEach((q, qIdx) => {
+            totalQ++;
+            let userAns = state.answers[sIdx][qIdx];
+            if(userAns !== null && userAns !== undefined) {
+                attempted++;
+                if(userAns === q.a) correct++; else wrong++;
+            }
+        });
+    });
+    totalQ = totalQ || 200;
+    
     let positiveMarks = correct * 1;
     let negativeMarks = wrong * 0.25;
     let finalScore = positiveMarks - negativeMarks;
@@ -374,17 +499,23 @@ function viewSavedResults() { calculateResult(); }
 
 function viewSolutions() {
     showScreen('solution-screen'); let html = ''; let labels = ['A', 'B', 'C', 'D'];
-    finalQuestions.forEach((q, i) => {
-        let uAns = state.answers[i]; let cAns = q.a; let optsHtml = '';
-        q.o.forEach((opt, oIdx) => {
-            let cls = ''; let icon = '';
-            if(oIdx === cAns) { cls = 'correct'; icon = ' ✔'; }
-            else if(oIdx === uAns && uAns !== cAns) { cls = 'wrong'; icon = ' ❌ (Your Answer)'; }
-            optsHtml += `<div class="glass-panel sol-opt ${cls}"><strong>${labels[oIdx]}.</strong> <div style="flex:1;">${opt} <span style="float:right">${icon}</span></div></div>`;
+    let overallCount = 1;
+    examData.forEach((sec, sIdx) => {
+        if(sec.questions.length === 0) return;
+        html += `<h2 style="color:white; background:var(--primary); padding:10px; border-radius:8px; margin:20px 0 10px;">${sec.sectionName}</h2>`;
+        sec.questions.forEach((q, qIdx) => {
+            let uAns = state.answers[sIdx][qIdx]; let cAns = q.a; let optsHtml = '';
+            q.o.forEach((opt, oIdx) => {
+                let cls = ''; let icon = '';
+                if(oIdx === cAns) { cls = 'correct'; icon = ' ✔'; }
+                else if(oIdx === uAns && uAns !== cAns) { cls = 'wrong'; icon = ' ❌ (Your Answer)'; }
+                optsHtml += `<div class="glass-panel sol-opt ${cls}"><strong>${labels[oIdx]}.</strong> <div style="flex:1;">${opt} <span style="float:right">${icon}</span></div></div>`;
+            });
+            let userStatus = uAns === null || uAns === undefined ? "<span style='color:var(--text-muted)'>हल नहीं किया (Unattempted)</span>" : 
+                           (uAns === cAns ? "<span style='color:var(--success)'>सही (Correct)</span>" : "<span style='color:var(--danger)'>गलत (Incorrect)</span>");
+            html += `<div class="glass-panel sol-card"><div style="font-weight:700; font-size:18px; margin-bottom:15px; color:var(--primary);">Q${overallCount}. ${q.q}</div>${optsHtml}<div style="font-weight:bold; margin:15px 0; color:var(--text-muted);">Status: ${userStatus}</div><div class="glass-panel sol-exp">${q.e}</div></div>`;
+            overallCount++;
         });
-        let userStatus = uAns === null || uAns === undefined ? "<span style='color:var(--text-muted)'>हल नहीं किया (Unattempted)</span>" : 
-                       (uAns === cAns ? "<span style='color:var(--success)'>सही (Correct)</span>" : "<span style='color:var(--danger)'>गलत (Incorrect)</span>");
-        html += `<div class="glass-panel sol-card"><div style="font-weight:700; font-size:18px; margin-bottom:15px; color:var(--primary);">Q${i+1}. ${q.q}</div>${optsHtml}<div style="font-weight:bold; margin:15px 0; color:var(--text-muted);">Status: ${userStatus}</div><div class="glass-panel sol-exp">${q.e}</div></div>`;
     });
     document.getElementById('sol-container').innerHTML = html;
 }
