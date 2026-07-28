@@ -1,8 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CPO 2025 Previous Year - MANN GURU</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
+        body, html { background-color: #f4f6f7; height: 100%; overflow: hidden; }
+        
+        /* Header */
+        .header { background-color: #2c3e50; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #3498db; }
+        .exam-name { font-size: 16px; font-weight: bold; }
+        .timer-box { font-size: 16px; font-weight: bold; color: #f1c40f; display: flex; align-items: center; gap: 5px; }
+        
+        /* Layout Grid */
+        .main-container { display: flex; flex-direction: row; height: calc(100% - 46px); }
+        
+        /* Left Panel - Questions */
+        .left-panel { flex: 1; display: flex; flex-direction: column; background: white; border-right: 2px solid #ccc; overflow: hidden; }
+        .section-tabs { display: flex; background: #e0e0e0; overflow-x: auto; flex-shrink: 0; }
+        .tab { padding: 12px 15px; cursor: pointer; font-weight: bold; color: #555; border-right: 1px solid #ccc; white-space: nowrap; font-size: 14px; }
+        .tab.active { background: #3498db; color: white; }
+        
+        .question-area { flex: 1; padding: 20px; overflow-y: auto; }
+        
+        /* Bilingual Header Setup */
+        .question-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .q-info { font-weight: bold; color: #333; font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
+        .lang-toggle { background: #e8f4f8; padding: 5px 10px; border-radius: 5px; border: 1px solid #b3d4fc; display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: bold; color: #2c3e50; }
+        .lang-toggle select { padding: 3px; font-size: 13px; font-weight: bold; border: 1px solid #ccc; border-radius: 3px; cursor: pointer; outline: none; }
+        
+        .question-text { font-size: 16px; margin-bottom: 20px; line-height: 1.6; font-weight: 500; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; padding: 5px 0; }
+        input[type="radio"] { transform: scale(1.3); cursor: pointer; }
+        
+        /* Action Buttons */
+        .action-buttons { padding: 15px; background: #f9f9f9; border-top: 1px solid #ccc; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; flex-shrink: 0; }
+        .btn { padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; flex: 1; min-width: 110px; text-align: center; }
+        .btn-mark { background: #e67e22; color: white; border-color: #d35400; }
+        .btn-clear { background: white; color: #333; }
+        .btn-save { background: #27ae60; color: white; border-color: #2ecc71; }
+        
+        /* Right Panel - Palette */
+        .right-panel { background: #fff; display: flex; flex-direction: column; width: 300px; flex-shrink: 0; }
+        .candidate-info { padding: 15px; border-bottom: 1px solid #ccc; text-align: center; background: #f8f9fa; }
+        .legend-box { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 1px solid #ccc; font-size: 12px; flex-shrink: 0; background: #fafafa; }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-icon { width: 20px; height: 20px; display: inline-block; }
+        
+        .palette-area { padding: 15px; flex: 1; overflow-y: auto; }
+        .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 10px; margin-top: 10px; margin-bottom: 20px; }
+        
+        .q-bubble { width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; border: 1px solid #ccc; font-size: 14px; margin: 0 auto; transition: 0.2s; }
+        .not-visited { background: #f0f0f0; color: #333; border-radius: 4px; }
+        .not-answered { background: #e74c3c; color: white; border-color: #c0392b; border-bottom-left-radius: 15px; border-top-right-radius: 15px; }
+        .answered { background: #27ae60; color: white; border-color: #2ecc71; border-top-left-radius: 15px; border-bottom-right-radius: 15px; }
+        .review { background: #9b59b6; color: white; border-color: #8e44ad; border-radius: 50%; }
+        .answered-review { background: #9b59b6; color: white; border-color: #8e44ad; border-radius: 50%; position: relative; }
+        .answered-review::after { content: '✔'; position: absolute; bottom: -2px; right: -2px; font-size: 10px; color: white; background: #27ae60; border-radius: 50%; width: 15px; height: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; border: 1px solid white; }
+        
+        .btn-submit { background: #3498db; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; flex-shrink: 0; margin-top: auto; }
+        
+        .scorecard-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .scorecard { background: white; padding: 30px; border-radius: 10px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .score-row { display: flex; justify-content: space-between; margin: 12px 0; border-bottom: 1px solid #eee; padding-bottom: 8px; font-size: 16px; }
+
+        @media(max-width: 767px) {
+            body, html { height: auto; overflow: auto; }
+            .main-container { flex-direction: column; height: auto; }
+            .left-panel { border-right: none; overflow: visible; }
+            .question-area { overflow: visible; min-height: 300px; }
+            .action-buttons { position: sticky; bottom: 0; z-index: 10; box-shadow: 0 -3px 8px rgba(0,0,0,0.1); }
+            .right-panel { width: 100%; height: auto; border-top: 4px solid #2c3e50; }
+            .candidate-info { display: none; }
+            .palette-area { overflow: visible; padding-bottom: 30px; }
+            .lang-toggle { padding: 3px 6px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="exam-name">SSC CPO 2025 previous year</div>
+        <div class="timer-box">⏱️ <span id="time">120:00</span></div>
+    </div>
+
+    <div class="main-container" id="exam-container">
+        <div class="left-panel">
+            <div class="section-tabs" id="section-tabs"></div>
+            <div class="question-area">
+                <div class="question-header">
+                    <div class="q-info">
+                        <span id="q-no">Question No. 1</span>
+                        <span style="color:#e74c3c; font-size:12px;">Marks: +1, -0.25</span>
+                    </div>
+                    <div class="lang-toggle">
+                        <label for="lang-select">View in:</label>
+                        <select id="lang-select" onchange="changeLanguage()">
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी (Hindi)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="question-text" id="q-text">Loading...</div>
+                <div class="options" id="options-container"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-mark" onclick="markForReview()">Review & Next</button>
+                <button class="btn btn-clear" onclick="clearResponse()">Clear</button>
+                <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="candidate-info">
+                <strong style="font-size:18px;">MANN GURU</strong><br>
+                <small>Mock Test Series</small>
+            </div>
+            
+            <div class="legend-box">
+                <div class="legend-item"><div class="q-bubble answered legend-icon"></div> Answered</div>
+                <div class="legend-item"><div class="q-bubble not-answered legend-icon"></div> Not Answered</div>
+                <div class="legend-item"><div class="q-bubble not-visited legend-icon"></div> Not Visited</div>
+                <div class="legend-item"><div class="q-bubble review legend-icon"></div> Review</div>
+            </div>
+            
+            <div class="palette-area">
+                <h4 style="margin-bottom:15px; color:#2c3e50; border-bottom:1px solid #ccc; padding-bottom:5px;" id="palette-title">Section</h4>
+                <div class="palette-grid" id="palette-grid"></div>
+            </div>
+            <button class="btn-submit" onclick="showScorecard()">Submit Exam</button>
+        </div>
+    </div>
+
+    <div class="scorecard-overlay" id="scorecard">
+        <div class="scorecard">
+            <h2>📊 CPO Scorecard</h2>
+            <hr style="margin:15px 0">
+            <div class="score-row"><span>Total Questions:</span> <strong id="res-total"></strong></div>
+            <div class="score-row"><span>Attempted:</span> <strong id="res-att"></strong></div>
+            <div class="score-row"><span>Correct ✅:</span> <strong style="color:#27ae60" id="res-right"></strong></div>
+            <div class="score-row"><span>Incorrect ❌:</span> <strong style="color:#e74c3c" id="res-wrong"></strong></div>
+            <div class="score-row"><span>Positive Marks:</span> <strong id="res-pos"></strong></div>
+            <div class="score-row"><span>Negative Marks:</span> <strong id="res-neg"></strong></div>
+            <hr style="margin:15px 0">
+            <h3 style="color:#3498db; margin-bottom:20px; font-size:22px;">Final Score: <span id="res-score"></span></h3>
+            <button class="btn btn-submit" style="border-radius:25px;" onclick="window.location.href='index.html'">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <script>
         const examData = [
             {
                 sectionName: "Reasoning",
                 questions: [
-                    // Question 1 (Image Base - Paper Folding)
                     { 
                         id: 1, 
                         text_en: "The sequence of folding a paper and the manner in which the folded paper is cut is shown in the following figures. How would this paper look when unfolded?<br><br><img src='q1_q.jpg' style='max-width:100%; border:1px solid #ccc;'>", 
@@ -11,7 +164,6 @@
                         options_hi: ["<img src='q1_a.jpg' style='height:60px;'>", "<img src='q1_b.jpg' style='height:60px;'>", "<img src='q1_c.jpg' style='height:60px;'>", "<img src='q1_d.jpg' style='height:60px;'>"], 
                         answer: 3 
                     },
-                    // Question 2 (Image Base - Figure Series)
                     { 
                         id: 2, 
                         text_en: "Identify the figure given in the options which when put in place of '?' will logically complete the series.<br><br><img src='q2_q.jpg' style='max-width:100%; border:1px solid #ccc;'>", 
@@ -20,7 +172,6 @@
                         options_hi: ["<img src='q2_a.jpg' style='height:60px;'>", "<img src='q2_b.jpg' style='height:60px;'>", "<img src='q2_c.jpg' style='height:60px;'>", "<img src='q2_d.jpg' style='height:60px;'>"], 
                         answer: 0 
                     },
-                    // Question 3 (Text with Image Options - Venn Diagram)
                     { 
                         id: 3, 
                         text_en: "Select the Venn diagram that best illustrates the relationship between the following classes: Potatoes, Vegetables, Grapes", 
@@ -29,7 +180,6 @@
                         options_hi: ["<img src='q3_a.jpg' style='height:60px;'>", "<img src='q3_b.jpg' style='height:60px;'>", "<img src='q3_c.jpg' style='height:60px;'>", "<img src='q3_d.jpg' style='height:60px;'>"], 
                         answer: 1 
                     },
-                    // Question 4 (Text)
                     { 
                         id: 4, 
                         text_en: "15 is related to 45 following a certain logic. Following the same logic, 25 is related to 125. Which of the following numbers is related to 80 using the same logic?", 
@@ -38,7 +188,6 @@
                         options_hi: ["20", "21", "18", "22"], 
                         answer: 0 
                     },
-                    // Question 5 (Text)
                     { 
                         id: 5, 
                         text_en: "In a code language, 'DINESH' is coded as 12-27-42-15-57-24 and 'VIRAT' is coded as 66-27-54-3-60. How will 'GAUTAM' be coded in the same language?", 
@@ -47,7 +196,6 @@
                         options_hi: ["24-7-61-34-5-31", "26-7-25-67-4-37", "21-3-63-60-3-39", "29-9-55-47-8-28"], 
                         answer: 2 
                     },
-                    // Question 6 (Image Base - Embedded Figure)
                     { 
                         id: 6, 
                         text_en: "Select the option figure in which the given figure is embedded as its part (rotation is NOT allowed).<br><br><img src='q6_q.jpg' style='max-width:100%;'>", 
@@ -56,7 +204,6 @@
                         options_hi: ["<img src='q6_a.jpg' style='height:60px;'>", "<img src='q6_b.jpg' style='height:60px;'>", "<img src='q6_c.jpg' style='height:60px;'>", "<img src='q6_d.jpg' style='height:60px;'>"], 
                         answer: 1 
                     },
-                    // Question 7 (Text)
                     { 
                         id: 7, 
                         text_en: "Select the set in which the numbers are related in the same way as are the numbers of the following sets: (247, 349), (261, 363)", 
@@ -65,7 +212,6 @@
                         options_hi: ["(282, 382)", "(294, 396)", "(253, 358)", "(265, 369)"], 
                         answer: 1 
                     },
-                    // Question 8 (Text)
                     { 
                         id: 8, 
                         text_en: "Which of the following terms will replace the question mark (?) in the given series? CHO, DIP, EJQ, ?", 
@@ -74,7 +220,6 @@
                         options_hi: ["EJL", "FKR", "DIL", "HMR"], 
                         answer: 1 
                     },
-                    // Question 9 (Text)
                     { 
                         id: 9, 
                         text_en: "Select the correct combination of mathematical signs to replace the * signs and balance the given equation: 13 * 7 * 12 * 4 * 15 * 65", 
@@ -83,7 +228,6 @@
                         options_hi: ["-, x, =", "+, +, +, =", "+, =, -, x", "+, -, x, ="], 
                         answer: 2 
                     },
-                    // Question 10 (Text)
                     { 
                         id: 10, 
                         text_en: "At a wedding reception, a man pointed to the groom and described him as the brother of the son of the son of his grandfather. How is the groom related to that man?", 
@@ -92,7 +236,6 @@
                         options_hi: ["चाचा", "पिता", "भाई", "साला/जीजा"], 
                         answer: 0 
                     },
-                    // Question 11 (Text)
                     { 
                         id: 11, 
                         text_en: "Which two signs should be interchanged to make the given equation correct? 10 ÷ 63 x 7 + 90 - 80 = 100", 
@@ -101,7 +244,6 @@
                         options_hi: ["÷ और +", "x और -", "+ और -", "x और ÷"], 
                         answer: 3 
                     },
-                    // Question 12 (Text)
                     { 
                         id: 12, 
                         text_en: "If + means -, - means x, x means ÷, ÷ means +, what will come in place of the question mark (?) in the given equation? 22 x 11 - 4 ÷ 50 + 500 = ?", 
@@ -110,7 +252,6 @@
                         options_hi: ["350", "650", "550", "450"], 
                         answer: 1 
                     },
-                    // Question 13 (Text)
                     { 
                         id: 13, 
                         text_en: "Select the option that is related to the fifth letter-cluster in the same way as the second letter-cluster is related to the first... CARS : HFWX :: BOAT : GTFY :: FUSE : ?", 
@@ -119,7 +260,6 @@
                         options_hi: ["LAYK", "KZWI", "LAXJ", "KZXJ"], 
                         answer: 3 
                     },
-                    // Question 14 (Image Base - Dice)
                     { 
                         id: 14, 
                         text_en: "Two different positions of the same dice are given below. Which is the number on the face opposite the face containing 1?<br><br><img src='q14_q.jpg' style='max-width:100%; border:1px solid #ccc;'>", 
@@ -128,7 +268,6 @@
                         options_hi: ["3", "4", "2", "6"], 
                         answer: 3 
                     },
-                    // Question 15 (Text)
                     { 
                         id: 15, 
                         text_en: "Six students - Aman, Bobby, Chintu, Gita, Pranay and Ram - are sitting around a circular table, facing the centre. Ram is sitting second to the right of Gita... Who among the following is the immediate neighbour of both Ram and Bobby?", 
@@ -137,7 +276,6 @@
                         options_hi: ["प्रणय", "चिंटू", "अमन", "गीता"], 
                         answer: 2 
                     },
-                    // Question 16 (Text)
                     { 
                         id: 16, 
                         text_en: "Sally drives a mini school bus. She starts at the school gate and drives 7 km north for her first pick-up. She then turns right and drives 10 km... How far would Sally need to drive to reach back to the school gate again?", 
@@ -146,7 +284,6 @@
                         options_hi: ["17 किमी", "22 किमी", "10 किमी", "12 किमी"], 
                         answer: 0 
                     },
-                    // Question 17 (Text with Image Options - Venn Diagram)
                     { 
                         id: 17, 
                         text_en: "Select the Venn diagram that best illustrates the relationship between the following classes: Cheetah, Bird, Eagle", 
@@ -155,7 +292,6 @@
                         options_hi: ["<img src='q17_a.jpg' style='height:60px;'>", "<img src='q17_b.jpg' style='height:60px;'>", "<img src='q17_c.jpg' style='height:60px;'>", "<img src='q17_d.jpg' style='height:60px;'>"], 
                         answer: 2 
                     },
-                    // Question 18 (Text)
                     { 
                         id: 18, 
                         text_en: "Which of the following numbers will replace the question marks (?) in the given series? 1, 6, 15, 28, ?, ?, 91", 
@@ -164,7 +300,6 @@
                         options_hi: ["40, 60", "42, 54", "45, 66", "44, 54"], 
                         answer: 2 
                     },
-                    // Question 19 (Text with Image Options - Venn Diagram)
                     { 
                         id: 19, 
                         text_en: "Select the Venn diagram that best illustrates the relationship between the following classes: Bananas, Apple, Grapes", 
@@ -173,7 +308,6 @@
                         options_hi: ["<img src='q19_a.jpg' style='height:60px;'>", "<img src='q19_b.jpg' style='height:60px;'>", "<img src='q19_c.jpg' style='height:60px;'>", "<img src='q19_d.jpg' style='height:60px;'>"], 
                         answer: 1 
                     },
-                    // Question 20 (Text)
                     { 
                         id: 20, 
                         text_en: "In a code language, 'LAND' is written as 'IWKZ', and 'GOLD' is written as 'DKIZ'. How will 'TEAM' be written in that language?", 
@@ -198,3 +332,129 @@
                 ]
             }
         ];
+
+        let currentSec = 0, currentQ = 0;
+        let currentLang = 'en'; 
+        let uState = examData.map(sec => sec.questions.map(() => 'not-visited'));
+        let uAns = examData.map(sec => sec.questions.map(() => null));
+
+        function initExam() { renderTabs(); loadQ(0, 0); startTimer(120 * 60); }
+
+        function renderTabs() {
+            let html = "";
+            examData.forEach((sec, idx) => {
+                html += `<div class="tab ${idx === currentSec ? 'active' : ''}" onclick="switchSec(${idx})">${sec.sectionName}</div>`;
+            });
+            document.getElementById('section-tabs').innerHTML = html;
+        }
+
+        function switchSec(idx) { currentSec = idx; renderTabs(); loadQ(idx, 0); }
+
+        function changeLanguage() {
+            currentLang = document.getElementById('lang-select').value;
+            loadQ(currentSec, currentQ); 
+        }
+
+        function loadQ(sIdx, qIdx) {
+            currentSec = sIdx; currentQ = qIdx;
+            const q = examData[sIdx].questions[qIdx];
+            
+            if(uState[sIdx][qIdx] === 'not-visited') uState[sIdx][qIdx] = 'not-answered';
+
+            document.getElementById('q-no').innerText = `Question No. ${qIdx + 1}`;
+            
+            document.getElementById('q-text').innerHTML = currentLang === 'en' ? q.text_en : q.text_hi;
+            
+            let opts = "";
+            let currentOptions = currentLang === 'en' ? q.options_en : q.options_hi;
+            
+            currentOptions.forEach((opt, i) => {
+                let chk = uAns[sIdx][qIdx] === i ? "checked" : "";
+                opts += `<label class="option-label"><input type="radio" name="opt" value="${i}" ${chk}> ${opt}</label>`;
+            });
+            document.getElementById('options-container').innerHTML = opts;
+            renderPalette();
+        }
+
+        function getAns() {
+            let s = document.querySelector('input[name="opt"]:checked');
+            return s ? parseInt(s.value) : null;
+        }
+
+        function saveAndNext() {
+            let a = getAns();
+            if (a !== null) { uAns[currentSec][currentQ] = a; uState[currentSec][currentQ] = 'answered'; } 
+            else { uState[currentSec][currentQ] = 'not-answered'; }
+            nextQ();
+        }
+
+        function markForReview() {
+            let a = getAns();
+            if (a !== null) { uAns[currentSec][currentQ] = a; uState[currentSec][currentQ] = 'answered-review'; } 
+            else { uState[currentSec][currentQ] = 'review'; }
+            nextQ();
+        }
+
+        function clearResponse() {
+            let r = document.querySelectorAll('input[name="opt"]');
+            r.forEach(x => x.checked = false);
+            uAns[currentSec][currentQ] = null;
+            uState[currentSec][currentQ] = 'not-answered';
+            renderPalette();
+        }
+
+        function nextQ() {
+            if (currentQ < examData[currentSec].questions.length - 1) loadQ(currentSec, currentQ + 1);
+            else if (currentSec < examData.length - 1) switchSec(currentSec + 1);
+            else { renderPalette(); alert("End of test! Scroll down and click 'Submit Exam'."); window.scrollTo(0, document.body.scrollHeight); }
+        }
+
+        function renderPalette() {
+            document.getElementById('palette-title').innerText = examData[currentSec].sectionName;
+            let html = "";
+            examData[currentSec].questions.forEach((q, i) => {
+                let cls = uState[currentSec][i];
+                let bdr = (i === currentQ) ? "border: 2px solid black; transform: scale(1.1);" : "";
+                html += `<div class="q-bubble ${cls}" style="${bdr}" onclick="loadQ(${currentSec}, ${i})">${i + 1}</div>`;
+            });
+            document.getElementById('palette-grid').innerHTML = html;
+        }
+
+        function showScorecard() {
+            let tQ = 0, att = 0, crt = 0, wrg = 0;
+            examData.forEach((sec, sIdx) => {
+                sec.questions.forEach((q, qIdx) => {
+                    tQ++;
+                    if (uAns[sIdx][qIdx] !== null) {
+                        att++;
+                        if (uAns[sIdx][qIdx] === q.answer) crt++; else wrg++;
+                    }
+                });
+            });
+
+            let pos = crt * 1, neg = wrg * 0.25;
+            document.getElementById('res-total').innerText = tQ;
+            document.getElementById('res-att').innerText = att;
+            document.getElementById('res-right').innerText = crt;
+            document.getElementById('res-wrong').innerText = wrg;
+            document.getElementById('res-pos').innerText = `+${pos}`;
+            document.getElementById('res-neg').innerText = `-${neg}`;
+            document.getElementById('res-score').innerText = `${(pos - neg).toFixed(2)} / ${tQ}`;
+
+            document.getElementById('exam-container').style.display = 'none';
+            document.getElementById('scorecard').style.display = 'flex';
+        }
+
+        function startTimer(sec) {
+            setInterval(() => {
+                if(sec <= 0) { showScorecard(); return; }
+                sec--;
+                let m = Math.floor(sec / 60), s = sec % 60;
+                document.getElementById('time').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+            }, 1000);
+        }
+
+        initExam();
+    </script>
+</body>
+</html>
