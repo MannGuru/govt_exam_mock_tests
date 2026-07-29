@@ -2,152 +2,232 @@
 <html lang="hi" data-theme="light">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>SSC CPO 2025 Mock Test - Part 1 & 2</title>
+<title>SSC CPO 2025 Mock Test - Real Exam Interface</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg-grad-1:#4facfe;--bg-grad-2:#00f2fe;--bg-grad-3:#a18cd1;--bg-grad-4:#fbc2eb;--glass-bg:rgba(255,255,255,0.9);--glass-border:rgba(255,255,255,0.6);--glass-shadow:rgba(31,38,135,0.15);--text-main:#1f2937;--text-muted:#64748b;--primary:#2563eb;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--purple:#8b5cf6;--option-bg:rgba(243,244,246,0.8);--option-selected:rgba(219,234,254,0.9);--card-bg:rgba(255,255,255,0.95)}
-[data-theme="dark"]{--bg-grad-1:#0f2027;--bg-grad-2:#203a43;--bg-grad-3:#2c5364;--bg-grad-4:#141e30;--glass-bg:rgba(17,25,40,0.85);--glass-border:rgba(255,255,255,0.15);--glass-shadow:rgba(0,0,0,0.5);--text-main:#f9fafb;--text-muted:#94a3b8;--primary:#3b82f6;--option-bg:rgba(55,65,81,0.7);--option-selected:rgba(30,58,138,0.8);--card-bg:rgba(31,41,55,0.95)}
+:root{--bg-grad-1:#4facfe;--bg-grad-2:#00f2fe;--bg-grad-3:#a18cd1;--bg-grad-4:#fbc2eb;--glass-bg:rgba(255,255,255,0.95);--glass-border:rgba(255,255,255,0.6);--glass-shadow:rgba(31,38,135,0.15);--text-main:#1f2937;--text-muted:#64748b;--primary:#2563eb;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--purple:#8b5cf6;--option-bg:rgba(243,244,246,0.8);--option-selected:rgba(219,234,254,0.9);--card-bg:rgba(255,255,255,1)}
+[data-theme="dark"]{--bg-grad-1:#0f2027;--bg-grad-2:#203a43;--bg-grad-3:#2c5364;--bg-grad-4:#141e30;--glass-bg:rgba(17,25,40,0.95);--glass-border:rgba(255,255,255,0.15);--glass-shadow:rgba(0,0,0,0.5);--text-main:#f9fafb;--text-muted:#94a3b8;--primary:#3b82f6;--option-bg:rgba(55,65,81,0.7);--option-selected:rgba(30,58,138,0.8);--card-bg:rgba(31,41,55,1)}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mukta','Poppins',sans-serif;transition:background-color .3s,color .3s;touch-action:manipulation}
-body{height:100vh;height:100dvh;background:linear-gradient(45deg,var(--bg-grad-1),var(--bg-grad-2),var(--bg-grad-3),var(--bg-grad-4));background-size:400% 400%;animation:gBG 15s ease infinite;color:var(--text-main);display:flex;flex-direction:column;overflow:hidden}
-@keyframes gBG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.glass-panel{background:var(--glass-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);box-shadow:0 8px 32px 0 var(--glass-shadow);border-radius:12px}
+body{height:100vh;height:100dvh;background:var(--card-bg);color:var(--text-main);display:flex;flex-direction:column;overflow:hidden}
+
+/* Basic Buttons */
 .btn{font-family:'Poppins',sans-serif;background:var(--primary);color:#fff;border:none;padding:10px 16px;border-radius:6px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:.2s}
 .btn:active{transform:scale(0.95)}.btn-outline{background:transparent;border:1.5px solid var(--primary);color:var(--primary)}.btn-warning{background:var(--warning)}.btn-clear{background:var(--card-bg);color:var(--text-main);border:1px solid var(--glass-border)}.btn-mark{background:var(--purple)}.btn-prev{background:var(--text-muted)}
-.screen{display:none;flex-direction:column;height:100%;width:100vw;position:absolute;top:0;left:0}.screen.active{display:flex}
-#dashboard-screen{overflow-y:auto;background:var(--card-bg);align-items:center;padding-bottom:30px}
+.btn:disabled{opacity:0.5; cursor:not-allowed;}
+
+.screen{display:none;flex-direction:column;height:100%;width:100vw;position:absolute;top:0;left:0; background:var(--card-bg)}.screen.active{display:flex}
+
+/* Instructions Screen */
+#instruction-screen{overflow-y:auto; padding:20px; align-items:center;}
+.inst-container{max-width:800px; width:100%; background:var(--glass-bg); padding:30px; border-radius:10px; border:1px solid var(--glass-border); box-shadow:0 4px 15px var(--glass-shadow);}
+.inst-container h2{color:var(--primary); margin-bottom:15px;}
+.inst-container ul{padding-left:20px; margin-bottom:20px; font-size:15px; line-height:1.6;}
+.inst-table{width:100%; border-collapse:collapse; margin-bottom:20px; font-size:14px; text-align:center;}
+.inst-table th, .inst-table td{border:1px solid var(--glass-border); padding:10px;}
+.inst-table th{background:rgba(16, 185, 129, 0.1); color:var(--success);}
+.lang-select{margin:20px 0; display:flex; align-items:center; gap:10px;}
+.lang-select select{padding:8px; border-radius:5px; border:1px solid var(--glass-border); background:var(--card-bg); color:var(--text-main);}
+.check-area{margin-bottom:20px; font-size:14px; display:flex; gap:10px; align-items:flex-start;}
+.check-area input{margin-top:4px; transform:scale(1.2);}
+
+/* Dashboard Screen */
+#dashboard-screen{overflow-y:auto; align-items:center; padding-bottom:30px}
 .dash-header-top{background:#1e293b;color:#fff;width:100%;padding:15px 20px;font-size:16px;font-weight:600;display:flex;align-items:center;gap:15px;position:sticky;top:0;z-index:100}
 .dash-content{width:100%;max-width:800px;padding:20px}
-.section-title{font-weight:600;color:var(--primary);margin:15px 0 10px;border-left:4px solid var(--primary);padding-left:10px;font-size:15px}
-.dash-card{background:var(--card-bg);border-radius:12px;padding:24px;border:1px solid var(--glass-border);box-shadow:0 4px 12px rgba(0,0,0,0.05);margin-bottom:15px}
-header.test-head{padding:10px 15px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 16px 16px;margin-bottom:10px;margin-inline:10px}
+.dash-card{background:var(--glass-bg);border-radius:12px;padding:24px;border:1px solid var(--glass-border);box-shadow:0 4px 12px var(--glass-shadow);margin-bottom:15px}
+
+/* Test Screen */
+header.test-head{padding:10px 15px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--glass-border); background:var(--glass-bg);}
 .header-title{font-size:16px;font-weight:700;color:var(--primary)}.header-controls{display:flex;gap:8px;align-items:center}
-.timer-box{font-size:14px;font-weight:700;background:var(--card-bg);border:1px solid var(--glass-border);color:var(--danger);padding:5px 12px;border-radius:20px}
-.main-area{display:flex;flex:1;overflow:hidden;gap:10px;padding:0 10px 10px}
-.question-section{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.section-tabs-container { display:flex; background:var(--card-bg); overflow-x:auto; border-bottom: 2px solid var(--glass-border); }
-.tab { padding: 12px 15px; cursor: pointer; font-weight: bold; color: var(--text-muted); border-right: 1px solid var(--glass-border); white-space: nowrap; font-size: 14px; display: flex; align-items: center; gap: 5px; }
-.tab.active { background: var(--primary); color: #fff; }
+.timer-box{font-size:14px;font-weight:700;background:rgba(239, 68, 68, 0.1);border:1px solid var(--danger);color:var(--danger);padding:5px 12px;border-radius:20px}
+
+.main-area{display:flex;flex:1;overflow:hidden;}
+.question-section{flex:1;display:flex;flex-direction:column;overflow:hidden; border-right:1px solid var(--glass-border);}
+
+.section-tabs-container { display:flex; background:rgba(0,0,0,0.03); overflow-x:auto; border-bottom: 2px solid var(--glass-border); }
+.tab { padding: 12px 15px; cursor: pointer; font-weight: 600; color: var(--text-muted); border-right: 1px solid var(--glass-border); white-space: nowrap; font-size: 14px; }
+.tab.active { background: var(--success); color: #fff; }
+.tab.locked { background: rgba(0,0,0,0.05); color: var(--text-muted); text-decoration: line-through; cursor: not-allowed; }
+
 .q-header{padding:15px;border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;font-weight:600;font-size:15px}
 .q-body{flex:1;padding:20px 15px;overflow-y:auto;font-size:16px;line-height:1.6}
 .options-list{margin-top:20px;display:flex;flex-direction:column;gap:12px;padding-bottom:10px}
-.option{padding:12px 15px;border:2px solid var(--glass-border);border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:15px;background:var(--option-bg);font-weight:500;font-size:15px}
+.option{padding:12px 15px;border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:15px;background:var(--option-bg);font-weight:500;font-size:15px}
 .option.selected{border-color:var(--primary);background:var(--option-selected);color:var(--primary)}
 .opt-label{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--card-bg);border:1px solid var(--glass-border);display:flex;justify-content:center;align-items:center;font-weight:700}
 .option.selected .opt-label{background:var(--primary);color:#fff;border-color:var(--primary)}
-.q-footer{padding:15px;border-top:1px solid var(--glass-border);flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;border-radius:0 0 12px 12px}
-.palette-section{width:320px;display:flex;flex-direction:column;flex-shrink:0}
-.palette-header{padding:15px;border-bottom:1px solid var(--glass-border);text-align:center;font-weight:700;font-size:15px; color:var(--primary);}
+
+.q-footer{padding:15px;border-top:1px solid var(--glass-border);flex-shrink:0;display:grid;grid-template-columns:auto auto auto auto;gap:10px; background:rgba(0,0,0,0.02);}
+
+.palette-section{width:320px;display:flex;flex-direction:column;flex-shrink:0; background:var(--glass-bg);}
+.candidate-info{padding:15px; border-bottom:1px solid var(--glass-border); text-align:center;}
+.candidate-info img{width:80px; height:80px; border-radius:5px; border:2px solid var(--success); margin-bottom:5px; object-fit:cover;}
+
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:15px;font-size:12px;border-bottom:1px solid var(--glass-border);font-weight:500}
 .stat-item{display:flex;align-items:center;gap:8px}
 .badge{width:22px;height:22px;border-radius:4px;display:flex;justify-content:center;align-items:center;color:#fff;font-size:11px;font-weight:700}
 .s-0{background:var(--card-bg);color:var(--text-main);border:1px solid var(--glass-border)}.s-1{background:var(--success)}.s-2{background:var(--danger)}.s-3{background:var(--purple)}.s-4{background:var(--primary);position:relative}
 .s-4::after{content:'✔';position:absolute;bottom:-4px;right:-4px;width:12px;height:12px;background:#fff;color:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px}
+
 .palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:15px;overflow-y:auto;flex:1;align-content:start}
 .p-btn{width:100%;aspect-ratio:1;border:none;border-radius:6px;font-weight:700;cursor:pointer;color:#fff;font-size:13px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
 .p-btn.s-0{background:var(--card-bg);color:var(--text-main);border:1px solid var(--glass-border)}.p-btn.active{outline:3px solid var(--primary);outline-offset:2px;transform:scale(1.1)}
-.submit-area{padding:15px;border-top:1px solid var(--glass-border);border-radius:0 0 12px 12px}
+
+.submit-area{padding:15px;border-top:1px solid var(--glass-border);}
+
 #result-screen,#solution-screen{overflow-y:auto;align-items:center;padding:20px}
-.sol-card{padding:20px;margin-bottom:15px;width:100%;max-width:800px}
+.sol-card{padding:20px;margin-bottom:15px;width:100%;max-width:800px; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:10px;}
 .sol-opt{padding:12px;margin:8px 0;border-radius:8px;border:1px solid var(--glass-border);display:flex;gap:12px;align-items:center;font-size:15px;background:var(--card-bg)}
 .sol-opt.correct{background:rgba(16,185,129,0.15);border-color:var(--success);color:var(--success);font-weight:700}
 .sol-opt.wrong{background:rgba(239,68,68,0.15);border-color:var(--danger);color:var(--danger);text-decoration:line-through}
 .sol-exp{margin-top:15px;padding:15px;background:rgba(37,99,235,0.05);border:1px solid var(--glass-border);border-left:4px solid var(--primary);border-radius:8px;font-size:14.5px;line-height:1.6}
-#pause-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);z-index:200;display:none;justify-content:center;align-items:center;color:#fff;flex-direction:column}
-.bilingual-eng{color:var(--text-muted);font-size:14.5px;font-weight:500;display:block;margin-top:5px;}
-@media(max-width:992px){.main-area{flex-direction:column;overflow-y:auto}.question-section{flex:none;min-height:450px}.palette-section{width:100%;flex:none;min-height:350px}.q-footer .btn{padding:12px;font-size:14px}}
+
+@media(max-width:992px){
+    .main-area{flex-direction:column;overflow-y:auto}
+    .question-section{flex:none;min-height:450px; border-right:none; border-bottom:1px solid var(--glass-border);}
+    .palette-section{width:100%;flex:none;min-height:350px}
+    .q-footer{grid-template-columns:1fr 1fr; gap:8px;}
+    .q-footer .btn{font-size:12px; padding:10px;}
+}
 svg { max-width: 100%; height: auto; }
 </style>
 </head>
 <body oncontextmenu="return false;" oncopy="return false;" onselectstart="return false;">
 
+<!-- 1. DASHBOARD SCREEN -->
 <div id="dashboard-screen" class="screen active">
-    <div class="dash-header-top"><span style="font-size:20px;cursor:pointer;">&#8592;</span> SSC CPO Mock Tests</div>
+    <div class="dash-header-top">SSC CPO Mock Tests</div>
     <div class="dash-content">
         <div id="dash-unattempted" style="display:none;">
-            <div class="section-title">Suggested Next Test</div>
+            <div style="font-weight:700; font-size:18px; margin-bottom:10px; color:var(--primary);">Mock Test 1</div>
             <div class="dash-card">
-                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO PYP - Part 1 & 2 (Reasoning + GK)</div>
-                <div style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">100 Qs • 120 mins • 100.0 Marks</div>
-                <button class="btn btn-outline" style="width:100%;padding:12px;font-size:16px;" onclick="startTest()">Start Test 🚀</button>
-                <div style="font-size:13px;color:var(--primary);border-top:1px solid var(--glass-border);padding-top:15px;margin-top:20px;">Syllabus: Reasoning, GK & Current Affairs</div>
+                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO Tier 1 Exam - Full Mock</div>
+                <div style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">200 Qs • 120 mins • 200.0 Marks</div>
+                <button class="btn btn-primary" style="width:100%;padding:12px;font-size:16px;" onclick="showInstructions()">View Instructions</button>
             </div>
         </div>
         <div id="dash-attempted" style="display:none;">
             <div class="dash-card">
-                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO PYP - Part 1 & 2</div>
-                <div style="font-size:15px;color:var(--text-muted);margin-bottom:15px;font-weight:500;" id="dash-score-text">0/100.0 Marks</div>
-                <div style="width:100%;height:8px;background:var(--glass-border);border-radius:4px;margin:20px 0;overflow:hidden;"><div id="dash-progress-bar" style="height:100%;background:#fbc02d;width:0%;transition:width 0.5s;"></div></div>
+                <div style="font-size:20px;font-weight:700;margin-bottom:8px;">SSC CPO Tier 1 Exam - Full Mock</div>
+                <div style="font-size:15px;color:var(--text-muted);margin-bottom:15px;font-weight:500;" id="dash-score-text">0/200.0 Marks</div>
                 <div style="display:flex;gap:12px;margin-top:20px;">
-                    <button class="btn btn-outline" style="flex:1;padding:12px;" onclick="viewSavedResults()">View Results</button>
-                    <button class="btn btn-outline" style="flex:1;padding:12px;" onclick="reattemptTest()">Reattempt &rarr;</button>
+                    <button class="btn btn-outline" style="flex:1;padding:12px;" onclick="viewSolutions()">View Solutions</button>
+                    <button class="btn btn-primary" style="flex:1;padding:12px;" onclick="reattemptTest()">Reattempt Test</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="pause-overlay">
-    <h2 style="margin-bottom:20px;font-size:2rem;">Test Paused ⏸️</h2>
-    <button class="btn btn-primary" style="font-size:1.2rem;padding:10px 30px;" onclick="togglePause()">Resume Test ▶️</button>
+<!-- 2. INSTRUCTIONS SCREEN -->
+<div id="instruction-screen" class="screen">
+    <div class="inst-container">
+        <h2>General Instructions:</h2>
+        <ul>
+            <li>The total duration of the examination is 120 minutes (30 minutes strictly per section).</li>
+            <li>Each section has 50 multiple-choice questions.</li>
+            <li>You cannot revisit a section once it is submitted or its time is over.</li>
+            <li><strong>Marking Scheme:</strong> +1 mark for correct answer, -0.25 for wrong answer.</li>
+        </ul>
+        <table class="inst-table">
+            <tr><th>Subject</th><th>No. of Qs</th><th>Max Marks</th><th>Time</th></tr>
+            <tr><td>Reasoning Ability</td><td>50</td><td>50</td><td>30 Mins</td></tr>
+            <tr><td>General Awareness</td><td>50</td><td>50</td><td>30 Mins</td></tr>
+            <tr><td>Numerical Ability</td><td>50</td><td>50</td><td>30 Mins</td></tr>
+            <tr><td>English Language</td><td>50</td><td>50</td><td>30 Mins</td></tr>
+        </table>
+        
+        <div class="lang-select">
+            <label><strong>Choose your default Language:</strong></label>
+            <select id="default-lang">
+                <option value="hi">Hindi</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+
+        <div class="check-area">
+            <input type="checkbox" id="inst-check" onchange="toggleStartBtn()">
+            <label for="inst-check">I have read and understood all the instructions. I understand that using unfair means of any sort will lead to immediate disqualification.</label>
+        </div>
+        
+        <div style="display:flex; justify-content:space-between; margin-top:30px;">
+            <button class="btn btn-outline" onclick="showScreen('dashboard-screen')">&larr; Previous</button>
+            <button class="btn btn-warning" id="start-btn" disabled onclick="startTest()" style="color:#000;">I AM READY TO BEGIN &rarr;</button>
+        </div>
+    </div>
 </div>
 
+<!-- 3. MAIN TEST SCREEN -->
 <div id="test-screen" class="screen">
-    <header class="glass-panel test-head">
-        <div class="header-title">SSC CPO Mock</div>
+    <header class="test-head">
+        <div class="header-title">SSC CPO Mock Test 1</div>
         <div class="header-controls">
             <button class="btn btn-clear" style="padding:4px 10px;font-size:12px;border-radius:20px;" onclick="toggleTheme()">🌓 Theme</button>
-            <button class="btn btn-warning" style="padding:4px 10px;font-size:12px;border-radius:20px;" onclick="togglePause()">⏸ Pause</button>
-            <div class="timer-box">⏱ <span id="timer-display">120:00</span></div>
         </div>
     </header>
     <div class="main-area">
-        <div class="glass-panel question-section">
+        <div class="question-section">
             <div class="section-tabs-container" id="section-tabs">
                 <!-- Tabs will be rendered here dynamically -->
             </div>
-            <div class="q-header"><span id="q-no">Question 1</span><span style="color:var(--success);font-weight:bold;">+1 <span style="color:var(--text-muted);font-weight:normal;">|</span> <span style="color:var(--danger);">-0.25</span></span></div>
+            <div class="q-header">
+                <span id="q-no">Question 1</span>
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <span style="font-size:12px;">View in: <select style="padding:2px 5px;"><option>Hindi</option><option>English</option></select></span>
+                    <span style="font-size:12px; font-weight:bold;">Marks: <span style="color:var(--success); background:rgba(16,185,129,0.1); padding:2px 6px; border-radius:4px;">+1</span> <span style="color:var(--danger); background:rgba(239,68,68,0.1); padding:2px 6px; border-radius:4px;">-0.25</span></span>
+                </div>
+            </div>
             <div class="q-body">
                 <div id="q-text" style="font-weight:600;">Loading...</div>
                 <div class="options-list" id="options-box"></div>
             </div>
             <div class="q-footer">
-                <button class="btn btn-mark" onclick="markReview()">Mark & Next</button>
-                <button class="btn btn-clear" onclick="clearResponse()">Clear</button>
+                <button class="btn btn-mark" onclick="markReview()">Mark for Review & Next</button>
+                <button class="btn btn-clear" onclick="clearResponse()">Clear Response</button>
                 <button class="btn btn-prev" onclick="changeQ(-1)">Previous</button>
-                <button class="btn btn-primary" onclick="saveNext()">Save & Next</button>
+                <button class="btn btn-success" style="background:var(--success); color:white;" onclick="saveNext()">Save & Next</button>
             </div>
         </div>
-        <div class="glass-panel palette-section">
-            <div class="palette-header" id="palette-title">Section</div>
+        
+        <div class="palette-section">
+            <div class="candidate-info">
+                <img src="https://via.placeholder.com/80/e2e8f0/64748b?text=Candidate" alt="Candidate">
+                <div style="font-weight:bold; font-size:14px;">Candidate Name</div>
+                <div class="timer-box" style="margin-top:10px;">Section Time: <span id="timer-display">30:00</span></div>
+            </div>
             <div class="stats-grid">
-                <div class="stat-item"><div class="badge s-1" id="c-ans">0</div> Ans</div>
-                <div class="stat-item"><div class="badge s-2" id="c-notans">0</div> Not Ans</div>
-                <div class="stat-item"><div class="badge s-0" id="c-notvis">0</div> Not Visit</div>
+                <div class="stat-item"><div class="badge s-1" id="c-ans">0</div> Answered</div>
+                <div class="stat-item"><div class="badge s-2" id="c-notans">0</div> Not Answered</div>
+                <div class="stat-item"><div class="badge s-0" id="c-notvis">0</div> Not Visited</div>
                 <div class="stat-item"><div class="badge s-3" id="c-mark">0</div> Marked</div>
             </div>
             <div class="palette-grid" id="q-grid"></div>
-            <div class="submit-area"><button class="btn btn-primary" style="width:100%;background:var(--success);font-size:15px;padding:12px;" onclick="submitTest()">Submit Test</button></div>
+            <div class="submit-area">
+                <button class="btn btn-primary" style="width:100%; padding:12px; font-size:15px;" onclick="userSubmitSection()">Submit Section</button>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- 4. RESULT SCREEN -->
 <div id="result-screen" class="screen">
     <div style="width:100%;max-width:800px;margin-bottom:15px;"><button class="btn btn-clear" onclick="showScreen('dashboard-screen')">&#8592; Back to Dashboard</button></div>
-    <div class="glass-panel" style="max-width:800px;width:100%;padding:30px;">
+    <div class="inst-container" style="max-width:800px;width:100%;padding:30px;">
         <h1 style="color:var(--primary);text-align:center;">Test Submitted Successfully! 🎉</h1>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:15px;margin:30px 0;">
-            <div class="glass-panel" style="padding:20px;text-align:center;"><h2 id="r-score" style="color:var(--primary);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Score</p></div>
-            <div class="glass-panel" style="padding:20px;text-align:center;"><h2 id="r-attempt" style="color:var(--success);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Attempted</p></div>
-            <div class="glass-panel" style="padding:20px;text-align:center;"><h2 id="r-wrong" style="color:var(--danger);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Wrong</p></div>
-            <div class="glass-panel" style="padding:20px;text-align:center;"><h2 id="r-acc" style="color:var(--purple);font-size:2rem;">0%</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Accuracy</p></div>
+            <div style="background:var(--card-bg); padding:20px;text-align:center; border:1px solid var(--glass-border); border-radius:10px;"><h2 id="r-score" style="color:var(--primary);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Score</p></div>
+            <div style="background:var(--card-bg); padding:20px;text-align:center; border:1px solid var(--glass-border); border-radius:10px;"><h2 id="r-attempt" style="color:var(--success);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Attempted</p></div>
+            <div style="background:var(--card-bg); padding:20px;text-align:center; border:1px solid var(--glass-border); border-radius:10px;"><h2 id="r-wrong" style="color:var(--danger);font-size:2rem;">0</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Wrong</p></div>
+            <div style="background:var(--card-bg); padding:20px;text-align:center; border:1px solid var(--glass-border); border-radius:10px;"><h2 id="r-acc" style="color:var(--purple);font-size:2rem;">0%</h2><p style="color:var(--text-muted);font-size:13px;font-weight:600;">Accuracy</p></div>
         </div>
         <button class="btn btn-primary" style="width:100%;padding:15px;font-size:16px;" onclick="viewSolutions()">📝 View Detailed Solutions</button>
     </div>
 </div>
 
+<!-- 5. SOLUTIONS SCREEN -->
 <div id="solution-screen" class="screen">
-    <div style="max-width:800px;width:100%;margin:0 auto;">
-        <div class="glass-panel" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:15px 20px;position:sticky;top:5px;z-index:10;">
+    <div style="max-width:800px;width:100%;margin:0 auto; padding:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:15px 20px; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:10px; position:sticky;top:5px;z-index:10;">
             <h3 style="color:var(--primary);">Detailed Solutions</h3>
             <button class="btn btn-clear" style="padding:6px 15px;" onclick="showScreen('result-screen')">&#8592; Back</button>
         </div>
@@ -156,11 +236,10 @@ svg { max-width: 100%; height: auto; }
 </div>
 
 <script>
-const v1 = "<svg viewBox='0 0 100 50' width='80' height='40'><circle cx='20' cy='25' r='10' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='50' cy='25' r='10' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='80' cy='25' r='10' stroke='currentColor' stroke-width='2' fill='none'/></svg>";
-const v2 = "<svg viewBox='0 0 100 50' width='80' height='40'><circle cx='30' cy='25' r='15' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='30' cy='25' r='6' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='75' cy='25' r='10' stroke='currentColor' stroke-width='2' fill='none'/></svg>";
-const v3 = "<svg viewBox='0 0 100 50' width='80' height='40'><circle cx='35' cy='25' r='12' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='50' cy='25' r='12' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='65' cy='25' r='12' stroke='currentColor' stroke-width='2' fill='none'/></svg>";
-const v4 = "<svg viewBox='0 0 100 50' width='80' height='40'><circle cx='50' cy='25' r='20' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='40' cy='25' r='6' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='60' cy='25' r='6' stroke='currentColor' stroke-width='2' fill='none'/></svg>";
-
+/* =========================================================
+   YAHAN APNE SARE 200 SAWAL (rawSections) PASTE KAREN 
+   (Format: Part 1, Part 2, Part 3, Part 4)
+   ========================================================= */
 const rawSections = [
     {
         name: "Reasoning",
@@ -218,7 +297,7 @@ const rawSections = [
             ["Q50. उस वेन आरेख का चयन करें: कुत्ते, बिल्लियां, लैब्राडोर","Select the Venn diagram: Dogs, Cats, Labradors",[v3,v3,v2,v2,v1,v1,v4,v4],1,["लैब्राडोर कुत्तों की नस्ल है (अंदर), बिल्लियां अलग हैं (बाहर)।"]]
         ]
     },
-    {
+        {
         name: "General Knowledge",
         cat: 1,
         questions: [
@@ -277,7 +356,7 @@ const rawSections = [
             ["Q50. कॉमनवेल्थ फेंसिंग चैंपियनशिप 2022 की मेजबानी किस देश ने की थी?", "The Commonwealth Fencing Championship 2022 was hosted by:", ["ऑस्ट्रेलिया", "Australia", "यूनाइटेड किंगडम (UK)", "United Kingdom", "कनाडा", "Canada", "भारत", "India"], 1, ["कॉमनवेल्थ फेंसिंग चैंपियनशिप 2022 यूनाइटेड किंगडम (लंदन) में आयोजित की गई थी।"]]
         ]
     },
-        {
+            {
         name: "Quantitative Aptitude",
         cat: 2,
         questions: [
@@ -333,44 +412,116 @@ const rawSections = [
             ["Q150. एक कार एक घंटे की पहली तिमाही में 20 किमी, उस घंटे की दूसरी तिमाही में 25 किमी और तीसरी तिमाही में 15 किमी की दूरी तय करती है। पूरी यात्रा के दौरान कार की औसत गति (किमी/घंटा में) क्या है?", "", ["80", "", "70", "", "85", "", "75", ""], 0, ["कुल दूरी = 20 + 25 + 15 = 60 किमी.", "कुल समय = 1/4 + 1/4 + 1/4 = 3/4 घंटे.", "औसत गति = कुल दूरी / कुल समय = 60 / (3/4) = 60 × 4 / 3 = 80 किमी/घंटा."]]
         ]
     },
-
-    {
-        name: "English Comprehension",
+        {
+        name: "English Language",
         cat: 3,
+        questions: [
+            // ---------------- PART 4: ENGLISH COMPREHENSION (Q151 to Q200) ----------------
+            
+            ["Q151. Select the most appropriate synonym of the given word.<br><b>DILIGENT</b>", "", ["Lazy", "", "Hardworking", "", "Careless", "", "Inattentive", ""], 1, ["'Diligent' का अर्थ है - मेहनती या परिश्रमी।", "दिए गए विकल्पों में 'Hardworking' इसका सही Synonym (समानार्थी) है।"]],
+            ["Q152. Select the most appropriate synonym of the given word.<br><b>CANDID</b>", "", ["Frank", "", "Secretive", "", "Deceitful", "", "Dishonest", ""], 0, ["'Candid' का अर्थ है - स्पष्टवादी या निष्कपट (जो खुलकर बात करे)।", "'Frank' का भी यही अर्थ होता है।"]],
+            ["Q153. Select the most appropriate synonym of the given word.<br><b>LUCID</b>", "", ["Confusing", "", "Ambiguous", "", "Clear", "", "Vague", ""], 2, ["'Lucid' का अर्थ है - स्पष्ट या आसानी से समझ में आने वाला।", "'Clear' इसका सही समानार्थी है।"]],
+            ["Q154. Select the most appropriate antonym of the given word.<br><b>ARROGANT</b>", "", ["Proud", "", "Haughty", "", "Humble", "", "Conceited", ""], 2, ["'Arrogant' का अर्थ है - घमंडी या अभिमानी।", "इसका विलोम (Antonym) 'Humble' (विनम्र) होगा।"]],
+            ["Q155. Select the most appropriate antonym of the given word.<br><b>RIGID</b>", "", ["Stiff", "", "Flexible", "", "Firm", "", "Strict", ""], 1, ["'Rigid' का अर्थ है - कठोर या जो आसानी से न मुड़े।", "इसका सही विलोम 'Flexible' (लचीला) होगा।"]],
+            ["Q156. Select the most appropriate antonym of the given word.<br><b>BARREN</b>", "", ["Fertile", "", "Empty", "", "Desolate", "", "Bare", ""], 0, ["'Barren' का अर्थ है - बंजर (जहाँ कुछ पैदा न हो)।", "इसका विलोम 'Fertile' (उपजाऊ) होगा।"]],
+            ["Q157. Select the most appropriate meaning of the given idiom.<br><b>To beat around the bush</b>", "", ["To hit a bush", "", "To speak directly", "", "To avoid the main topic", "", "To garden", ""], 2, ["'To beat around the bush' एक मुहावरा है जिसका अर्थ है - घुमा-फिरा कर बात करना या मुख्य मुद्दे पर न आना।"]],
+            ["Q158. Select the most appropriate meaning of the given idiom.<br><b>A blessing in disguise</b>", "", ["A visible blessing", "", "A bad thing that turns out to be good", "", "A curse", "", "A magical event", ""], 1, ["'A blessing in disguise' का अर्थ है - कोई ऐसी चीज़ जो शुरुआत में बुरी लगे लेकिन अंत में फायदेमंद साबित हो (छिपा हुआ वरदान)।"]],
+            ["Q159. Select the most appropriate meaning of the given idiom.<br><b>Through thick and thin</b>", "", ["Only in good times", "", "Only in bad times", "", "Under all circumstances", "", "To be confused", ""], 2, ["'Through thick and thin' का अर्थ है - हर सुख-दुख में या हर परिस्थिति में साथ देना।"]],
+            ["Q160. Select the word which means the same as the group of words given.<br><b>A person who is indifferent to pleasure or pain</b>", "", ["Stoic", "", "Cynic", "", "Sadist", "", "Epicure", ""], 0, ["वह व्यक्ति जिसे सुख या दुख से कोई फर्क नहीं पड़ता, उसे 'Stoic' (तटस्थ/उदासीन) कहते हैं।"]],
+            ["Q161. Select the word which means the same as the group of words given.<br><b>Handwriting which cannot be easily read</b>", "", ["Legible", "", "Illegible", "", "Infallible", "", "Invincible", ""], 1, ["ऐसी लिखावट जिसे पढ़ा न जा सके, उसे 'Illegible' (अपठनीय) कहा जाता है।"]],
+            ["Q162. Select the word which means the same as the group of words given.<br><b>A remedy for all diseases</b>", "", ["Antibiotic", "", "Medicine", "", "Panacea", "", "Cure", ""], 2, ["हर रोग का एक ही इलाज (रामबाण) को अंग्रेज़ी में 'Panacea' कहते हैं।"]],
+            ["Q163. Select the correctly spelt word.", "", ["Accomodate", "", "Acommodate", "", "Accommodate", "", "Acomodate", ""], 2, ["सही स्पेलिंग 'Accommodate' होती है, जिसमें 'cc' और 'mm' दोनों डबल आते हैं। अर्थ: समायोजित करना।"]],
+            ["Q164. Select the correctly spelt word.", "", ["Committee", "", "Comittee", "", "Committe", "", "Comitee", ""], 0, ["सही स्पेलिंग 'Committee' (समिति) है। इसमें 'm', 't', और 'e' तीनों अक्षर डबल (mm, tt, ee) आते हैं।"]],
+            ["Q165. Select the correctly spelt word.", "", ["Vacuum", "", "Vaccum", "", "Vaccume", "", "Vacum", ""], 0, ["सही स्पेलिंग 'Vacuum' (शून्य/निर्वात) होती है। इसमें 'c' सिंगल और 'u' डबल होता है।"]],
+            ["Q166. Identify the segment in the sentence which contains a grammatical error.<br><b>One of my friend is going to Paris tomorrow.</b>", "", ["One of", "", "my friend", "", "is going", "", "to Paris tomorrow", ""], 1, ["नियम: 'One of the' के बाद हमेशा Noun Plural (बहुवचन) आता है।", "इसलिए 'friend' की जगह 'friends' होना चाहिए।"]],
+            ["Q167. Identify the segment in the sentence which contains a grammatical error.<br><b>He is senior than me by two years.</b>", "", ["He is", "", "senior", "", "than me", "", "by two years", ""], 2, ["नियम: Senior, Junior, Superior, Inferior आदि लैटिन एडजेक्टिव्स के बाद 'than' का नहीं, बल्कि 'to' का प्रयोग होता है।", "सही वाक्य: 'He is senior to me...'"]],
+            ["Q168. Identify the segment in the sentence which contains a grammatical error.<br><b>I have been knowing him for ten years.</b>", "", ["I have", "", "been knowing him", "", "for", "", "ten years", ""], 1, ["नियम: 'Know' एक Stative Verb है, जिसका प्रयोग Continuous (-ing) फॉर्म में नहीं किया जाता।", "सही वाक्य: 'I have known him for ten years.'"]],
+            ["Q169. Identify the segment in the sentence which contains a grammatical error.<br><b>No sooner had I reached the station when the train left.</b>", "", ["No sooner had", "", "I reached", "", "the station when", "", "the train left", ""], 2, ["नियम: 'No sooner' के साथ हमेशा 'than' का प्रयोग होता है (when का नहीं)।", "सही वाक्य: 'No sooner had I reached the station than the train left.'"]],
+            ["Q170. Identify the segment in the sentence which contains a grammatical error.<br><b>Neither the manager nor the employees was present in the meeting.</b>", "", ["Neither the manager", "", "nor the employees", "", "was present", "", "in the meeting", ""], 2, ["नियम: 'Neither...nor' में Verb हमेशा पास वाले Subject के अनुसार आती है।", "यहाँ पास वाला subject 'employees' (Plural) है, अतः 'was' की जगह 'were' आएगा।"]],
+            ["Q171. Fill in the blank with the most appropriate word.<br><b>The cat jumped _______ the table.</b>", "", ["in", "", "upon", "", "at", "", "under", ""], 1, ["जब कोई वस्तु गति (Motion) करते हुए किसी सतह के ऊपर जाती है, तो 'upon' या 'onto' का प्रयोग होता है।"]],
+            ["Q172. Fill in the blank with the most appropriate option.<br><b>He is addicted _______ smoking.</b>", "", ["with", "", "for", "", "to", "", "in", ""], 2, ["नियम: Addicted, Accustomed, Used आदि शब्दों के साथ हमेशा preposition 'to' का प्रयोग होता है।"]],
+            ["Q173. Fill in the blank with the most appropriate word.<br><b>She congratulated him _______ his brilliant success.</b>", "", ["for", "", "on", "", "at", "", "about", ""], 1, ["नियम: 'Congratulate' (बधाई देना) के साथ हमेशा 'on' preposition का प्रयोग किया जाता है।"]],
+            ["Q174. Fill in the blank with the most appropriate word.<br><b>The police _______ investigating the matter carefully.</b>", "", ["is", "", "are", "", "has", "", "was", ""], 1, ["नियम: 'Police' शब्द हमेशा Plural (बहुवचन) माना जाता है, इसलिए इसके साथ Plural Verb 'are' लगेगी।"]],
+            ["Q175. Fill in the blank with the most appropriate word.<br><b>I prefer coffee _______ tea.</b>", "", ["than", "", "to", "", "over", "", "against", ""], 1, ["नियम: 'Prefer' के साथ तुलना करने के लिए 'than' का नहीं, बल्कि 'to' का प्रयोग किया जाता है।"]],
+            ["Q176. Select the most appropriate option to substitute the underlined segment.<br>If I <u>was a bird</u>, I would fly in the sky.", "", ["am a bird", "", "were a bird", "", "have been a bird", "", "No improvement", ""], 1, ["नियम: अवास्तविक कल्पना (Imaginary condition) दर्शाने के लिए Subject के साथ हमेशा 'were' का प्रयोग होता है, चाहे Subject Singular ही क्यों न हो।"]],
+            ["Q177. Select the most appropriate option to substitute the underlined segment.<br>He prevented me <u>to go</u> there.", "", ["from going", "", "going", "", "for going", "", "No improvement", ""], 0, ["नियम: Prevent, Prohibit, Abstain आदि शब्दों के बाद 'from + V(ing)' (Gerund) का प्रयोग किया जाता है।"]],
+            ["Q178. Select the most appropriate option to substitute the underlined segment.<br>She is <u>the most cleverest</u> girl in the class.", "", ["the cleverest", "", "more cleverest", "", "most clever", "", "No improvement", ""], 0, ["नियम: एक ही वाक्य में दो Superlative Degree (most और -est) का एक साथ प्रयोग नहीं होता (Double superlative is incorrect)।"]],
+            ["Q179. Select the most appropriate option to substitute the underlined segment.<br>He <u>hardly never</u> goes to the movies.", "", ["hardly ever", "", "hardly always", "", "hard ever", "", "No improvement", ""], 0, ["नियम: 'Hardly' खुद एक नकारात्मक (Negative) शब्द है, इसके साथ 'never' नहीं आ सकता। सही प्रयोग 'hardly ever' होता है।"]],
+            ["Q180. Select the most appropriate option to substitute the underlined segment.<br>The climate of Delhi is hotter than <u>Mumbai</u>.", "", ["Mumbai's climate", "", "that of Mumbai", "", "those of Mumbai", "", "No improvement", ""], 1, ["नियम: तुलना हमेशा समान चीज़ों में होती है (दिल्ली की जलवायु और मुंबई की जलवायु)।", "'The climate' (Singular) के दोहराव से बचने के लिए 'that of' का प्रयोग किया जाता है।"]],
+            ["Q181. Select the correct passive form of the given sentence.<br><b>The cat drank the milk.</b>", "", ["The milk is drunk by the cat.", "", "The milk was drunk by the cat.", "", "The milk has been drunk by the cat.", "", "The milk had been drunk by the cat.", ""], 1, ["वाक्य Simple Past Tense (V2) में है।", "इसका Passive Voice: Object + was/were + V3 + by + Subject होगा।"]],
+            ["Q182. Select the correct passive form of the given sentence.<br><b>Open the door.</b>", "", ["The door is opened.", "", "Let the door open.", "", "Let the door be opened.", "", "The door should open.", ""], 2, ["यह एक Imperative Sentence (आदेशवाचक वाक्य) है।", "इसका Passive Voice 'Let + Object + be + V3' के फॉर्मेट में बनता है।"]],
+            ["Q183. Select the correct passive form of the given sentence.<br><b>Who wrote this beautiful poem?</b>", "", ["By whom was this beautiful poem written?", "", "By whom is this beautiful poem written?", "", "Who was written this beautiful poem?", "", "By who this beautiful poem was written?", ""], 0, ["'Who' वाले वाक्यों का Passive Voice 'By whom' से शुरू होता है और Past Indefinite होने के कारण 'was' का प्रयोग होगा।"]],
+            ["Q184. Select the correct indirect form of the given sentence.<br><b>He said, "I am reading a book."</b>", "", ["He said that he is reading a book.", "", "He says that he was reading a book.", "", "He said that he was reading a book.", "", "He told that he was reading a book.", ""], 2, ["Reporting Verb Past Tense (said) में है, इसलिए Reported Speech का Present Continuous (am reading), Past Continuous (was reading) में बदल जाएगा।"]],
+            ["Q185. Select the correct indirect form of the given sentence.<br><b>She said to me, "Do you know him?"</b>", "", ["She told me that I knew him.", "", "She asked me if I knew him.", "", "She asked me whether I know him.", "", "She asked me that if I knew him.", ""], 1, ["यह Interrogative (Yes/No) वाक्य है। 'Said to' को 'asked' में बदलेंगे, Inverted commas हटाकर 'if' लगाएंगे और वाक्य को Simple Past में बदल देंगे।"]],
+            ["Q186. Select the correct indirect form of the given sentence.<br><b>The teacher said, "The earth revolves around the sun."</b>", "", ["The teacher said that the earth revolved around the sun.", "", "The teacher asked if the earth revolves around the sun.", "", "The teacher said that the earth revolves around the sun.", "", "The teacher told the earth is revolving around the sun.", ""], 2, ["नियम: यदि Reported Speech में कोई Universal Truth (सार्वभौमिक सत्य) हो, तो उसका Tense कभी नहीं बदलता।"]],
+            ["Q187. Select the most appropriate synonym of the given word.<br><b>FASCINATING</b>", "", ["Boring", "", "Appealing", "", "Ugly", "", "Tedious", ""], 1, ["'Fascinating' का अर्थ है - आकर्षक या मनमोहक।", "'Appealing' का भी यही अर्थ होता है।"]],
+            ["Q188. Select the most appropriate antonym of the given word.<br><b>VAGUE</b>", "", ["Obscure", "", "Unclear", "", "Definite", "", "Doubtful", ""], 2, ["'Vague' का अर्थ है - अस्पष्ट या धुंधला।", "इसका विलोम 'Definite' (निश्चित/स्पष्ट) होगा।"]],
+            ["Q189. Select the most appropriate meaning of the given idiom.<br><b>To break the ice</b>", "", ["To smash ice", "", "To start a conversation", "", "To perform a difficult task", "", "To end a relationship", ""], 1, ["'To break the ice' का अर्थ है - चुप्पी तोड़ना या बातचीत शुरू करना (विशेषकर अजनबियों के बीच)।"]],
+            ["Q190. Select the word which means the same as the group of words given.<br><b>The study of the universe</b>", "", ["Astrology", "", "Biology", "", "Cosmology", "", "Geology", ""], 2, ["ब्रह्मांड के वैज्ञानिक अध्ययन को 'Cosmology' (ब्रह्मांड विज्ञान) कहा जाता है।"]],
+            ["Q191. Select the correctly spelt word.", "", ["Rhythm", "", "Rythm", "", "Rhythym", "", "Rhithm", ""], 0, ["सही स्पेलिंग 'Rhythm' (लय/ताल) है। इसमें कोई Vowel (a,e,i,o,u) नहीं होता, 'y' ही Vowel का काम करता है।"]],
+            ["Q192. Identify the segment in the sentence which contains a grammatical error.<br><b>He told to me that he was going to the market.</b>", "", ["He told to me", "", "that he was", "", "going to", "", "the market", ""], 0, ["नियम: 'Told' एक Transitive Verb है जिसके तुरंत बाद Object आता है। इसके साथ 'to' का प्रयोग नहीं किया जाता। सही: 'He told me'"]],
+            ["Q193. Fill in the blank with the most appropriate word.<br><b>My brother is very good _______ Mathematics.</b>", "", ["in", "", "with", "", "at", "", "on", ""], 2, ["नियम: जब कोई किसी विषय या कार्य में अच्छा/कुशल होता है, तो 'good at' का प्रयोग किया जाता है (good in नहीं)।"]],
+            ["Q194. Select the most appropriate option to substitute the underlined segment.<br>I am looking forward <u>to meet</u> you.", "", ["to meeting", "", "for meeting", "", "meeting", "", "No improvement", ""], 0, ["नियम: 'Look forward to', 'With a view to' आदि के बाद हमेशा Verb की 'ing' (Gerund) फॉर्म आती है।"]],
+            ["Q195. Select the correct passive form of the given sentence.<br><b>Someone has stolen my pen.</b>", "", ["My pen is stolen.", "", "My pen has been stolen.", "", "My pen had been stolen.", "", "My pen has stolen.", ""], 1, ["वाक्य Present Perfect Tense में है।", "इसका Passive Voice: Object + has/have + been + V3 होगा। (Someone को passive में लिखना ज़रूरी नहीं होता)।"]],
+            
+            // --- CLOZE TEST (Q196 - Q200) ---
+            ["Q196. In the following passage, some words have been deleted. Fill in the blanks with the help of the alternatives given.<br><br><i>Passage:</i> Education is the most powerful (1)______ which you can use to change the world. It provides us with the (2)______ to understand the world around us. A nation's progress (3)______ on the education of its citizens. Without education, a person is (4)______ in a closed room. Therefore, every child must have the (5)______ to basic education.<br><br>Select the most appropriate option to fill in blank number (1).", "", ["weapon", "", "tool", "", "gun", "", "machine", ""], 0, ["नेल्सन मंडेला के प्रसिद्ध कथन के अनुसार शिक्षा एक सबसे शक्तिशाली 'weapon' (हथियार) है।"]],
+            ["Q197. Select the most appropriate option to fill in blank number (2).<br><br><i>Passage:</i> Education is the most powerful (1)______ which you can use to change the world. It provides us with the <b>(2)______</b> to understand the world around us...", "", ["money", "", "ability", "", "weakness", "", "doubt", ""], 1, ["शिक्षा हमें दुनिया को समझने की 'ability' (क्षमता) प्रदान करती है।"]],
+            ["Q198. Select the most appropriate option to fill in blank number (3).<br><br><i>Passage:</i> ...A nation's progress <b>(3)______</b> on the education of its citizens...", "", ["depends", "", "falls", "", "rejects", "", "stops", ""], 0, ["किसी राष्ट्र की प्रगति उसके नागरिकों की शिक्षा पर निर्भर (depends) करती है। 'Progress depends on' एक सही Collocation है।"]],
+            ["Q199. Select the most appropriate option to fill in blank number (4).<br><br><i>Passage:</i> ...Without education, a person is <b>(4)______</b> in a closed room...", "", ["flying", "", "running", "", "trapped", "", "swimming", ""], 2, ["बिना शिक्षा के व्यक्ति एक बंद कमरे में 'trapped' (फंसा हुआ) महसूस करता है।"]],
+            ["Q200. Select the most appropriate option to fill in blank number (5).<br><br><i>Passage:</i> ...Therefore, every child must have the <b>(5)______</b> to basic education.", "", ["access", "", "block", "", "ban", "", "denial", ""], 0, ["हर बच्चे की बुनियादी शिक्षा तक पहुँच (access) होनी चाहिए। 'Access to' का प्रयोग व्याकरण के अनुसार बिल्कुल सटीक है।"]]
+        ]
+    }
+];
+}
         questions: []
     }
 ];
-
+// --- Process Raw Data ---
 let examData = rawSections.map(sec => {
     return {
         sectionName: sec.name,
         questions: sec.questions.map(d => {
-            let qText = d[1] ? `${d[0]}<br><span class='bilingual-eng'>${d[1]}</span>` : d[0];
+            let qText = d[1] ? `${d[0]}<br><span style='color:var(--text-muted);font-size:14px;display:block;margin-top:5px;'>${d[1]}</span>` : d[0];
             let opts = [];
             for(let i=0; i<8; i+=2) {
                 opts.push(d[2][i] === d[2][i+1] || d[2][i+1] === "" ? d[2][i] : `${d[2][i]} / ${d[2][i+1]}`);
             }
             let ansIdx = d[3];
             let expText = "";
-            let ansStr = opts[ansIdx];
             let facts = (d[4] && Array.isArray(d[4])) ? d[4].map(f => `<li>${f}</li>`).join('') : "";
 
-            if(sec.cat === 1) { 
-                expText = `<b>हल / Solution:</b> ${ansStr}<br><br>💡 <b>प्रमुख तथ्य / Key Facts:</b><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
-            } else if (sec.cat === 2) { 
-                expText = `<b>हल / Solution:</b> ${ansStr}<br><br><span class='math-trick'>🔥 तर्क एवं विश्लेषण / Reasoning & Analysis:</span><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
-            } else if (sec.cat === 3) { 
-                expText = `<b>हल / Solution:</b> ${ansStr}<br><br><span class='grammar-rule'>📖 Grammar Rule & Explanation:</span><ul style='padding-left:20px; margin-top:8px;'>${facts}</ul>`;
-            }
+            if(sec.cat === 1) expText = `<b>Solution:</b> ${opts[ansIdx]}<br><br><ul style='padding-left:20px;'>${facts}</ul>`;
+            else if (sec.cat === 2) expText = `<b>Solution:</b> ${opts[ansIdx]}<br><br><ul style='padding-left:20px;'>${facts}</ul>`;
+            else if (sec.cat === 3) expText = `<b>Solution:</b> ${opts[ansIdx]}<br><br><ul style='padding-left:20px;'>${facts}</ul>`;
+            
             return { q: qText, o: opts, a: ansIdx, e: expText };
         })
     };
 });
 
-const STORAGE_KEY = 'cpo_mock_master_active'; 
-const COMPLETED_KEY = 'cpo_mock_master_comp';
-let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { started: false, submitted: false, currentSec: 0, currentQ: 0, answers: [], status: [], timeLeft: 120 * 60 };
+// --- State Management ---
+const STORAGE_KEY = 'cpo_real_mock_active'; 
+const COMPLETED_KEY = 'cpo_real_mock_comp';
+const SEC_TIME = 30 * 60; // 30 Minutes per section in seconds
+
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { 
+    started: false, 
+    submitted: false, 
+    currentSec: 0, 
+    currentQ: 0, 
+    answers: [], 
+    status: [], 
+    sectionTimeLeft: [SEC_TIME, SEC_TIME, SEC_TIME, SEC_TIME], 
+    completedSections: [false, false, false, false] 
+};
+
 let timerInterval;
+
+window.addEventListener('DOMContentLoaded', () => { 
+    initializeStateArrays();
+    initDashboard(); 
+});
 
 function initializeStateArrays() {
     if(!state.answers || state.answers.length === 0) {
@@ -379,72 +530,135 @@ function initializeStateArrays() {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => { 
-    initializeStateArrays();
-    initDashboard(); 
-});
-
 function initDashboard() {
     let completedData = null;
     try { const dataStr = localStorage.getItem(COMPLETED_KEY); if(dataStr) completedData = JSON.parse(dataStr); } catch(e) {}
+    
     if (state.submitted || completedData) {
         document.getElementById('dash-unattempted').style.display = 'none';
         document.getElementById('dash-attempted').style.display = 'block';
         if(completedData) {
-            let totalQ = examData.reduce((acc, sec) => acc + sec.questions.length, 0);
-            totalQ = totalQ || 200;
+            let totalQ = examData.reduce((acc, sec) => acc + sec.questions.length, 0) || 200;
             document.getElementById('dash-score-text').innerText = `${completedData.score}/${totalQ}.0 Marks`;
-            let percentage = (completedData.score / totalQ) * 100;
-            if(percentage < 0) percentage = 0;
-            document.getElementById('dash-progress-bar').style.width = `${percentage}%`;
         }
     } else {
         document.getElementById('dash-attempted').style.display = 'none';
         document.getElementById('dash-unattempted').style.display = 'block';
     }
+    
     if (state.started && !state.submitted) {
-        showScreen('test-screen'); startTimer(); renderTabs(); loadQuestion(state.currentSec, state.currentQ);
-    } else { showScreen('dashboard-screen'); }
+        showScreen('test-screen'); 
+        renderTabs(); 
+        loadQuestion(state.currentSec, state.currentQ);
+        startTimer();
+    } else { 
+        showScreen('dashboard-screen'); 
+    }
 }
 
 function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(d => { if(d.id !== 'pause-overlay') d.classList.remove('active'); });
+    document.querySelectorAll('.screen').forEach(d => d.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
 
+function showInstructions() {
+    document.getElementById('inst-check').checked = false;
+    document.getElementById('start-btn').disabled = true;
+    showScreen('instruction-screen');
+}
+
+function toggleStartBtn() {
+    document.getElementById('start-btn').disabled = !document.getElementById('inst-check').checked;
+}
+
 function startTest() {
-    state = { started: true, submitted: false, currentSec: 0, currentQ: 0, answers: [], status: [], timeLeft: 120 * 60 };
+    state = { 
+        started: true, submitted: false, currentSec: 0, currentQ: 0, 
+        answers: [], status: [], 
+        sectionTimeLeft: [SEC_TIME, SEC_TIME, SEC_TIME, SEC_TIME], 
+        completedSections: [false, false, false, false] 
+    };
     initializeStateArrays();
-    saveState(); showScreen('test-screen'); startTimer(); renderTabs(); loadQuestion(0, 0);
+    saveState(); 
+    showScreen('test-screen'); 
+    renderTabs(); 
+    loadQuestion(0, 0);
+    startTimer(); 
 }
 
 function reattemptTest() {
-    if(confirm("क्या आप निश्चित रूप से एक नया टेस्ट शुरू करना चाहते हैं?")) {
-        localStorage.removeItem(COMPLETED_KEY); startTest();
+    if(confirm("Are you sure you want to restart the test? All previous progress will be lost.")) {
+        localStorage.removeItem(COMPLETED_KEY); 
+        showInstructions();
     }
 }
 
 function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 
+// --- Section Switching & Locking ---
 function renderTabs() {
     let html = "";
     examData.forEach((sec, idx) => {
-        let badge = `<span style="font-size:10px; background:var(--danger); color:white; padding:2px 6px; border-radius:10px; margin-left:5px;">${sec.questions.length}</span>`;
-        html += `<div class="tab ${idx === state.currentSec ? 'active' : ''}" onclick="switchSec(${idx})">${sec.sectionName} ${badge}</div>`;
+        let isLocked = state.completedSections[idx];
+        let isActive = (idx === state.currentSec);
+        let classes = `tab ${isActive ? 'active' : ''} ${isLocked ? 'locked' : ''}`;
+        
+        let clickAction = isLocked ? `alert('यह सेक्शन सबमिट हो चुका है, आप इसमें वापस नहीं जा सकते।')` : `switchSec(${idx})`;
+        
+        html += `<div class="${classes}" onclick="${clickAction}">${sec.sectionName}</div>`;
     });
     document.getElementById('section-tabs').innerHTML = html;
 }
 
 function switchSec(idx) {
+    if(state.completedSections[idx]) {
+        alert('यह सेक्शन लॉक हो चुका है।'); return;
+    }
     if(examData[idx].questions.length === 0) {
-        alert("यह सेक्शन अभी जोड़ा जा रहा है! कृपया उपलब्ध सेक्शन हल करें।");
-        return;
+        alert("No questions in this section."); return;
     }
     state.currentSec = idx;
+    state.currentQ = 0; 
     renderTabs();
     loadQuestion(idx, 0);
+    startTimer();
 }
 
+function userSubmitSection() {
+    if(confirm("क्या आप इस सेक्शन को सबमिट करना चाहते हैं? सबमिट होने के बाद आप इस सेक्शन के सवालों में बदलाव नहीं कर पाएंगे।")) {
+        processSectionSubmit();
+    }
+}
+
+function processSectionSubmit() {
+    state.completedSections[state.currentSec] = true;
+    saveState();
+    
+    let allCompleted = state.completedSections.every((isLocked, idx) => {
+        return isLocked || examData[idx].questions.length === 0;
+    });
+
+    if(allCompleted) {
+        alert("Your exam is now completed. Submitting final results.");
+        clearInterval(timerInterval);
+        state.submitted = true;
+        saveState();
+        calculateResult();
+    } else {
+        let nextSec = state.completedSections.findIndex(locked => !locked && examData[locked].questions.length > 0);
+        if(nextSec !== -1) {
+            switchSec(nextSec);
+        } else {
+            for(let i=0; i<4; i++){
+                if(!state.completedSections[i] && examData[i].questions.length > 0) {
+                    switchSec(i); break;
+                }
+            }
+        }
+    }
+}
+
+// --- Question Loading ---
 function loadQuestion(sIdx, qIdx) {
     if(examData[sIdx].questions.length === 0) return;
     if (qIdx < 0) qIdx = 0; if (qIdx >= examData[sIdx].questions.length) qIdx = examData[sIdx].questions.length - 1;
@@ -452,39 +666,47 @@ function loadQuestion(sIdx, qIdx) {
     state.currentSec = sIdx;
     state.currentQ = qIdx; 
     
-    if(state.status[sIdx][qIdx] === 0 || state.status[sIdx][qIdx] === undefined) state.status[sIdx][qIdx] = 1; 
-    
-    let overallQNum = 1;
-    for(let i=0; i<sIdx; i++) {
-        overallQNum += examData[i].questions.length;
+    if(state.status[sIdx][qIdx] === 0 || state.status[sIdx][qIdx] === undefined) {
+        state.status[sIdx][qIdx] = 1; 
     }
-    overallQNum += qIdx;
-
-    document.getElementById('q-no').innerText = `Question ${qIdx + 1} (Overall: ${overallQNum})`;
+    
+    document.getElementById('q-no').innerText = `Question:${qIdx + 1}`;
     document.getElementById('q-text').innerHTML = examData[sIdx].questions[qIdx].q;
     
-    let optsHTML = ''; let labels = ['A', 'B', 'C', 'D'];
+    let optsHTML = ''; 
     examData[sIdx].questions[qIdx].o.forEach((opt, i) => {
-        let isSel = state.answers[sIdx][qIdx] === i; let selClass = isSel ? 'selected' : '';
-        optsHTML += `<div class="glass-panel option ${selClass}" onclick="selectOption(${i})"><div class="opt-label">${labels[i]}</div><div style="flex:1;">${opt}</div></div>`;
+        let isSel = state.answers[sIdx][qIdx] === i; 
+        let selClass = isSel ? 'selected' : '';
+        optsHTML += `<div class="option ${selClass}" onclick="selectOption(${i})">
+                        <div style="width:20px; height:20px; border-radius:50%; border:2px solid ${isSel ? 'var(--primary)' : '#ccc'}; display:flex; justify-content:center; align-items:center;">
+                            <div style="width:10px; height:10px; border-radius:50%; background:${isSel ? 'var(--primary)' : 'transparent'};"></div>
+                        </div>
+                        <div style="flex:1;">${opt}</div>
+                     </div>`;
     });
     document.getElementById('options-box').innerHTML = optsHTML;
-    document.getElementById('palette-title').innerText = examData[sIdx].sectionName;
-    saveState(); renderPalette();
+    
+    saveState(); 
+    renderPalette();
 }
 
 function selectOption(optIdx) { state.answers[state.currentSec][state.currentQ] = optIdx; loadQuestion(state.currentSec, state.currentQ); }
 
 function saveNext() {
     let sIdx = state.currentSec, qIdx = state.currentQ;
-    if(state.answers[sIdx][qIdx] !== null && state.answers[sIdx][qIdx] !== undefined) state.status[sIdx][qIdx] = 2; else state.status[sIdx][qIdx] = 1; 
-    goToNextQuestion();
+    if(state.answers[sIdx][qIdx] !== null && state.answers[sIdx][qIdx] !== undefined) state.status[sIdx][qIdx] = 2; 
+    else state.status[sIdx][qIdx] = 1; 
+    
+    if (qIdx < examData[sIdx].questions.length - 1) loadQuestion(sIdx, qIdx + 1);
+    else alert("You have reached the end of this section. Click 'Submit Section' below.");
 }
 
 function markReview() {
     let sIdx = state.currentSec, qIdx = state.currentQ;
-    if(state.answers[sIdx][qIdx] !== null && state.answers[sIdx][qIdx] !== undefined) state.status[sIdx][qIdx] = 4; else state.status[sIdx][qIdx] = 3; 
-    goToNextQuestion();
+    if(state.answers[sIdx][qIdx] !== null && state.answers[sIdx][qIdx] !== undefined) state.status[sIdx][qIdx] = 4; 
+    else state.status[sIdx][qIdx] = 3; 
+    
+    if (qIdx < examData[sIdx].questions.length - 1) loadQuestion(sIdx, qIdx + 1);
 }
 
 function clearResponse() { 
@@ -495,78 +717,77 @@ function clearResponse() {
 
 function changeQ(step) { 
     let newQ = state.currentQ + step;
-    if(newQ >= 0 && newQ < examData[state.currentSec].questions.length) { 
-        loadQuestion(state.currentSec, newQ); 
-    } 
+    if(newQ >= 0 && newQ < examData[state.currentSec].questions.length) { loadQuestion(state.currentSec, newQ); } 
 }
 
-function goToNextQuestion() {
-    let sIdx = state.currentSec, qIdx = state.currentQ;
-    if (qIdx < examData[sIdx].questions.length - 1) {
-        loadQuestion(sIdx, qIdx + 1);
-    } else {
-        let nextSec = -1;
-        for(let i=sIdx+1; i<examData.length; i++) {
-            if(examData[i].questions.length > 0) { nextSec = i; break; }
-        }
-        if (nextSec !== -1) {
-            switchSec(nextSec);
-        } else {
-            saveState(); renderPalette(); 
-            alert("आप सभी प्रश्नों के अंत तक पहुँच गए हैं! कृपया 'Submit Test' पर क्लिक करें।"); 
-        }
-    }
-}
-
+// --- Sidebar Palette ---
 function renderPalette() {
     let sIdx = state.currentSec;
     if(examData[sIdx].questions.length === 0) {
         document.getElementById('q-grid').innerHTML = "<div style='grid-column: span 5; text-align:center;'>No Questions</div>";
         return;
     }
+    
     let html = ''; let counts = { ans: 0, notAns: 0, notVis: 0, marked: 0 };
+    
     for(let i=0; i<examData[sIdx].questions.length; i++) {
         let s = state.status[sIdx][i]; let cls = 's-0';
+        
         if(s === 0 || s === undefined) { cls = 's-0'; counts.notVis++; } 
         else if(s === 1) { cls = 's-2'; counts.notAns++; }
         else if(s === 2) { cls = 's-1'; counts.ans++; } 
         else if(s === 3) { cls = 's-3'; counts.marked++; }
         else if(s === 4) { cls = 's-4'; counts.ans++; counts.marked++; }
+        
         let active = (i === state.currentQ) ? 'active' : ''; 
         if(active && (s === 0 || s === undefined)) cls = 's-2'; 
+        
         html += `<button class="p-btn ${cls} ${active}" onclick="loadQuestion(${sIdx}, ${i})">${i+1}</button>`;
     }
     document.getElementById('q-grid').innerHTML = html;
-    document.getElementById('c-ans').innerText = counts.ans; document.getElementById('c-notans').innerText = counts.notAns;
-    document.getElementById('c-notvis').innerText = counts.notVis; document.getElementById('c-mark').innerText = counts.marked;
+    
+    document.getElementById('c-ans').innerText = counts.ans; 
+    document.getElementById('c-notans').innerText = counts.notAns;
+    document.getElementById('c-notvis').innerText = counts.notVis; 
+    document.getElementById('c-mark').innerText = counts.marked;
 }
 
+// --- Sectional Timer Logic ---
 function startTimer() {
-    if(timerInterval) clearInterval(timerInterval); updateTimerDisplay();
+    if(timerInterval) clearInterval(timerInterval);
+    updateTimerDisplay();
+    
     timerInterval = setInterval(() => {
-        if (state.timeLeft <= 0) { clearInterval(timerInterval); submitTest(); return; }
-        state.timeLeft--; updateTimerDisplay();
-        if(state.timeLeft % 10 === 0) saveState();
+        if (state.sectionTimeLeft[state.currentSec] <= 0) {
+            clearInterval(timerInterval);
+            alert(`Time is up for ${examData[state.currentSec].sectionName}! Auto-submitting this section.`);
+            processSectionSubmit(); 
+            return;
+        }
+        state.sectionTimeLeft[state.currentSec]--;
+        updateTimerDisplay();
+        
+        if(state.sectionTimeLeft[state.currentSec] % 10 === 0) saveState();
     }, 1000);
 }
 
 function updateTimerDisplay() {
-    let m = Math.floor(state.timeLeft / 60).toString(); let s = (state.timeLeft % 60).toString().padStart(2, '0');
-    if(m.length < 2) m = m.padStart(2, '0'); document.getElementById('timer-display').innerText = `${m}:${s}`;
+    let timeLeft = state.sectionTimeLeft[state.currentSec];
+    let m = Math.floor(timeLeft / 60).toString(); 
+    let s = (timeLeft % 60).toString().padStart(2, '0');
+    if(m.length < 2) m = m.padStart(2, '0'); 
+    
+    let timerEl = document.getElementById('timer-display');
+    timerEl.innerText = `${m}:${s}`;
+    
+    if(timeLeft < 300) timerEl.style.color = "red"; 
+    else timerEl.style.color = "var(--text-main)";
 }
 
-function togglePause() {
-    let modal = document.getElementById('pause-overlay');
-    if (modal.style.display === 'flex') { modal.style.display = 'none'; startTimer(); } else { clearInterval(timerInterval); modal.style.display = 'flex'; }
-}
-
-function submitTest() {
-    if(!confirm("क्या आप निश्चित रूप से टेस्ट सबमिट करना चाहते हैं?")) return;
-    clearInterval(timerInterval); state.submitted = true; saveState(); calculateResult();
-}
-
+// --- Final Result Calculation ---
 function calculateResult() {
     let correct = 0, wrong = 0, attempted = 0, totalQ = 0;
+    
     examData.forEach((sec, sIdx) => {
         sec.questions.forEach((q, qIdx) => {
             totalQ++;
@@ -577,13 +798,13 @@ function calculateResult() {
             }
         });
     });
-    totalQ = totalQ || 200;
     
+    totalQ = totalQ || 200;
     let positiveMarks = correct * 1;
     let negativeMarks = wrong * 0.25;
     let finalScore = positiveMarks - negativeMarks;
 
-    const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const today = new Date().toLocaleDateString('en-US');
     const completedData = { score: finalScore.toFixed(2), attempted: attempted, wrong: wrong, date: today };
     localStorage.setItem(COMPLETED_KEY, JSON.stringify(completedData));
     
@@ -591,33 +812,37 @@ function calculateResult() {
     document.getElementById('r-attempt').innerText = attempted;
     document.getElementById('r-wrong').innerText = wrong; 
     document.getElementById('r-acc').innerText = attempted > 0 ? Math.round((correct/attempted)*100) + '%' : '0%';
+    
     showScreen('result-screen');
 }
 
-function viewSavedResults() { calculateResult(); }
-
 function viewSolutions() {
-    showScreen('solution-screen'); let html = ''; let labels = ['A', 'B', 'C', 'D'];
-    let overallCount = 1;
+    showScreen('solution-screen'); 
+    let html = ''; let labels = ['A', 'B', 'C', 'D'];
+    
     examData.forEach((sec, sIdx) => {
         if(sec.questions.length === 0) return;
         html += `<h2 style="color:white; background:var(--primary); padding:10px; border-radius:8px; margin:20px 0 10px;">${sec.sectionName}</h2>`;
+        
         sec.questions.forEach((q, qIdx) => {
             let uAns = state.answers[sIdx][qIdx]; let cAns = q.a; let optsHtml = '';
+            
             q.o.forEach((opt, oIdx) => {
                 let cls = ''; let icon = '';
                 if(oIdx === cAns) { cls = 'correct'; icon = ' ✔'; }
                 else if(oIdx === uAns && uAns !== cAns) { cls = 'wrong'; icon = ' ❌ (Your Answer)'; }
-                optsHtml += `<div class="glass-panel sol-opt ${cls}"><strong>${labels[oIdx]}.</strong> <div style="flex:1;">${opt} <span style="float:right">${icon}</span></div></div>`;
+                optsHtml += `<div class="sol-opt ${cls}"><strong>${labels[oIdx]}.</strong> <div style="flex:1;">${opt} <span style="float:right">${icon}</span></div></div>`;
             });
-            let userStatus = uAns === null || uAns === undefined ? "<span style='color:var(--text-muted)'>हल नहीं किया (Unattempted)</span>" : 
-                           (uAns === cAns ? "<span style='color:var(--success)'>सही (Correct)</span>" : "<span style='color:var(--danger)'>गलत (Incorrect)</span>");
-            html += `<div class="glass-panel sol-card"><div style="font-weight:700; font-size:18px; margin-bottom:15px; color:var(--primary);">Q${overallCount}. ${q.q}</div>${optsHtml}<div style="font-weight:bold; margin:15px 0; color:var(--text-muted);">Status: ${userStatus}</div><div class="glass-panel sol-exp">${q.e}</div></div>`;
-            overallCount++;
+            
+            let userStatus = uAns === null || uAns === undefined ? "<span style='color:var(--text-muted)'>Unattempted</span>" : 
+                           (uAns === cAns ? "<span style='color:var(--success)'>Correct</span>" : "<span style='color:var(--danger)'>Incorrect</span>");
+            
+            html += `<div class="sol-card"><div style="font-weight:700; font-size:16px; margin-bottom:15px;">Q${qIdx+1}. ${q.q}</div>${optsHtml}<div style="font-weight:bold; margin:15px 0;">Status: ${userStatus}</div><div class="sol-exp">${q.e}</div></div>`;
         });
     });
     document.getElementById('sol-container').innerHTML = html;
 }
+
 function toggleTheme() { document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
 </script>
 </body>
