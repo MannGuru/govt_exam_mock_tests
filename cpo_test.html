@@ -365,3 +365,336 @@
             ]
         ]
     }
+];
+
+// --- Process Raw Data into Bilingual Logic ---
+let examData = rawSections.map(sec => {
+    return {
+        sectionName: sec.name,
+        questions: sec.questions.map(d => {
+            let qHi = d[0];
+            let qEn = d[1] || d[0]; 
+            
+            let optsHi = [];
+            let optsEn = [];
+            for(let i=0; i<8; i+=2) {
+                optsHi.push(d[2][i]);
+                optsEn.push(d[2][i+1] || d[2][i]);
+            }
+            
+            let ansIdx = d[3];
+            let expHi = d[4] && d[4][0] ? d[4][0] : "उत्तर उपलब्ध नहीं है।";
+            let expEn = d[4] && d[4][1] ? d[4][1] : expHi;
+            
+            return { qHi, qEn, optsHi, optsEn, a: ansIdx, expHi, expEn };
+        })
+    };
+});
+
+// --- State Management ---
+const STORAGE_KEY = 'cpo_real_mock_active'; 
+const COMPLETED_KEY = 'cpo_real_mock_comp';
+const SEC_TIME = 30 * 60; // 30 Mins
+
+let candidateName = localStorage.getItem('cpo_candidate_name') || "";
+let appLang = 'hi';
+
+let state = { 
+    started: false, submitted: false, currentSec: 0, currentQ: 0, 
+    answers: [], status: [], sectionTimeLeft: [SEC_TIME, SEC_TIME, SEC_TIME, SEC_TIME], 
+    completedSections: [false, false, false, false] 
+};
+
+let timerInterval;
+
+window.addEventListener('DOMContentLoaded', () => { 
+    initializeStateArrays();
+    if(candidateName) {
+        updateNameDisplays();
+        initDashboard();
+    } else {
+        showScreen('login-screen');
+    }
+});
+
+function candidateLogin() {
+    let nameInp = document.getElementById('cand-name-input').value.trim();
+    if(!nameInp) { alert("कृपया आगे बढ़ने के लिए अपना नाम दर्ज करें!"); return; }
+    candidateName = nameInp;
+    localStorage.setItem('cpo_candidate_name', candidateName);
+    updateNameDisplays();
+    initDashboard();
+}
+
+function logout() {
+    if(confirm("Are you sure you want to logout? This will erase all progress.")) {
+        localStorage.removeItem('cpo_candidate_name');
+        localStorage.removeItem(COMPLETED_KEY);
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+    }
+}
+
+function updateNameDisplays() {
+    if(document.getElementById('dash-cand-name')) document.getElementById('dash-cand-name').innerText = candidateName;
+    if(document.getElementById('test-cand-name')) document.getElementById('test-cand-name').innerText = candidateName;
+    if(document.getElementById('res-cand-name')) document.getElementById('res-cand-name').innerText = candidateName;
+}
+
+function initializeStateArrays() {
+    if(!state.answers || state.answers.length !== examData.length) {
+        state.answers = examData.map(sec => sec.questions.map(() => null));
+        state.status = examData.map(sec => sec.questions.map(() => 0)); 
+        state.completedSections = examData.map(() => false);
+        state.sectionTimeLeft = examData.map(() => SEC_TIME);
+    }
+}
+
+function initDashboard() {
+    let completedData = null;
+    try { const dataStr = localStorage.getItem(COMPLETED_KEY); if(dataStr) completedData = JSON.parse(dataStr); } catch(e) {}
+    
+    if (state.submitted || completedData) {
+        document.getElementById('dash-unattempted').style.display = 'none';
+        document.getElementById('dash-attempted').style.display = 'block';
+        if(completedData) {
+            let totalQ = examData.reduce((acc, sec) => acc + sec.questions.length, 0) || 200;
+            document.getElementById('dash-score-text').innerText = `${completedData.score}/${totalQ}.0 Marks`;
+        }
+    } else {
+        document.getElementById('dash-attempted').style.display = 'none';
+        document.getElementById('dash-unattempted').style.display = 'block';
+    }
+    
+    if (state.started && !state.submitted) {
+        showScreen('test-screen'); 
+        renderTabs(); 
+        loadQuestion(state.currentSec, state.currentQ);
+        startTimer();
+    } else { showScreen('dashboard-screen'); }
+}
+
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(d => d.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function showInstructions() {
+    document.getElementById('inst-check').checked = false;
+    document.getElementById('start-btn').disabled = true;
+    showScreen('instruction-screen');
+}
+
+function toggleStartBtn() { document.getElementById('start-btn').disabled = !document.getElementById('inst-check').checked; }
+
+function startTest() {
+    appLang = document.getElementById('default-lang').value;
+    document.getElementById('lang-toggle').value = appLang;
+
+    state = { 
+        started: true, submitted: false, currentSec: 0, currentQ: 0, 
+        answers: [], status: [], sectionTimeLeft: [SEC_TIME, SEC_TIME, SEC_TIME, SEC_TIME], 
+        completedSections: [false, false, false, false] 
+    };
+    initializeStateArrays();
+    saveState(); 
+    showScreen('test-screen'); 
+    renderTabs(); 
+    loadQuestion(0, 0);
+    startTimer(); 
+}
+
+function reattemptTest() {
+    if(confirm("Are you sure you want to restart the test? All previous progress will be lost.")) {
+        localStorage.removeItem(COMPLETED_KEY); showInstructions();
+    }
+}
+
+function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+// --- WORKING LANGUAGE TOGGLE ---
+function changeLanguage() {
+    appLang = document.getElementById('lang-toggle').value;
+    if(state.started && !state.submitted) {
+        loadQuestion(state.currentSec, state.currentQ);
+    }
+}
+
+function renderTabs() {
+    if(!examData[state.currentSec]) return;
+    document.getElementById('section-tabs').innerHTML = `
+        <div class="tab active" style="width:100%; text-align:center; cursor:default; font-size:16px;">
+            Current Section: ${examData[state.currentSec].sectionName}
+        </div>
+    `;
+}
+
+function switchSec(idx) {
+    state.currentSec = idx; state.currentQ = 0; 
+    renderTabs(); loadQuestion(idx, 0); startTimer();
+}
+
+function userSubmitSection() {
+    let msg = "चेतावनी (WARNING)!\n\nक्या आप वाकई इस सेक्शन को सबमिट करना चाहते हैं?\nएक बार OK करने के बाद यह सेक्शन हमेशा के लिए लॉक हो जाएगा और आप वापस इसमें कुछ बदलाव नहीं कर पाएंगे।";
+    if(confirm(msg)) { processSectionSubmit(); }
+}
+
+function processSectionSubmit() {
+    state.completedSections[state.currentSec] = true;
+    saveState();
+    let allCompleted = state.completedSections.every((isLocked, idx) => isLocked || examData[idx].questions.length === 0);
+
+    if(allCompleted) {
+        alert("Your exam is now completed. Submitting final results.");
+        clearInterval(timerInterval); state.submitted = true; saveState(); calculateResult();
+    } else {
+        let nextSec = state.completedSections.findIndex(locked => !locked && examData[locked].questions.length > 0);
+        if(nextSec !== -1) { switchSec(nextSec); } 
+        else {
+            for(let i=0; i<4; i++){ if(!state.completedSections[i] && examData[i].questions.length > 0) { switchSec(i); break; } }
+        }
+    }
+}
+
+function loadQuestion(sIdx, qIdx) {
+    if(!examData[sIdx] || examData[sIdx].questions.length === 0) return;
+    if (qIdx < 0) qIdx = 0; if (qIdx >= examData[sIdx].questions.length) qIdx = examData[sIdx].questions.length - 1;
+    
+    state.currentSec = sIdx; state.currentQ = qIdx; 
+    if(state.status[sIdx][qIdx] === 0 || state.status[sIdx][qIdx] === undefined) { state.status[sIdx][qIdx] = 1; }
+    
+    let qData = examData[sIdx].questions[qIdx];
+    document.getElementById('q-no').innerText = `Question: ${qIdx + 1}`;
+    
+    // LANGUAGE LOGIC
+    document.getElementById('q-text').innerHTML = appLang === 'hi' ? qData.qHi : qData.qEn;
+    
+    let optsHTML = ''; 
+    let currentOpts = appLang === 'hi' ? qData.optsHi : qData.optsEn;
+    
+    currentOpts.forEach((opt, i) => {
+        let isSel = state.answers[sIdx][qIdx] === i; 
+        let selClass = isSel ? 'selected' : '';
+        optsHTML += `<div class="option ${selClass}" onclick="selectOption(${i})">
+                        <div style="width:20px; height:20px; border-radius:50%; border:2px solid ${isSel ? 'var(--primary)' : '#ccc'}; display:flex; justify-content:center; align-items:center;">
+                            <div style="width:10px; height:10px; border-radius:50%; background:${isSel ? 'var(--primary)' : 'transparent'};"></div>
+                        </div>
+                        <div style="flex:1;">${opt}</div>
+                     </div>`;
+    });
+    document.getElementById('options-box').innerHTML = optsHTML;
+    saveState(); renderPalette();
+}
+
+function selectOption(optIdx) { state.answers[state.currentSec][state.currentQ] = optIdx; loadQuestion(state.currentSec, state.currentQ); }
+
+function saveNext() {
+    let sIdx = state.currentSec, qIdx = state.currentQ;
+    if(state.answers[sIdx][qIdx] !== null && state.answers[sIdx][qIdx] !== undefined) state.status[sIdx][qIdx] = 2; else state.status[sIdx][qIdx] = 1; 
+    if (qIdx < examData[sIdx].questions.length - 1) loadQuestion(sIdx, qIdx + 1);
+    else alert("You have reached the end of this section. Click 'Submit Section' below.");
+}
+
+function markReview() {
+    let sIdx = state.currentSec, qIdx = state.currentQ;
+    if(state.answers[sIdx][qIdx] !== null && state.answers[sIdx][qIdx] !== undefined) state.status[sIdx][qIdx] = 4; else state.status[sIdx][qIdx] = 3; 
+    if (qIdx < examData[sIdx].questions.length - 1) loadQuestion(sIdx, qIdx + 1);
+}
+
+function clearResponse() { state.answers[state.currentSec][state.currentQ] = null; state.status[state.currentSec][state.currentQ] = 1; loadQuestion(state.currentSec, state.currentQ); }
+function changeQ(step) { let newQ = state.currentQ + step; if(newQ >= 0 && newQ < examData[state.currentSec].questions.length) { loadQuestion(state.currentSec, newQ); } }
+
+function renderPalette() {
+    let sIdx = state.currentSec;
+    if(!examData[sIdx] || examData[sIdx].questions.length === 0) {
+        document.getElementById('q-grid').innerHTML = "<div style='grid-column: span 5; text-align:center;'>No Questions</div>"; return;
+    }
+    
+    let html = ''; let counts = { ans: 0, notAns: 0, notVis: 0, marked: 0 };
+    for(let i=0; i<examData[sIdx].questions.length; i++) {
+        let s = state.status[sIdx][i]; let cls = 's-0';
+        if(s === 0 || s === undefined) { cls = 's-0'; counts.notVis++; } else if(s === 1) { cls = 's-2'; counts.notAns++; } else if(s === 2) { cls = 's-1'; counts.ans++; } else if(s === 3) { cls = 's-3'; counts.marked++; } else if(s === 4) { cls = 's-4'; counts.ans++; counts.marked++; }
+        let active = (i === state.currentQ) ? 'active' : ''; if(active && (s === 0 || s === undefined)) cls = 's-2'; 
+        html += `<button class="p-btn ${cls} ${active}" onclick="loadQuestion(${sIdx}, ${i})">${i+1}</button>`;
+    }
+    document.getElementById('q-grid').innerHTML = html;
+    document.getElementById('c-ans').innerText = counts.ans; document.getElementById('c-notans').innerText = counts.notAns;
+    document.getElementById('c-notvis').innerText = counts.notVis; document.getElementById('c-mark').innerText = counts.marked;
+}
+
+function startTimer() {
+    if(timerInterval) clearInterval(timerInterval); updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        if (state.sectionTimeLeft[state.currentSec] <= 0) {
+            clearInterval(timerInterval); alert(`Time is up for ${examData[state.currentSec].sectionName}! Auto-submitting this section.`);
+            processSectionSubmit(); return;
+        }
+        state.sectionTimeLeft[state.currentSec]--; updateTimerDisplay();
+        if(state.sectionTimeLeft[state.currentSec] % 10 === 0) saveState();
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    let timeLeft = state.sectionTimeLeft[state.currentSec];
+    let m = Math.floor(timeLeft / 60).toString().padStart(2, '0'); let s = (timeLeft % 60).toString().padStart(2, '0');
+    let timerEl = document.getElementById('timer-display'); timerEl.innerText = `${m}:${s}`;
+    if(timeLeft < 300) timerEl.style.color = "red"; else timerEl.style.color = "var(--text-main)";
+}
+
+function calculateResult() {
+    let correct = 0, wrong = 0, attempted = 0, totalQ = 0;
+    examData.forEach((sec, sIdx) => {
+        sec.questions.forEach((q, qIdx) => {
+            totalQ++; let userAns = state.answers[sIdx][qIdx];
+            if(userAns !== null && userAns !== undefined) { attempted++; if(userAns === q.a) correct++; else wrong++; }
+        });
+    });
+    
+    totalQ = totalQ || 200; let finalScore = (correct * 1) - (wrong * 0.25);
+    const today = new Date().toLocaleDateString('en-US');
+    const completedData = { score: finalScore.toFixed(2), attempted: attempted, wrong: wrong, date: today };
+    localStorage.setItem(COMPLETED_KEY, JSON.stringify(completedData));
+    
+    document.getElementById('r-score').innerText = finalScore.toFixed(2); 
+    document.getElementById('r-attempt').innerText = attempted;
+    document.getElementById('r-wrong').innerText = wrong; 
+    document.getElementById('r-acc').innerText = attempted > 0 ? Math.round((correct/attempted)*100) + '%' : '0%';
+    showScreen('result-screen');
+}
+
+function viewSolutions() {
+    showScreen('solution-screen'); 
+    let html = ''; let labels = ['A', 'B', 'C', 'D'];
+    
+    examData.forEach((sec, sIdx) => {
+        if(sec.questions.length === 0) return;
+        html += `<h2 style="color:white; background:var(--primary); padding:10px; border-radius:8px; margin:20px 0 10px;">${sec.sectionName}</h2>`;
+        
+        sec.questions.forEach((q, qIdx) => {
+            let uAns = state.answers[sIdx][qIdx]; let cAns = q.a; let optsHtml = '';
+            
+            // LANGUAGE LOGIC FOR SOLUTIONS
+            let qText = appLang === 'hi' ? q.qHi : q.qEn;
+            let currentOpts = appLang === 'hi' ? q.optsHi : q.optsEn;
+            let expText = appLang === 'hi' ? q.expHi : q.expEn;
+            
+            currentOpts.forEach((opt, oIdx) => {
+                let cls = ''; let icon = '';
+                if(oIdx === cAns) { cls = 'correct'; icon = ' ✔'; }
+                else if(oIdx === uAns && uAns !== cAns) { cls = 'wrong'; icon = ' ❌ (Your Answer)'; }
+                optsHtml += `<div class="sol-opt ${cls}"><strong>${labels[oIdx]}.</strong> <div style="flex:1;">${opt} <span style="float:right">${icon}</span></div></div>`;
+            });
+            
+            let userStatus = uAns === null || uAns === undefined ? "<span style='color:var(--text-muted)'>Unattempted</span>" : 
+                           (uAns === cAns ? "<span style='color:var(--success)'>Correct</span>" : "<span style='color:var(--danger)'>Incorrect</span>");
+            
+            html += `<div class="sol-card"><div style="font-weight:700; font-size:16px; margin-bottom:15px;">Q${qIdx+1}. ${qText}</div>${optsHtml}<div style="font-weight:bold; margin:15px 0;">Status: ${userStatus}</div><div class="sol-exp"><b>Solution:</b><br>${expText}</div></div>`;
+        });
+    });
+    document.getElementById('sol-container').innerHTML = html;
+}
+
+function toggleTheme() { document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+</script>
+</body>
+</html>
