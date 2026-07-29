@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC CPO Mock Tests - MANN GURU</title>
+    <title>SSC Mock Tests - Mann Guru</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
         body { background: #f4f6f7; color: #333; }
@@ -12,31 +12,36 @@
         .navbar { background: #2c3e50; padding: 15px 20px; color: white; font-weight: bold; font-size: 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .back-btn { color: white; text-decoration: none; font-size: 14px; background: #34495e; padding: 8px 12px; border-radius: 5px; border: 1px solid #7f8c8d; }
         
-        .container { max-width: 800px; margin: 30px auto; padding: 0 15px; }
+        /* Container width increased for side-by-side layout */
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
         .page-title { text-align: center; margin-bottom: 20px; color: #2c3e50; font-weight: 900; }
         
+        /* Wrapper for Side-by-Side Columns */
+        .tiers-wrapper { display: flex; gap: 25px; flex-wrap: wrap; align-items: flex-start; }
+        .tier-column { flex: 1; min-width: 320px; }
+
         /* Section Heading */
-        .section-title { background: #e74c3c; color: white; padding: 10px 15px; border-radius: 6px; margin: 30px 0 15px 0; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .tier-two-bg { background: #8e44ad; } /* Tier 2 ke liye alag color */
+        .section-title { background: #e74c3c; color: white; padding: 10px 15px; border-radius: 6px; margin: 0 0 15px 0; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .tier-two-bg { background: #8e44ad; } 
 
         /* Test Card Styling */
-        .test-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border-left: 6px solid #3498db; transition: transform 0.2s; }
+        .test-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; flex-direction: column; align-items: flex-start; gap: 15px; border-left: 6px solid #3498db; transition: transform 0.2s; }
         .test-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
         
-        .test-info h3 { font-size: 18px; color: #2c3e50; margin-bottom: 8px; }
-        .test-details { font-size: 13px; color: #7f8c8d; display: flex; gap: 15px; font-weight: 600; }
+        .test-info { width: 100%; }
+        .test-info h3 { font-size: 17px; color: #2c3e50; margin-bottom: 8px; }
+        .test-details { font-size: 13px; color: #7f8c8d; display: flex; flex-wrap: wrap; gap: 15px; font-weight: 600; }
         
         /* Buttons */
-        .start-btn { background: #27ae60; color: white; border: none; padding: 10px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 14px; transition: 0.2s; }
+        .start-btn { background: #27ae60; color: white; border: none; padding: 10px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 14px; transition: 0.2s; align-self: flex-end; }
         .start-btn:hover { background: #219150; }
         .start-btn.locked { background: #95a5a6; cursor: not-allowed; }
         .start-btn.locked:hover { background: #95a5a6; }
 
-        /* Mobile View */
-        @media(max-width: 600px) { 
-            .test-card { flex-direction: column; align-items: flex-start; } 
-            .start-btn { width: 100%; text-align: center; } 
-            .test-details { flex-wrap: wrap; gap: 10px; }
+        /* Mobile View Adjustments */
+        @media(max-width: 768px) { 
+            .tiers-wrapper { flex-direction: column; }
+            .start-btn { width: 100%; text-align: center; align-self: center; } 
         }
     </style>
 </head>
@@ -48,83 +53,87 @@
     </div>
 
     <div class="container">
-        <!-- Main Page Title Updated -->
         <h2 class="page-title">SSC CPO - Mock Test Series</h2>
         
-        <!-- ================= SSC CPO TIER-I SECTION ================= -->
-        <h3 class="section-title">SSC CPO Tier-I</h3>
+        <!-- Wrapper for Columns -->
+        <div class="tiers-wrapper">
+            
+            <!-- ================= COLUMN 1: SSC CPO TIER-I ================= -->
+            <div class="tier-column">
+                <h3 class="section-title">SSC CPO Tier-I</h3>
 
-        <!-- Tier 1: Mock Test 1 -->
-        <div class="test-card">
-            <div class="test-info">
-                <h3>SSC CPO Tier-I Full Mock Test 1</h3>
-                <div class="test-details">
-                    <span>📝 200 Questions</span>
-                    <span>⏱️ 120 Mins</span>
-                    <span>🏆 200 Marks</span>
+                <!-- Tier 1: Mock Test 1 -->
+                <div class="test-card">
+                    <div class="test-info">
+                        <h3>SSC CPO Tier-I Full Mock Test 1</h3>
+                        <div class="test-details">
+                            <span>📝 200 Questions</span>
+                            <span>⏱️ 120 Mins</span>
+                            <span>🏆 200 Marks</span>
+                        </div>
+                    </div>
+                    <a href="cpo_test.html" class="start-btn">Start Test ▶</a>
+                </div>
+
+                <!-- Tier 1: Mock Test 2 -->
+                <div class="test-card" style="border-left-color: #95a5a6;">
+                    <div class="test-info">
+                        <h3>Tier-I Mock Test - 2 (Previous Year 2023)</h3>
+                        <div class="test-details">
+                            <span>📝 200 Questions</span>
+                            <span>⏱️ 120 Mins</span>
+                            <span>🏆 200 Marks</span>
+                        </div>
+                    </div>
+                    <button class="start-btn locked" onclick="alert('Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
+                </div>
+
+                <!-- Tier 1: Mock Test 3 -->
+                <div class="test-card" style="border-left-color: #95a5a6;">
+                    <div class="test-info">
+                        <h3>Tier-I Mock Test - 3 (Expected Paper)</h3>
+                        <div class="test-details">
+                            <span>📝 200 Questions</span>
+                            <span>⏱️ 120 Mins</span>
+                            <span>🏆 200 Marks</span>
+                        </div>
+                    </div>
+                    <button class="start-btn locked" onclick="alert('Mock Test 3 will be uploaded soon!')">🔒 Locked</button>
                 </div>
             </div>
-            <!-- Yeh button aapke test ko khol dega -->
-            <a href="cpo_test.html" class="start-btn">Start Test ▶</a>
-        </div>
 
-        <!-- Tier 1: Mock Test 2 -->
-        <div class="test-card" style="border-left-color: #95a5a6;">
-            <div class="test-info">
-                <h3>Tier-I Mock Test - 2 (Previous Year 2023)</h3>
-                <div class="test-details">
-                    <span>📝 200 Questions</span>
-                    <span>⏱️ 120 Mins</span>
-                    <span>🏆 200 Marks</span>
+            <!-- ================= COLUMN 2: SSC CPO TIER-II ================= -->
+            <div class="tier-column">
+                <h3 class="section-title tier-two-bg">SSC CPO Tier-II</h3>
+
+                <!-- Tier 2: Mock Test 1 -->
+                <div class="test-card" style="border-left-color: #8e44ad;">
+                    <div class="test-info">
+                        <h3>SSC CPO Tier-II Mock Test 1 (English)</h3>
+                        <div class="test-details">
+                            <span>📝 200 Questions</span>
+                            <span>⏱️ 120 Mins</span>
+                            <span>🏆 200 Marks</span>
+                        </div>
+                    </div>
+                    <button class="start-btn locked" onclick="alert('Tier-II Mock Test will be uploaded soon!')">🔒 Locked</button>
+                </div>
+
+                <!-- Tier 2: Mock Test 2 -->
+                <div class="test-card" style="border-left-color: #95a5a6;">
+                    <div class="test-info">
+                        <h3>Tier-II Mock Test - 2 (Previous Year)</h3>
+                        <div class="test-details">
+                            <span>📝 200 Questions</span>
+                            <span>⏱️ 120 Mins</span>
+                            <span>🏆 200 Marks</span>
+                        </div>
+                    </div>
+                    <button class="start-btn locked" onclick="alert('Tier-II Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
                 </div>
             </div>
-            <!-- Yeh button abhi locked hai -->
-            <button class="start-btn locked" onclick="alert('Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
-        </div>
 
-        <!-- Tier 1: Mock Test 3 -->
-        <div class="test-card" style="border-left-color: #95a5a6;">
-            <div class="test-info">
-                <h3>Tier-I Mock Test - 3 (Expected Paper)</h3>
-                <div class="test-details">
-                    <span>📝 200 Questions</span>
-                    <span>⏱️ 120 Mins</span>
-                    <span>🏆 200 Marks</span>
-                </div>
-            </div>
-            <button class="start-btn locked" onclick="alert('Mock Test 3 will be uploaded soon!')">🔒 Locked</button>
-        </div>
-
-
-        <!-- ================= SSC CPO TIER-II SECTION ================= -->
-        <h3 class="section-title tier-two-bg">SSC CPO Tier-II</h3>
-
-        <!-- Tier 2: Mock Test 1 -->
-        <div class="test-card" style="border-left-color: #8e44ad;">
-            <div class="test-info">
-                <h3>SSC CPO Tier-II Mock Test 1 (English)</h3>
-                <div class="test-details">
-                    <span>📝 200 Questions</span>
-                    <span>⏱️ 120 Mins</span>
-                    <span>🏆 200 Marks</span>
-                </div>
-            </div>
-            <button class="start-btn locked" onclick="alert('Tier-II Mock Test will be uploaded soon!')">🔒 Locked</button>
-        </div>
-
-        <!-- Tier 2: Mock Test 2 -->
-        <div class="test-card" style="border-left-color: #95a5a6;">
-            <div class="test-info">
-                <h3>Tier-II Mock Test - 2 (Previous Year)</h3>
-                <div class="test-details">
-                    <span>📝 200 Questions</span>
-                    <span>⏱️ 120 Mins</span>
-                    <span>🏆 200 Marks</span>
-                </div>
-            </div>
-            <button class="start-btn locked" onclick="alert('Tier-II Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
-        </div>
-
+        </div> <!-- End of Tiers Wrapper -->
     </div>
 
 </body>
