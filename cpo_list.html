@@ -13,8 +13,12 @@
         .back-btn { color: white; text-decoration: none; font-size: 14px; background: #34495e; padding: 8px 12px; border-radius: 5px; border: 1px solid #7f8c8d; }
         
         .container { max-width: 800px; margin: 30px auto; padding: 0 15px; }
-        .page-title { text-align: center; margin-bottom: 30px; color: #2c3e50; font-weight: 900; }
+        .page-title { text-align: center; margin-bottom: 20px; color: #2c3e50; font-weight: 900; }
         
+        /* Section Heading */
+        .section-title { background: #e74c3c; color: white; padding: 10px 15px; border-radius: 6px; margin: 30px 0 15px 0; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .tier-two-bg { background: #8e44ad; } /* Tier 2 ke liye alag color */
+
         /* Test Card Styling */
         .test-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border-left: 6px solid #3498db; transition: transform 0.2s; }
         .test-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
@@ -44,12 +48,16 @@
     </div>
 
     <div class="container">
-        <h2 class="page-title">SSC CPO Tier 1 - Mock Test Series</h2>
+        <!-- Main Page Title Updated -->
+        <h2 class="page-title">SSC CPO - Mock Test Series</h2>
         
-        <!-- Mock Test 1 -->
+        <!-- ================= SSC CPO TIER-I SECTION ================= -->
+        <h3 class="section-title">SSC CPO Tier-I</h3>
+
+        <!-- Tier 1: Mock Test 1 -->
         <div class="test-card">
             <div class="test-info">
-                <h3>SSC CPO Full Mock Test 1</h3>
+                <h3>SSC CPO Tier-I Full Mock Test 1</h3>
                 <div class="test-details">
                     <span>📝 200 Questions</span>
                     <span>⏱️ 120 Mins</span>
@@ -60,10 +68,10 @@
             <a href="cpo_test.html" class="start-btn">Start Test ▶</a>
         </div>
 
-        <!-- Mock Test 2 -->
+        <!-- Tier 1: Mock Test 2 -->
         <div class="test-card" style="border-left-color: #95a5a6;">
             <div class="test-info">
-                <h3>Mock Test - 2 (Previous Year 2023)</h3>
+                <h3>Tier-I Mock Test - 2 (Previous Year 2023)</h3>
                 <div class="test-details">
                     <span>📝 200 Questions</span>
                     <span>⏱️ 120 Mins</span>
@@ -74,10 +82,10 @@
             <button class="start-btn locked" onclick="alert('Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
         </div>
 
-        <!-- Mock Test 3 -->
+        <!-- Tier 1: Mock Test 3 -->
         <div class="test-card" style="border-left-color: #95a5a6;">
             <div class="test-info">
-                <h3>Mock Test - 3 (Expected Paper)</h3>
+                <h3>Tier-I Mock Test - 3 (Expected Paper)</h3>
                 <div class="test-details">
                     <span>📝 200 Questions</span>
                     <span>⏱️ 120 Mins</span>
@@ -85,6 +93,36 @@
                 </div>
             </div>
             <button class="start-btn locked" onclick="alert('Mock Test 3 will be uploaded soon!')">🔒 Locked</button>
+        </div>
+
+
+        <!-- ================= SSC CPO TIER-II SECTION ================= -->
+        <h3 class="section-title tier-two-bg">SSC CPO Tier-II</h3>
+
+        <!-- Tier 2: Mock Test 1 -->
+        <div class="test-card" style="border-left-color: #8e44ad;">
+            <div class="test-info">
+                <h3>SSC CPO Tier-II Mock Test 1 (English)</h3>
+                <div class="test-details">
+                    <span>📝 200 Questions</span>
+                    <span>⏱️ 120 Mins</span>
+                    <span>🏆 200 Marks</span>
+                </div>
+            </div>
+            <button class="start-btn locked" onclick="alert('Tier-II Mock Test will be uploaded soon!')">🔒 Locked</button>
+        </div>
+
+        <!-- Tier 2: Mock Test 2 -->
+        <div class="test-card" style="border-left-color: #95a5a6;">
+            <div class="test-info">
+                <h3>Tier-II Mock Test - 2 (Previous Year)</h3>
+                <div class="test-details">
+                    <span>📝 200 Questions</span>
+                    <span>⏱️ 120 Mins</span>
+                    <span>🏆 200 Marks</span>
+                </div>
+            </div>
+            <button class="start-btn locked" onclick="alert('Tier-II Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
         </div>
 
     </div>
