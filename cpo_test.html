@@ -1920,24 +1920,30 @@ function switchSec(idx) {
 }
 
 function userSubmitSection() {
-    let msg = "चेतावनी (WARNING)!\n\nक्या आप वाकई इस सेक्शन को सबमिट करना चाहते हैं?\nएक बार OK करने के बाद यह सेक्शन हमेशा के लिए लॉक हो जाएगा और आप वापस इसमें कुछ बदलाव नहीं कर पाएंगे।";
+    let msg = "चेतावनी (WARNING)!\n\nक्या आप वाकई इस सेक्शन को सबमिट करना चाहते हैं?\nएक बार OK करने के बाद यह सेक्शन हमेशा के लिए लॉक हो जाएगा।";
     if(confirm(msg)) { processSectionSubmit(); }
 }
 
 function processSectionSubmit() {
     state.completedSections[state.currentSec] = true;
     saveState();
-    let allCompleted = state.completedSections.every((isLocked, idx) => isLocked || examData[idx].questions.length === 0);
+    
+    // अगला सेक्शन ढूँढने और उसे चालू करने का कोड
+    let nextSec = state.currentSec + 1;
+    while(nextSec < examData.length && (!examData[nextSec] || examData[nextSec].questions.length === 0)) {
+        state.completedSections[nextSec] = true;
+        nextSec++;
+    }
 
-    if(allCompleted) {
-        alert("Your exam is now completed. Submitting final results.");
-        clearInterval(timerInterval); state.submitted = true; saveState(); calculateResult();
+    if(nextSec < examData.length) {
+        alert("यह सेक्शन सबमिट हो गया है! अब आपका अगला सेक्शन शुरू हो रहा है।");
+        switchSec(nextSec);
     } else {
-        let nextSec = state.completedSections.findIndex(locked => !locked && examData[locked].questions.length > 0);
-        if(nextSec !== -1) { switchSec(nextSec); } 
-        else {
-            for(let i=0; i<4; i++){ if(!state.completedSections[i] && examData[i].questions.length > 0) { switchSec(i); break; } }
-        }
+        alert("Your exam is now completed. Submitting final results.");
+        clearInterval(timerInterval);
+        state.submitted = true;
+        saveState();
+        calculateResult();
     }
 }
 
