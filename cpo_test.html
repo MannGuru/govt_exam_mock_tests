@@ -501,7 +501,10 @@ const STORAGE_KEY = 'cpo_real_mock_active';
 const COMPLETED_KEY = 'cpo_real_mock_comp';
 const SEC_TIME = 30 * 60; // 30 Minutes per section in seconds
 
-let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { 
+// 1. पुरानी एरर वाली मेमोरी को साफ़ करने के लिए एक बार इसे क्लियर कर रहे हैं
+localStorage.removeItem(STORAGE_KEY); 
+
+let state = { 
     started: false, 
     submitted: false, 
     currentSec: 0, 
@@ -520,12 +523,14 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function initializeStateArrays() {
-    if(!state.answers || state.answers.length === 0) {
+    // अगर मेमोरी में कोई डेटा नहीं है या पुराना गलत डेटा है, तो उसे रीसेट करें
+    if(!state.answers || state.answers.length !== examData.length) {
         state.answers = examData.map(sec => sec.questions.map(() => null));
         state.status = examData.map(sec => sec.questions.map(() => 0)); // 0: Not Visited
+        state.completedSections = examData.map(() => false);
+        state.sectionTimeLeft = examData.map(() => SEC_TIME);
     }
 }
-
 function initDashboard() {
     let completedData = null;
     try { const dataStr = localStorage.getItem(COMPLETED_KEY); if(dataStr) completedData = JSON.parse(dataStr); } catch(e) {}
