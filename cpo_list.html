@@ -1,139 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- सही Tailwind CDN स्क्रिप्ट -->
+    <script src="https://tailwindcss.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC Mock Tests - Mann Guru</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
-        body { background: #f4f6f7; color: #333; }
-        
-        /* Navbar */
-        .navbar { background: #2c3e50; padding: 15px 20px; color: white; font-weight: bold; font-size: 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .back-btn { color: white; text-decoration: none; font-size: 14px; background: #34495e; padding: 8px 12px; border-radius: 5px; border: 1px solid #7f8c8d; }
-        
-        /* Container width increased for side-by-side layout */
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
-        .page-title { text-align: center; margin-bottom: 20px; color: #2c3e50; font-weight: 900; }
-        
-        /* Wrapper for Side-by-Side Columns */
-        .tiers-wrapper { display: flex; gap: 25px; flex-wrap: wrap; align-items: flex-start; }
-        .tier-column { flex: 1; min-width: 320px; }
-
-        /* Section Heading */
-        .section-title { background: #e74c3c; color: white; padding: 10px 15px; border-radius: 6px; margin: 0 0 15px 0; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .tier-two-bg { background: #8e44ad; } 
-
-        /* Test Card Styling */
-        .test-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; flex-direction: column; align-items: flex-start; gap: 15px; border-left: 6px solid #3498db; transition: transform 0.2s; }
-        .test-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-        
-        .test-info { width: 100%; }
-        .test-info h3 { font-size: 17px; color: #2c3e50; margin-bottom: 8px; }
-        .test-details { font-size: 13px; color: #7f8c8d; display: flex; flex-wrap: wrap; gap: 15px; font-weight: 600; }
-        
-        /* Buttons */
-        .start-btn { background: #27ae60; color: white; border: none; padding: 10px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 14px; transition: 0.2s; align-self: flex-end; }
-        .start-btn:hover { background: #219150; }
-        .start-btn.locked { background: #95a5a6; cursor: not-allowed; }
-        .start-btn.locked:hover { background: #95a5a6; }
-
-        /* Mobile View Adjustments */
-        @media(max-width: 768px) { 
-            .tiers-wrapper { flex-direction: column; }
-            .start-btn { width: 100%; text-align: center; align-self: center; } 
-        }
-    </style>
+    <title>SSC CPO Mock Test Series</title>
 </head>
-<body>
+<!-- होम पेज से मैच करता हुआ प्रीमियम बैकग्राउंड -->
+<body class="bg-gradient-to-br from-[#f0fdf4] via-[#faf5ff] to-[#f0f9ff] min-h-screen text-gray-800 font-sans antialiased">
 
-    <div class="navbar">
-        <span>🛡️ SSC CPO Tests</span>
-        <a href="index.html" class="back-btn">⬅ Back to Home</a>
+    <!-- Top Navigation Bar -->
+    <div class="bg-[#1e1b4b] text-white px-4 py-3 flex justify-between items-center shadow-md sticky top-0 z-50">
+        <span class="flex items-center gap-2 font-black text-sm md:text-base tracking-wide text-emerald-400">
+            🛡️ SSC CPO Tests Portal
+        </span>
+        <!-- वापस होम पेज पर जाने का सुंदर बटन -->
+        <a href="index.html" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold py-1.5 px-4 rounded-xl transition duration-300 backdrop-blur-sm no-underline tracking-wide">
+            ← Back to Home
+        </a>
     </div>
 
-    <div class="container">
-        <h2 class="page-title">SSC CPO - Mock Test Series</h2>
+    <!-- Main Container -->
+    <div class="max-w-5xl mx-auto px-4 py-8">
         
-        <!-- Wrapper for Columns -->
-        <div class="tiers-wrapper">
+        <!-- Page Title -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">
+                SSC CPO - <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-indigo-600">Mock Test Series</span>
+            </h1>
+            <p class="text-xs md:text-sm font-semibold text-slate-500">🎯 Latest Pattern Based Tier-I & Tier-II Full Length Tests</p>
+        </div>
+
+        <!-- Two Column Grid for Tier I and Tier II -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             
-            <!-- ================= COLUMN 1: SSC CPO TIER-I ================= -->
-            <div class="tier-column">
-                <h3 class="section-title">SSC CPO Tier-I</h3>
-
-                <!-- Tier 1: Mock Test 1 -->
-                <div class="test-card">
-                    <div class="test-info">
-                        <h3>SSC CPO Tier-I Full Mock Test 1</h3>
-                        <div class="test-details">
-                            <span>📝 200 Questions</span>
-                            <span>⏱️ 120 Mins</span>
-                            <span>🏆 200 Marks</span>
-                        </div>
-                    </div>
-                    <a href="cpo_test.html" class="start-btn">Start Test ▶</a>
+            <!-- ================= TIER-I SECTION ================= -->
+            <div class="space-y-4">
+                <!-- Section Header/Badge -->
+                <div class="bg-gradient-to-r from-rose-600 to-orange-500 text-white font-black text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-md text-center">
+                    SSC CPO TIER-I (Objective)
                 </div>
 
-                <!-- Tier 1: Mock Test 2 -->
-                <div class="test-card" style="border-left-color: #95a5a6;">
-                    <div class="test-info">
-                        <h3>Tier-I Mock Test - 2 (Previous Year 2023)</h3>
-                        <div class="test-details">
-                            <span>📝 200 Questions</span>
-                            <span>⏱️ 120 Mins</span>
-                            <span>🏆 200 Marks</span>
+                <!-- Test Card 1 (Active/Free) -->
+                <div class="bg-white/90 backdrop-blur-md p-5 rounded-2xl border border-emerald-100 shadow-md transition duration-300 hover:shadow-lg flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-black text-slate-800 mb-2 flex items-center gap-1.5">
+                            <span class="text-emerald-500">📝</span> SSC CPO Tier-I Full Mock Test 1
+                        </h3>
+                        <div class="grid grid-cols-3 gap-1 bg-slate-50 p-2 rounded-xl text-[11px] font-bold text-slate-500 text-center mb-4">
+                            <div>✍️ 200 Qs</div>
+                            <div>⏱️ 120 Mins</div>
+                            <div>🏅 200 Marks</div>
                         </div>
                     </div>
-                    <button class="start-btn locked" onclick="alert('Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
+                    <!-- लिंक यहाँ बदलें जहाँ छात्र को भेजना है -->
+                    <button onclick="window.location.href='test_page.html'" 
+                            class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-black py-2.5 rounded-xl text-xs transition duration-300 shadow-md shadow-emerald-600/20 tracking-wider uppercase flex justify-center items-center gap-1">
+                        Start Free Test 🚀
+                    </button>
                 </div>
 
-                <!-- Tier 1: Mock Test 3 -->
-                <div class="test-card" style="border-left-color: #95a5a6;">
-                    <div class="test-info">
-                        <h3>Tier-I Mock Test - 3 (Expected Paper)</h3>
-                        <div class="test-details">
-                            <span>📝 200 Questions</span>
-                            <span>⏱️ 120 Mins</span>
-                            <span>🏆 200 Marks</span>
+                <!-- Test Card 2 (Locked) -->
+                <div class="bg-white/50 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 shadow-sm opacity-80 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-black text-slate-500 mb-2 flex items-center gap-1.5">
+                            <span>🔒</span> Tier-I Mock Test - 2 (Previous Year 2023)
+                        </h3>
+                        <div class="grid grid-cols-3 gap-1 bg-slate-100/50 p-2 rounded-xl text-[11px] font-semibold text-slate-400 text-center mb-4">
+                            <div>✍️ 200 Qs</div>
+                            <div>⏱️ 120 Mins</div>
+                            <div>🏅 200 Marks</div>
                         </div>
                     </div>
-                    <button class="start-btn locked" onclick="alert('Mock Test 3 will be uploaded soon!')">🔒 Locked</button>
-                </div>
-            </div>
-
-            <!-- ================= COLUMN 2: SSC CPO TIER-II ================= -->
-            <div class="tier-column">
-                <h3 class="section-title tier-two-bg">SSC CPO Tier-II</h3>
-
-                <!-- Tier 2: Mock Test 1 -->
-                <div class="test-card" style="border-left-color: #8e44ad;">
-                    <div class="test-info">
-                        <h3>SSC CPO Tier-II Mock Test 1 (English)</h3>
-                        <div class="test-details">
-                            <span>📝 200 Questions</span>
-                            <span>⏱️ 120 Mins</span>
-                            <span>🏆 200 Marks</span>
-                        </div>
-                    </div>
-                    <button class="start-btn locked" onclick="alert('Tier-II Mock Test will be uploaded soon!')">🔒 Locked</button>
+                    <button disabled class="w-full bg-slate-300 text-slate-500 font-bold py-2.5 rounded-xl text-xs cursor-not-allowed flex justify-center items-center gap-1">
+                        🔒 Locked
+                    </button>
                 </div>
 
-                <!-- Tier 2: Mock Test 2 -->
-                <div class="test-card" style="border-left-color: #95a5a6;">
-                    <div class="test-info">
-                        <h3>Tier-II Mock Test - 2 (Previous Year)</h3>
-                        <div class="test-details">
-                            <span>📝 200 Questions</span>
-                            <span>⏱️ 120 Mins</span>
-                            <span>🏆 200 Marks</span>
+                <!-- Test Card 3 (Locked) -->
+                <div class="bg-white/50 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 shadow-sm opacity-80 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-black text-slate-500 mb-2 flex items-center gap-1.5">
+                            <span>🔒</span> Tier-I Mock Test - 3 (Expected Paper)
+                        </h3>
+                        <div class="grid grid-cols-3 gap-1 bg-slate-100/50 p-2 rounded-xl text-[11px] font-semibold text-slate-400 text-center mb-4">
+                            <div>✍️ 200 Qs</div>
+                            <div>⏱️ 120 Mins</div>
+                            <div>🏅 200 Marks</div>
                         </div>
                     </div>
-                    <button class="start-btn locked" onclick="alert('Tier-II Mock Test 2 will be uploaded soon!')">🔒 Locked</button>
+                    <button disabled class="w-full bg-slate-300 text-slate-500 font-bold py-2.5 rounded-xl text-xs cursor-not-allowed flex justify-center items-center gap-1">
+                        🔒 Locked
+                    </button>
                 </div>
             </div>
 
-        </div> <!-- End of Tiers Wrapper -->
+            <!-- ================= TIER-II SECTION ================= -->
+            <div class="space-y-4">
+                <!-- Section Header/Badge -->
+                <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-md text-center">
+                    SSC CPO TIER-II (English Language)
+                </div>
+
+                <!-- Test Card 1 (Locked) -->
+                <div class="bg-white/50 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 shadow-sm opacity-80 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-black text-slate-500 mb-2 flex items-center gap-1.5">
+                            <span>🔒</span> SSC CPO Tier-II Mock Test 1 (English)
+                        </h3>
+                        <div class="grid grid-cols-3 gap-1 bg-slate-100/50 p-2 rounded-xl text-[11px] font-semibold text-slate-400 text-center mb-4">
+                            <div>✍️ 200 Qs</div>
+                            <div>⏱️ 120 Mins</div>
+                            <div>🏅 200 Marks</div>
+                        </div>
+                    </div>
+                    <button disabled class="w-full bg-slate-300 text-slate-500 font-bold py-2.5 rounded-xl text-xs cursor-not-allowed flex justify-center items-center gap-1">
+                        🔒 Locked
+                    </button>
+                </div>
+
+                <!-- Test Card 2 (Locked) -->
+                <div class="bg-white/50 backdrop-blur-sm p-5 rounded-2xl border border-slate-200/60 shadow-sm opacity-80 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-black text-slate-500 mb-2 flex items-center gap-1.5">
+                            <span>🔒</span> Tier-II Mock Test - 2 (Previous Year)
+                        </h3>
+                        <div class="grid grid-cols-3 gap-1 bg-slate-100/50 p-2 rounded-xl text-[11px] font-semibold text-slate-400 text-center mb-4">
+                            <div>✍️ 200 Qs</div>
+                            <div>⏱️ 120 Mins</div>
+                            <div>🏅 200 Marks</div>
+                        </div>
+                    </div>
+                    <button disabled class="w-full bg-slate-300 text-slate-500 font-bold py-2.5 rounded-xl text-xs cursor-not-allowed flex justify-center items-center gap-1">
+                        🔒 Locked
+                    </button>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </body>
