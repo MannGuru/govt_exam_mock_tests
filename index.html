@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://tailwindcss.com"></script>
+    <!-- सही Tailwind CDN स्क्रिप्ट -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSC Mock Test Portal</title>
+    
+    <!-- एनिमेटेड टेक्स्ट के लिए कस्टम CSS -->
+    <style>
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-scroll {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scrollText 15s linear infinite;
+        }
+    </style>
 </head>
 <body class="bg-gradient-to-tr from-[#f3e8ff] via-[#e0f2fe] to-[#f3e8ff] min-h-screen text-gray-800 font-sans antialiased">
 
@@ -25,11 +39,13 @@
         </a>
     </div>
 
-    <!-- Scrolling Updates -->
-    <div class="bg-[#1e3a8a] text-white flex items-center text-xs shadow-md">
-        <div class="bg-[#ef4444] px-4 py-2 font-bold z-10 uppercase tracking-wider animate-pulse">Updates</div>
-        <div class="py-2 flex-1 overflow-hidden">
-            <marquee scrollamount="5" class="font-semibold">Welcome to Mann Guru SSC Mock Test Portal! Stay tuned for latest pattern updates.</marquee>
+    <!-- Modern Scrolling Updates (बिना marquee टैग के) -->
+    <div class="bg-[#1e3a8a] text-white flex items-center text-xs shadow-md overflow-hidden relative h-8">
+        <div class="bg-[#ef4444] px-4 py-2 font-bold z-20 uppercase tracking-wider animate-pulse absolute left-0 top-0 bottom-0 flex items-center">
+            Updates
+        </div>
+        <div class="w-full flex items-center h-full pl-24">
+            <span class="animate-scroll font-semibold">Welcome to Mann Guru SSC Mock Test Portal! Stay tuned for latest pattern updates.</span>
         </div>
     </div>
 
