@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <!-- सही Tailwind CDN स्क्रिप्ट -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://tailwindcss.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSC Mock Test Portal</title>
@@ -20,101 +20,107 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-tr from-[#f3e8ff] via-[#e0f2fe] to-[#f3e8ff] min-h-screen text-gray-800 font-sans antialiased">
+<!-- प्रीमियम और अट्रैक्टिव बैकग्राउंड ग्रेडिएंट -->
+<body class="bg-gradient-to-br from-[#f0fdf4] via-[#faf5ff] to-[#f0f9ff] min-h-screen text-gray-800 font-sans antialiased">
 
     <!-- Header / Navbar -->
-    <div class="bg-white/90 backdrop-blur-md px-4 py-4 flex justify-center items-center shadow-md font-extrabold text-xl text-slate-800 sticky top-0 z-50 border-b border-slate-100">
-        <span class="flex items-center gap-2 text-blue-600">🎓 SSC Mock Test Portal</span>
+    <div class="bg-white/90 backdrop-blur-md px-4 py-4 flex justify-center items-center shadow-md font-extrabold text-xl text-slate-800 sticky top-0 z-50 border-b border-emerald-100">
+        <span class="flex items-center gap-2 text-emerald-600">🎓 <span class="text-indigo-600">SSC</span> Mock Test Portal</span>
     </div>
 
-    <!-- WhatsApp & YouTube Buttons -->
-    <div class="flex justify-center gap-3 flex-wrap px-4 py-5 max-w-md mx-auto">
+    <!-- ⚡ नए और बेहद साफ़ सोशल मीडिया बटन्स ⚡ -->
+    <div class="flex justify-center gap-4 flex-wrap px-4 py-6 max-w-md mx-auto">
+        <!-- WhatsApp Button: डार्क फॉरेस्ट ग्रीन (हाई कंट्रास्ट और साफ़ टेक्स्ट के लिए) -->
         <a href="https://whatsapp.com" target="_blank" 
-           class="bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold py-2 px-4 rounded-full text-xs shadow-md transition duration-300 flex items-center gap-1.5 no-underline flex-1 justify-center text-center">
-           💬 WhatsApp Channel
+           class="bg-[#064e3b] hover:bg-[#047857] text-[#e6fbf3] font-black py-3 px-5 rounded-2xl text-xs shadow-md hover:shadow-lg transition duration-300 flex items-center gap-2 border border-[#059669]/30 no-underline flex-1 justify-center text-center tracking-wider uppercase">
+           <span class="text-base">💬</span> WhatsApp Channel
         </a>
+        <!-- YouTube Button: डार्क मैरून/रेड (हाई कंट्रास्ट और साफ़ टेक्स्ट के लिए) -->
         <a href="https://youtube.com" target="_blank" 
-           class="bg-[#FF0000] hover:bg-[#cc0000] text-white font-bold py-2 px-4 rounded-full text-xs shadow-md transition duration-300 flex items-center gap-1.5 no-underline flex-1 justify-center text-center">
-           ▶️ YouTube Channel
+           class="bg-[#7f1d1d] hover:bg-[#b91c1c] text-[#fef2f2] font-black py-3 px-5 rounded-2xl text-xs shadow-md hover:shadow-lg transition duration-300 flex items-center gap-2 border border-[#dc2626]/30 no-underline flex-1 justify-center text-center tracking-wider uppercase">
+           <span class="text-base">▶️</span> YouTube Channel
         </a>
     </div>
 
-    <!-- Modern Scrolling Updates (बिना marquee टैग के) -->
-    <div class="bg-[#1e3a8a] text-white flex items-center text-xs shadow-md overflow-hidden relative h-8">
-        <div class="bg-[#ef4444] px-4 py-2 font-bold z-20 uppercase tracking-wider animate-pulse absolute left-0 top-0 bottom-0 flex items-center">
+    <!-- Modern Scrolling Updates (Dark Indigo Background) -->
+    <div class="bg-[#1e1b4b] text-white flex items-center text-xs shadow-md overflow-hidden relative h-8">
+        <div class="bg-[#f43f5e] px-4 py-2 font-bold z-20 uppercase tracking-wider animate-pulse absolute left-0 top-0 bottom-0 flex items-center">
             Updates
         </div>
         <div class="w-full flex items-center h-full pl-24">
-            <span class="animate-scroll font-semibold">Welcome to Mann Guru SSC Mock Test Portal! Stay tuned for latest pattern updates.</span>
+            <span class="animate-scroll font-semibold text-emerald-300">Welcome to Mann Guru SSC Mock Test Portal! Stay tuned for latest pattern updates.</span>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-4xl mx-auto px-4 py-8 text-center">
-        <div class="inline-block bg-blue-600 text-white text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-full mb-3 shadow-md shadow-blue-500/20">
+    <div class="max-w-4xl mx-auto px-4 py-10 text-center">
+        <!-- Badge -->
+        <div class="inline-block bg-indigo-600 text-white text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-full mb-3 shadow-md shadow-indigo-500/20">
             Staff Selection Commission
         </div>
-        <h1 class="text-2xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight leading-tight">
-            SSC MOCK TEST BY <span class="text-blue-600">Mann Guru</span>
+        <!-- Main Heading -->
+        <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-3 tracking-tight leading-tight">
+            SSC MOCK TEST BY <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-indigo-600">Mann Guru</span>
         </h1>
-        <div class="inline-flex items-center gap-1.5 bg-white/60 text-blue-700 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm shadow-sm border border-white/40">
+        <!-- Subheading Badge -->
+        <div class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm border border-emerald-200">
             🎯 Latest Pattern Based Test Series
         </div>
 
         <!-- Exam Cards Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto mt-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto mt-10">
             
             <!-- SSC CPO Card -->
-            <div class="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/60 shadow-lg shadow-blue-900/5 flex flex-col items-center transition duration-300 hover:shadow-xl hover:-translate-y-1">
-                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex justify-center items-center text-2xl mb-3 shadow-inner">🛡️</div>
+            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-emerald-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">🛡️</div>
                 <div class="text-lg font-black text-slate-800 mb-1">SSC CPO</div>
                 <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Sub-Inspector in Delhi Police & CAPFs Full Mock Tests</div>
                 <button onclick="window.location.href='cpo_list.html'" 
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-full text-xs transition duration-300 shadow-md shadow-blue-600/20 tracking-wide">
+                        class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-emerald-600/20 tracking-wide uppercase">
                     Start Practice
                 </button>
             </div>
 
             <!-- SSC CGL Card -->
-            <div class="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/60 shadow-lg shadow-blue-900/5 flex flex-col items-center transition duration-300 hover:shadow-xl hover:-translate-y-1">
-                <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex justify-center items-center text-2xl mb-3 shadow-inner">🎓</div>
+            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-indigo-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
+                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">🎓</div>
                 <div class="text-lg font-black text-slate-800 mb-1">SSC CGL</div>
                 <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Combined Graduate Level Examination Complete Series</div>
                 <button onclick="alert('SSC CGL Test is coming soon!')" 
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-full text-xs transition duration-300 shadow-md shadow-blue-600/20 tracking-wide">
+                        class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-indigo-600/20 tracking-wide uppercase">
                     Start Practice
                 </button>
             </div>
 
             <!-- SSC MTS Card -->
-            <div class="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/60 shadow-lg shadow-blue-900/5 flex flex-col items-center transition duration-300 hover:shadow-xl hover:-translate-y-1">
-                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex justify-center items-center text-2xl mb-3 shadow-inner">📄</div>
+            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-amber-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
+                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">📄</div>
                 <div class="text-lg font-black text-slate-800 mb-1">SSC MTS</div>
                 <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Multi-Tasking Staff (Non-Technical) Tier 1 Mock Tests</div>
                 <button onclick="alert('SSC MTS Test is coming soon!')" 
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-full text-xs transition duration-300 shadow-md shadow-blue-600/20 tracking-wide">
+                        class="w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-amber-600/20 tracking-wide uppercase">
                     Start Practice
                 </button>
             </div>
 
             <!-- SSC CHSL Card -->
-            <div class="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/60 shadow-lg shadow-blue-900/5 flex flex-col items-center transition duration-300 hover:shadow-xl hover:-translate-y-1">
-                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex justify-center items-center text-2xl mb-3 shadow-inner">💻</div>
+            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-teal-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
+                <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">💻</div>
                 <div class="text-lg font-black text-slate-800 mb-1">SSC CHSL</div>
                 <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Combined Higher Secondary Level Practice Set</div>
                 <button onclick="alert('SSC CHSL Test is coming soon!')" 
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-full text-xs transition duration-300 shadow-md shadow-blue-600/20 tracking-wide">
+                        class="w-full bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-teal-600/20 tracking-wide uppercase">
                     Start Practice
                 </button>
             </div>
 
             <!-- SSC GD Card -->
-            <div class="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white/60 shadow-lg shadow-blue-900/5 flex flex-col items-center transition duration-300 hover:shadow-xl hover:-translate-y-1 sm:col-span-2 max-w-sm mx-auto w-full">
-                <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-full flex justify-center items-center text-2xl mb-3 shadow-inner">🏃‍♂️</div>
+            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-rose-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 sm:col-span-2 max-w-sm mx-auto w-full flex flex-col items-center">
+                <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">🏃‍♂️</div>
                 <div class="text-lg font-black text-slate-800 mb-1">SSC GD</div>
                 <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Constable (General Duty) in CAPFs Practice Sets</div>
                 <button onclick="window.location.href='gd_test.html'" 
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-2.5 rounded-full text-xs transition duration-300 shadow-md shadow-blue-600/20 tracking-wide">
+                        class="w-full bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-700 hover:to-rose-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-rose-600/20 tracking-wide uppercase">
                     Start Practice
                 </button>
             </div>
