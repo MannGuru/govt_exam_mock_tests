@@ -257,414 +257,64 @@ svg { max-width: 100%; height: auto; }
    BILINGUAL DATA FORMAT (Hindi & English separate)
    Format: ["Hindi Q", "English Q", ["Opt1_HI","Opt1_EN", "Opt2_HI","Opt2_EN", "Opt3_HI","Opt3_EN", "Opt4_HI","Opt4_EN"], AnsIndex, ["Hindi Exp", "English Exp"]]
    ========================================================= */
-const rawSections = [
+                 const rawSections = [
     {
-        name: "Reasoning Ability",
+        name: "General Intelligence and Reasoning",
         cat: 2,
         questions: [
-            // Q1: Paper Folding (SVG)
-            [
-                "Q1. नीचे दी गई आकृतियों में कागज को मोड़ने का क्रम और मुड़े हुए कागज को काटने का तरीका दर्शाया गया है। यह कागज खोलने पर कैसा दिखेगा?<br><br><svg viewBox='0 0 250 80' width='250' height='80'><rect x='10' y='10' width='60' height='60' fill='none' stroke='black' stroke-width='2'/><line x1='40' y1='10' x2='40' y2='70' stroke='black' stroke-dasharray='4'/><rect x='90' y='10' width='30' height='60' fill='none' stroke='black' stroke-width='2'/><line x1='90' y1='40' x2='120' y2='40' stroke='black' stroke-dasharray='4'/><rect x='140' y='10' width='30' height='30' fill='none' stroke='black' stroke-width='2'/><circle cx='155' cy='25' r='5' fill='black'/></svg>", 
-                "Q1. The sequence of folding a paper and the manner in which the folded paper is cut is shown in the following figures. How would this paper look when unfolded?<br><br><svg viewBox='0 0 250 80' width='250' height='80'><rect x='10' y='10' width='60' height='60' fill='none' stroke='black' stroke-width='2'/><line x1='40' y1='10' x2='40' y2='70' stroke='black' stroke-dasharray='4'/><rect x='90' y='10' width='30' height='60' fill='none' stroke='black' stroke-width='2'/><line x1='90' y1='40' x2='120' y2='40' stroke='black' stroke-dasharray='4'/><rect x='140' y='10' width='30' height='30' fill='none' stroke='black' stroke-width='2'/><circle cx='155' cy='25' r='5' fill='black'/></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4 (सही)", "Option 4 (Correct)"], 
-                3, 
-                ["कागज को खोलने पर दर्पण (Mirror) और जल (Water) छवि का पैटर्न बनेगा।", "Unfolding the paper creates a pattern of mirror and water images."]
-            ],
-            // Q2: Figure Series (SVG)
-            [
-                "Q2. उस आकृति की पहचान करें जो '?' के स्थान पर रखे जाने पर श्रृंखला को तार्किक रूप से पूरा करेगी।<br><br><svg viewBox='0 0 250 80' width='250' height='80'><rect x='10' y='10' width='50' height='50' fill='none' stroke='black'/><path d='M 35 20 L 35 50 M 35 20 L 25 30 M 35 20 L 45 30' stroke='black' fill='none'/><rect x='70' y='10' width='50' height='50' fill='none' stroke='black'/><path d='M 80 35 L 110 35 M 110 35 L 100 25 M 110 35 L 100 45' stroke='black' fill='none'/><rect x='130' y='10' width='50' height='50' fill='none' stroke='black'/><path d='M 155 50 L 155 20 M 155 50 L 145 40 M 155 50 L 165 40' stroke='black' fill='none'/><rect x='190' y='10' width='50' height='50' fill='none' stroke='black' stroke-dasharray='3'/><text x='208' y='42' font-size='24'>?</text></svg>", 
-                "Q2. Identify the figure given in the options which when put in place of '?' will logically complete the series.<br><br><svg viewBox='0 0 250 80' width='250' height='80'><rect x='10' y='10' width='50' height='50' fill='none' stroke='black'/><path d='M 35 20 L 35 50 M 35 20 L 25 30 M 35 20 L 45 30' stroke='black' fill='none'/><rect x='70' y='10' width='50' height='50' fill='none' stroke='black'/><path d='M 80 35 L 110 35 M 110 35 L 100 25 M 110 35 L 100 45' stroke='black' fill='none'/><rect x='130' y='10' width='50' height='50' fill='none' stroke='black'/><path d='M 155 50 L 155 20 M 155 50 L 145 40 M 155 50 L 165 40' stroke='black' fill='none'/><rect x='190' y='10' width='50' height='50' fill='none' stroke='black' stroke-dasharray='3'/><text x='208' y='42' font-size='24'>?</text></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                0, 
-                ["तीर का निशान हर बार 90 डिग्री दक्षिणावर्त (clockwise) घूम रहा है।", "The arrow is rotating 90 degrees clockwise in each step."]
-            ],
-            // Q3: Venn Diagram (SVG)
-            [
-                "Q3. उस वेन आरेख का चयन करें जो निम्नलिखित वर्गों के बीच के संबंध को सबसे अच्छा दर्शाता है।<br><b>आलू, सब्जियां, अंगूर</b><br><br><svg viewBox='0 0 150 100' width='150' height='100'><circle cx='45' cy='50' r='40' stroke='black' stroke-width='2' fill='none'/><circle cx='45' cy='50' r='15' stroke='black' stroke-width='2' fill='none'/><circle cx='115' cy='50' r='20' stroke='black' stroke-width='2' fill='none'/></svg>", 
-                "Q3. Select the Venn diagram that best illustrates the relationship between the following classes.<br><b>Potatoes, Vegetables, Grapes</b><br><br><svg viewBox='0 0 150 100' width='150' height='100'><circle cx='45' cy='50' r='40' stroke='black' stroke-width='2' fill='none'/><circle cx='45' cy='50' r='15' stroke='black' stroke-width='2' fill='none'/><circle cx='115' cy='50' r='20' stroke='black' stroke-width='2' fill='none'/></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                1, 
-                ["आलू एक सब्जी है, इसलिए यह सब्जी वाले गोले के अंदर आएगा। अंगूर फल है, इसलिए यह अलग रहेगा।", "Potato is a vegetable, so it comes inside the Vegetable circle. Grapes are fruits, so they remain separate."]
-            ],
-            // Q4
-            [
-                "Q4. 15 का संबंध 45 से एक निश्चित तर्क के अनुसार है। उसी तर्क के अनुसार, 25 का संबंध 125 से है। 80 से कौन सी संख्या संबंधित है?", 
-                "Q4. 15 is related to 45 following a certain logic. Following the same logic, 25 is related to 125. Which of the following numbers is related to 80 using the same logic?", 
-                ["20", "20", "21", "21", "18", "18", "22", "22"], 
-                0, 
-                ["तर्क: संख्या × (संख्या / 5)। 15 × (15/5) = 45; 20 × (20/5) = 80.", "Logic: Number × (Number / 5). 15 × (15/5) = 45; 20 × (20/5) = 80."]
-            ],
-            // Q5
-            [
-                "Q5. एक कोड भाषा में, 'DINESH' को 12-27-42-15-57-24 लिखा जाता है। उसी भाषा में 'GAUTAM' को कैसे लिखा जाएगा?", 
-                "Q5. In a code language, 'DINESH' is coded as 12-27-42-15-57-24. How will 'GAUTAM' be coded in the same language?", 
-                ["24-7-61-34-5-31", "24-7-61-34-5-31", "26-7-25-67-4-37", "26-7-25-67-4-37", "21-3-63-60-3-39", "21-3-63-60-3-39", "29-9-55-47-8-28", "29-9-55-47-8-28"], 
-                2, 
-                ["हर अक्षर की Place Value को 3 से गुणा किया गया है। G(7×3=21), A(1×3=3)...", "The place value of each letter is multiplied by 3. G(7×3=21), A(1×3=3)..."]
-            ],
-            // Q6: Embedded Figure (SVG)
-            [
-                "Q6. उस विकल्प आकृति का चयन करें जिसमें दी गई आकृति अंतर्निहित है (रोटेशन की अनुमति नहीं है)।<br><br><svg viewBox='0 0 100 100' width='100' height='100'><rect x='10' y='10' width='80' height='80' fill='none' stroke='black' stroke-width='2'/><path d='M 30 30 L 70 30 L 70 70 L 50 70 L 50 50' fill='none' stroke='black' stroke-width='3'/></svg>", 
-                "Q6. Select the option figure in which the given figure is embedded as its part (rotation is NOT allowed).<br><br><svg viewBox='0 0 100 100' width='100' height='100'><rect x='10' y='10' width='80' height='80' fill='none' stroke='black' stroke-width='2'/><path d='M 30 30 L 70 30 L 70 70 L 50 70 L 50 50' fill='none' stroke='black' stroke-width='3'/></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                1, 
-                ["यह विशिष्ट डिज़ाइन (Z-आकार) विकल्प 2 की आकृति में बिल्कुल इसी दिशा में छिपी हुई है।", "This specific Z-shape design is embedded exactly in this orientation in Option 2."]
-            ],
-            // Q7
-            [
-                "Q7. उस सेट का चयन करें जिसमें संख्याएँ उसी तरह संबंधित हैं जैसे निम्नलिखित सेटों की संख्याएँ हैं: (247, 349) और (261, 363)", 
-                "Q7. Select the set in which the numbers are related in the same way as are the numbers of the following sets: (247, 349) and (261, 363)", 
-                ["(282, 382)", "(282, 382)", "(294, 396)", "(294, 396)", "(253, 358)", "(253, 358)", "(265, 369)", "(265, 369)"], 
-                1, 
-                ["पहली संख्या + 102 = दूसरी संख्या। 294 + 102 = 396.", "First number + 102 = Second number. 294 + 102 = 396."]
-            ],
-            // Q8
-            [
-                "Q8. दी गई श्रृंखला में प्रश्न चिह्न (?) के स्थान पर कौन सा पद आएगा?<br>CHO, DIP, EJQ, ?", 
-                "Q8. Which of the following terms will replace the question mark (?) in the given series?<br>CHO, DIP, EJQ, ?", 
-                ["EJL", "EJL", "FKR", "FKR", "DIL", "DIL", "HMR", "HMR"], 
-                1, 
-                ["हर अक्षर में +1 हो रहा है। C->D->E->F; H->I->J->K; O->P->Q->R.", "Each letter is shifted by +1. C->D->E->F; H->I->J->K; O->P->Q->R."]
-            ],
-            // Q9
-            [
-                "Q9. दिए गए समीकरण को संतुलित करने के लिए क्रमिक रूप से * चिह्नों को बदलने के लिए गणितीय चिह्नों के सही संयोजन का चयन करें: 13 * 7 * 12 * 4 * 15 * 65", 
-                "Q9. Select the correct combination of mathematical signs to replace the signs and balance the given equation: 13 * 7 * 12 * 4 * 15 * 65", 
-                ["-, ÷, ×, +, =", "-, ÷, ×, +, =", "+, -, ×, ÷, =", "+, -, ×, ÷, =", "+, -, ÷, ×, =", "+, -, ÷, ×, ="], 
-                2, 
-                ["13 + 7 - 12 ÷ 4 × 15 = 65 (BODMAS नियम के अनुसार)।", "13 + 7 - 12 ÷ 4 × 15 = 65 (According to BODMAS rule)."]
-            ],
-            // Q10
-            [
-                "Q10. एक शादी के रिसेप्शन में, एक व्यक्ति ने दूल्हे की ओर इशारा किया और दूल्हे को अपने दादा के पुत्र के पुत्र का भाई बताया। दूल्हा उस आदमी का क्या लगता है?", 
-                "Q10. At a wedding reception, a man pointed to the groom and introduced him as the brother of the son of the son of his grandfather. How is the groom related to the man?", 
-                ["चाचा", "Uncle", "पिता", "Father", "भाई", "Brother", "साला/जीजा", "Brother-in-law"], 
-                2, 
-                ["दादा का पुत्र (पिता) -> उसका पुत्र (स्वयं या भाई) -> उसका भाई (भाई)।", "Grandfather's son (Father) -> His son (Self or Brother) -> His brother (Brother)."]
-            ],
-            // Q11
-            [
-                "Q11. दिए गए समीकरण को सही बनाने के लिए किन दो चिह्नों को आपस में बदलना चाहिए?<br>10 ÷ 63 × 7 + 90 - 80 = 100", 
-                "Q11. Which two signs should be interchanged to make the given equation correct?<br>10 ÷ 63 × 7 + 90 - 80 = 100", 
-                ["÷ और +", "÷ and +", "× और ÷", "× and ÷", "+ और -", "+ and -", "× और -", "× and -"], 
-                2, 
-                ["+ और - को बदलने पर: 10 ÷ 63 × 7 - 90 + 80 = 100.", "By interchanging + and -: 10 ÷ 63 × 7 - 90 + 80 = 100."]
-            ],
-            // Q12
-            [
-                "Q12. यदि + का अर्थ -, - का अर्थ x, x का अर्थ ÷, ÷ का अर्थ + है, तो प्रश्न चिह्न (?) के स्थान पर क्या आएगा?<br>22 x 11 - 450 ÷ 50 + 500 = ?", 
-                "Q12. If + means -, - means x, x means ÷, ÷ means +, what will come in place of the question mark (?) in the given equation?<br>22 x 11 - 450 ÷ 50 + 500 = ?", 
-                ["350", "350", "650", "650", "550", "550", "450", "450"], 
-                3, 
-                ["चिन्हों को बदलने पर: 22 ÷ 11 × 450 + 50 - 500 = 450.", "After changing signs: 22 ÷ 11 × 450 + 50 - 500 = 450."]
-            ],
-            // Q13
-            [
-                "Q13. उस विकल्प का चयन करें जो पांचवें अक्षर-समूह से उसी प्रकार संबंधित है जैसे दूसरा अक्षर-समूह पहले से संबंधित है।<br>CARS: HFWX :: BOAT: GTFY :: FUSE: ?", 
-                "Q13. Select the option related to the fifth letter-cluster in the same way as the second is to the first.<br>CARS: HFWX :: BOAT: GTFY :: FUSE: ?", 
-                ["LAYK", "LAYK", "KZWI", "KZWI", "LAXJ", "LAXJ", "KZXJ", "KZXJ"], 
-                3, 
-                ["सभी अक्षरों में +5 हो रहा है। F+5=K, U+5=Z, S+5=X, E+5=J.", "Each letter is shifted by +5. F+5=K, U+5=Z, S+5=X, E+5=J."]
-            ],
-            // Q14
-            [
-                "Q14. एक ही पासे की दो अलग-अलग स्थितियाँ दी गई हैं। 1 वाले फलक के विपरीत फलक पर कौन सी संख्या होगी?<br>(दिखने वाले अंक: 6,4,3 और 6,2,5)", 
-                "Q14. Two different positions of the same dice are given. Which is the number on the face opposite the face containing 1?<br>(Visible faces: 6,4,3 and 6,2,5)", 
-                ["3", "3", "4", "4", "2", "2", "6", "6"], 
-                3, 
-                ["6 दोनों में कॉमन है। क्लॉकवाइज घुमाने पर 6 का विपरीत 1 होगा (चूंकि 1 अदृश्य है)।", "6 is common in both. Rotating clockwise, the opposite of 6 is 1 (as 1 is invisible)."]
-            ],
-            // Q15
-            [
-                "Q15. छह छात्र - अमन, बॉबी, चिंटू, गीता, प्रणय और राम - एक गोलाकार मेज के चारों ओर केंद्र की ओर मुख करके बैठे हैं। राम, गीता के दायें से दूसरे स्थान पर है। दोनों राम और बॉबी का तत्काल पड़ोसी कौन है?", 
-                "Q15. Six students - Aman, Bobby, Chintu, Gita, Pranay and Ram - are sitting around a circular table, facing the centre. Ram is sitting second to the right of Gita. Who is the immediate neighbour of both Ram and Bobby?", 
-                ["प्रणय", "Pranay", "चिंटू", "Chintu", "अमन", "Aman", "गीता", "Gita"], 
-                2, 
-                ["बैठने का क्रम: Gita, Pranay, Bobby, Aman, Ram, Chintu. राम और बॉबी के बीच अमन है।", "Sitting arrangement: Gita, Pranay, Bobby, Aman, Ram, Chintu. Aman is between Ram and Bobby."]
-            ],
-            // Q16
-            [
-                "Q16. सैली एक मिनी स्कूल बस चलाती है। वह स्कूल के गेट से शुरू करती है और 7 किमी उत्तर की ओर जाती है। वह फिर दाएं मुड़ती है और 10 किमी जाती है। वह फिर दाएं मुड़ती है और 5 किमी जाती है। अंत में वह स्कूल लौटने के लिए दाएं मुड़ती है। उसे स्कूल गेट तक वापस पहुंचने के लिए कितनी दूर ड्राइव करना होगा?", 
-                "Q16. Sally drives a mini school bus. She starts at the school gate and drives 7 km north. She then turns right and drives 10 km. She takes another right turn and drives 5 km. She then takes a final right. How far would Sally need to drive to reach back to the school gate again?", 
-                ["17 km", "17 km", "22 km", "22 km", "10 km", "10 km", "12 km", "12 km"], 
-                3, 
-                ["दिशा और दूरी के आरेख को हल करने पर उत्तर 12 km आता है।", "Solving the direction and distance diagram gives 12 km."]
-            ],
-            // Q17: Venn Diagram (SVG)
-            [
-                "Q17. उस वेन आरेख का चयन कीजिये जो निम्नलिखित वर्गों के बीच के संबंध को सर्वश्रेष्ठ रूप से दर्शाता है:<br><b>चीता, पक्षी, चील</b><br><br><svg viewBox='0 0 150 100' width='150' height='100'><circle cx='45' cy='50' r='35' stroke='black' stroke-width='2' fill='none'/><circle cx='45' cy='50' r='15' stroke='black' stroke-width='2' fill='none'/><circle cx='115' cy='50' r='20' stroke='black' stroke-width='2' fill='none'/></svg>", 
-                "Q17. Select the Venn diagram that best illustrates the relationship between the following classes:<br><b>Cheetah, Bird, Eagle</b><br><br><svg viewBox='0 0 150 100' width='150' height='100'><circle cx='45' cy='50' r='35' stroke='black' stroke-width='2' fill='none'/><circle cx='45' cy='50' r='15' stroke='black' stroke-width='2' fill='none'/><circle cx='115' cy='50' r='20' stroke='black' stroke-width='2' fill='none'/></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                2, 
-                ["चील एक पक्षी है, इसलिए यह पक्षी के अंदर आएगा। चीता एक जानवर है, इसलिए अलग रहेगा।", "An eagle is a bird, so it goes inside the bird circle. Cheetah is an animal, so it is separate."]
-            ],
-            // Q18
-            [
-                "Q18. दी गई श्रृंखला में प्रश्न चिह्न (?) के स्थान पर कौन सी संख्याएँ आएंगी?<br>1, 6, 15, 28, ?, ?, 91", 
-                "Q18. Which of the following numbers will replace the question marks (?) in the given series?<br>1, 6, 15, 28, ?, ?, 91", 
-                ["40, 60", "40, 60", "42, 54", "42, 54", "45, 66", "45, 66", "44, 54", "44, 54"], 
-                2, 
-                ["अंतर: +5, +9, +13, +17, +21... (डबल डिफरेंस +4 है)। 28+17=45, 45+21=66.", "Difference: +5, +9, +13, +17, +21... (Double diff is +4). 28+17=45, 45+21=66."]
-            ],
-            // Q19: Venn Diagram (SVG)
-            [
-                "Q19. उस वेन आरेख का चयन करें जो निम्नलिखित वर्गों के बीच के संबंध को सबसे अच्छा दर्शाता है।<br><b>केले, सेब, अंगूर</b><br><br><svg viewBox='0 0 150 80' width='150' height='80'><circle cx='30' cy='40' r='20' stroke='black' stroke-width='2' fill='none'/><circle cx='75' cy='40' r='20' stroke='black' stroke-width='2' fill='none'/><circle cx='120' cy='40' r='20' stroke='black' stroke-width='2' fill='none'/></svg>", 
-                "Q19. Select the Venn diagram that best illustrates the relationship between the following classes.<br><b>Bananas, Apple, Grapes</b><br><br><svg viewBox='0 0 150 80' width='150' height='80'><circle cx='30' cy='40' r='20' stroke='black' stroke-width='2' fill='none'/><circle cx='75' cy='40' r='20' stroke='black' stroke-width='2' fill='none'/><circle cx='120' cy='40' r='20' stroke='black' stroke-width='2' fill='none'/></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                1, 
-                ["तीनों अलग-अलग फल हैं, इसलिए तीनों गोले एक-दूसरे से अलग होंगे।", "All three are distinct fruits, so the three circles will be separate."]
-            ],
-            // Q20
-            [
-                "Q20. एक कोड भाषा में, 'LAND' को 'IWKZ' लिखा जाता है, और 'GOLD' को 'DKIZ' लिखा जाता है। उसी भाषा में 'TEAM' कैसे लिखा जाएगा?", 
-                "Q20. In a code language, 'LAND' is written as 'IWKZ', and 'GOLD' is written as 'DKIZ'. How will 'TEAM' be written in that language?", 
-                ["QAXI", "QAXI", "XJQB", "XJQB", "QXJB", "QXJB", "JXQB", "JXQB"], 
-                0, 
-                ["सभी अक्षरों में -3 हो रहा है। T-3=Q, E-3=A, A-3=X, M-3=I.", "Each letter is shifted by -3. T-3=Q, E-3=A, A-3=X, M-3=I."]
-            ],
-            // Q21
-            [
-                "Q21. निम्नलिखित संख्या श्रृंखला में प्रश्न चिह्न (?) के स्थान पर कौन सी संख्या आएगी?<br>1, 1, 2, 3, 5, 8, 13, ?", 
-                "Q21. Select the number that will replace the question mark (?) in the following number series.<br>1, 1, 2, 3, 5, 8, 13, ?", 
-                ["22", "22", "21", "21", "24", "24", "20", "20"], 
-                1, 
-                ["यह फाइबोनैचि (Fibonacci) श्रृंखला है। पिछली दो संख्याओं का योग अगली संख्या है: 8 + 13 = 21.", "This is a Fibonacci series. The sum of the previous two numbers is the next number: 8 + 13 = 21."]
-            ],
-            // Q22: Figure Series (SVG)
-            [
-                "Q22. प्रश्न चिह्न (?) के स्थान पर कौन सी आकृति श्रृंखला को पूरा करेगी?<br><br><svg viewBox='0 0 250 80' width='250' height='80'><rect x='10' y='10' width='50' height='50' fill='none' stroke='black'/><circle cx='25' cy='25' r='5' fill='black'/><rect x='70' y='10' width='50' height='50' fill='none' stroke='black'/><circle cx='45' cy='45' r='5' fill='black'/><rect x='130' y='10' width='50' height='50' fill='none' stroke='black'/><circle cx='155' cy='25' r='5' fill='black'/><rect x='190' y='10' width='50' height='50' fill='none' stroke='black' stroke-dasharray='3'/><text x='208' y='42' font-size='24'>?</text></svg>", 
-                "Q22. Identify the option figure that when put in place of the question mark (?) will logically complete the series.<br><br><svg viewBox='0 0 250 80' width='250' height='80'><rect x='10' y='10' width='50' height='50' fill='none' stroke='black'/><circle cx='25' cy='25' r='5' fill='black'/><rect x='70' y='10' width='50' height='50' fill='none' stroke='black'/><circle cx='45' cy='45' r='5' fill='black'/><rect x='130' y='10' width='50' height='50' fill='none' stroke='black'/><circle cx='155' cy='25' r='5' fill='black'/><rect x='190' y='10' width='50' height='50' fill='none' stroke='black' stroke-dasharray='3'/><text x='208' y='42' font-size='24'>?</text></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                3, 
-                ["आकृतियों के स्थान (Position) एक निश्चित क्रम में विकर्ण (diagonally) बदल रहे हैं।", "The positions of the shapes are shifting diagonally in a fixed sequence."]
-            ],
-            // Q23: Mirror Image (SVG)
-            [
-                "Q23. जब दर्पण को MN रेखा पर रखा जाता है, तो दी गई आकृति की सही दर्पण छवि चुनें:<br><br><svg viewBox='0 0 200 60' width='200' height='60'><text x='20' y='40' font-size='30' font-family='Arial, sans-serif' font-weight='bold' letter-spacing='2'>RkgEyw</text><line x1='150' y1='10' x2='150' y2='50' stroke='black' stroke-dasharray='4' stroke-width='2'/><text x='155' y='20' font-size='12'>M</text><text x='155' y='50' font-size='12'>N</text></svg>", 
-                "Q23. Select the correct mirror image of the given figure when the mirror is placed at MN as shown below.<br><br><svg viewBox='0 0 200 60' width='200' height='60'><text x='20' y='40' font-size='30' font-family='Arial, sans-serif' font-weight='bold' letter-spacing='2'>RkgEyw</text><line x1='150' y1='10' x2='150' y2='50' stroke='black' stroke-dasharray='4' stroke-width='2'/><text x='155' y='20' font-size='12'>M</text><text x='155' y='50' font-size='12'>N</text></svg>", 
-                ["ywƎgᐴЯ", "ywƎgᐴЯ", "wyeGkR", "wyeGkR", "wYƎgkЯ", "wYƎgkЯ", "RkgEyw", "RkgEyw"], 
-                0, 
-                ["दर्पण छवि में, बायां हिस्सा दायां हो जाता है और दायां हिस्सा बायां हो जाता है। 'w' सबसे पहले आएगा और 'R' उल्टा होकर सबसे अंत में जाएगा।", "In a mirror image, left becomes right and vice-versa. The letter 'w' will appear first and 'R' will be inverted at the end."]
-            ],
-            // Q24
-            [
-                "Q24. निम्नलिखित समीकरण को सही बनाने के लिए किन दो चिह्नों को आपस में बदलना चाहिए?<br>2 + 10 x 12 - 4 ÷ 4 = 8", 
-                "Q24. Find the two signs to be interchanged for making the following equation correct.<br>2 + 10 x 12 - 4 ÷ 4 = 8", 
-                ["÷ और +", "÷ and +", "x और -", "x and -", "x और +", "x and +", "- और +", "- and +"], 
-                1, 
-                ["x और - को आपस में बदलने पर: 2 + 10 - 12 × 4 ÷ 4 = 2 + 10 - 12 × 1 = 12 - 12 = 0... (मूल प्रश्न में त्रुटि हो सकती है, लेकिन TCS के अनुसार विकल्प 2 सही है)", "Interchanging x and - makes the equation 2 + 10 - 12 x 4 ÷ 4 = 8."]
-            ],
-            // Q25
-            [
-                "Q25. प्रीति बिंदु ए से शुरू करती है और दक्षिण की ओर 7 किमी ड्राइव करती है। यहां से, वह बाएं मुड़ती है और 9 किमी ड्राइव करती है। वह फिर एक अंतिम बायां मोड़ लेती है और बिंदु बी तक पहुंचने के लिए 7 किमी ड्राइव करती है। प्रीति को बिंदु बी से बिंदु ए तक पहुंचने के लिए कितनी दूर ड्राइव करना चाहिए?", 
-                "Q25. Preeti starts from point A and drives 7 km towards South. From here, she takes a left turn and drives 9 km. She then takes a final left turn and drives 7 km to reach point B. How far should Preeti drive to reach point A from point B?", 
-                ["9 km", "9 km", "6 km", "6 km", "7 km", "7 km", "8 km", "8 km"], 
-                0, 
-                ["यह यात्रा एक आयत (Rectangle) बनाती है। आमने-सामने की भुजाएं बराबर होती हैं, अतः दूरी 9 किमी है।", "This path forms a rectangle. Opposite sides are equal, so the distance is 9 km."]
-            ],
-            // Q26
-            [
-                "Q26. एक कोड भाषा में, 'CUTE' को 'FQWA' लिखा जाता है, और 'BLUE' को 'EHXA' लिखा जाता है। उसी भाषा में 'VOTE' कैसे लिखा जाएगा?", 
-                "Q26. In a code language, 'CUTE' is written as 'FQWA', and 'BLUE' is written as 'EHXA'. How will 'VOTE' be written in that language?", 
-                ["AYWK", "AYWK", "YWAK", "YWAK", "YKAW", "YKAW", "YKWA", "YKWA"], 
-                3, 
-                ["प्रत्येक अक्षर में +3, -4, +3, -4 का पैटर्न लागू किया गया है।", "A pattern of +3, -4, +3, -4 is applied to each letter."]
-            ],
-            // Q27
-            [
-                "Q27. दी गई श्रृंखला को पूरा करने के लिए प्रश्न चिह्न (?) को कौन सा अक्षर क्लस्टर प्रतिस्थापित करेगा?<br>HEWC, KIRI, ?, QQHU, TUCA", 
-                "Q27. Which letter cluster will replace the question mark (?) to complete the given series?<br>HEWC, KIRI, ?, QQHU, TUCA", 
-                ["NMMO", "NMMO", "PRZO", "PRZO", "NBTO", "NBTO", "JLSO", "JLSO"], 
-                0, 
-                ["पहले अक्षर में +3 हो रहा है (H -> K -> N -> Q -> T)। इसलिए सही उत्तर N से शुरू होगा।", "The first letter shifts by +3 (H -> K -> N -> Q -> T). So the answer starts with N."]
-            ],
-            // Q28
-            [
-                "Q28. उस विकल्प का चयन करें जो पांचवें अक्षर-समूह से उसी प्रकार संबंधित है जैसे दूसरा पहले से और चौथा तीसरे से संबंधित है।<br>ABUSE: ASUBE :: BEGIN: BIGEN :: OTHER: ?", 
-                "Q28. Select the option that is related to the fifth letter-cluster in the same way as the second is to the first and fourth to the third.<br>ABUSE: ASUBE :: BEGIN: BIGEN :: OTHER: ?", 
-                ["ORTHE", "ORTHE", "OHTER", "OHTER", "OTHRE", "OTHRE", "OEHTR", "OEHTR"], 
-                3, 
-                ["अक्षरों के स्थान को 1-4-2-5-3 के क्रम में बदल दिया गया है।", "The positions of the letters are swapped in the order 1-4-2-5-3."]
-            ],
-            // Q29
-            [
-                "Q29. अंग्रेजी वर्णमाला के क्रम के आधार पर, निम्नलिखित चार में से तीन अक्षर-समूह एक निश्चित तरीके से समान हैं और एक समूह बनाते हैं। कौन सा अक्षर-समूह उस समूह से संबंधित नहीं है?", 
-                "Q29. Based on the English alphabetical order, three of the following four letter-clusters are alike in a certain way and thus form a group. Which letter-cluster does not belong to that group?", 
-                ["PMS", "PMS", "URX", "URX", "JGM", "JGM", "SPU", "SPU"], 
-                3, 
-                ["बाकी सभी में -3, +6 का पैटर्न है। SPU इस पैटर्न का पालन नहीं करता।", "All others follow a -3, +6 pattern. SPU does not follow this pattern."]
-            ],
-            // Q30
-            [
-                "Q30. दिए गए विकल्पों में से उस संख्या का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) को प्रतिस्थापित कर सकती है।<br>25, 40, 70, 115, 175, ?", 
-                "Q30. Select the number from among the given options that can replace the question mark (?) in the following series.<br>25, 40, 70, 115, 175, ?", 
-                ["200", "200", "275", "275", "250", "250", "225", "225"], 
-                2, 
-                ["संख्याओं के बीच का अंतर 15, 30, 45, 60 है। अगला अंतर 75 होगा, इसलिए 175 + 75 = 250.", "The differences are 15, 30, 45, 60. Next difference is 75, so 175 + 75 = 250."]
-            ],
-            // Q31
-            [
-                "Q31. उस सेट का चयन करें जिसमें संख्याएँ उसी तरह संबंधित हैं जैसे निम्नलिखित सेटों की संख्याएँ हैं।<br>(12, 36, 6) और (18, 54, 9)", 
-                "Q31. Select the set in which the numbers are related in the same way as are the numbers of the following sets.<br>(12, 36, 6) and (18, 54, 9)", 
-                ["(28, 84, 16)", "(28, 84, 16)", "(28, 86, 14)", "(28, 86, 14)", "(28, 84, 14)", "(28, 84, 14)", "(26, 84, 14)", "(26, 84, 14)"], 
-                2, 
-                ["पहली संख्या × 3 = दूसरी संख्या। पहली संख्या ÷ 2 = तीसरी संख्या।", "First number × 3 = Second number. First number ÷ 2 = Third number."]
-            ],
-            // Q32
-            [
-                "Q32. दिए गए समीकरण को संतुलित करने के लिए क्रमिक रूप से रिक्त स्थानों को भरने के लिए गणितीय चिह्नों के सही संयोजन का चयन करें।<br>10 _ 2 _ 1 _ 8 _ 11 _ 8", 
-                "Q32. Select the correct combination of mathematical signs to sequentially replace the blanks to balance the given equation.<br>10 _ 2 _ 1 _ 8 _ 11 _ 8", 
-                ["-, ÷, ×, +, =", "-, ÷, ×, +, =", "+, -, ×, ÷, =", "+, -, ×, ÷, =", "+, -, ×, +, =", "+, -, ×, +, =", "+, -, ×, +, = (Correct combination matches this structure)", "+, -, ×, +, ="], 
-                3, 
-                ["विकल्प 4 के चिह्नों को रखने पर समीकरण संतुलित हो जाता है।", "Placing the signs of Option 4 balances the equation."]
-            ],
-            // Q33: Embedded Figure (SVG)
-            [
-                "Q33. उस विकल्प आकृति का चयन करें जिसमें दी गई आकृति अंतर्निहित है (रोटेशन की अनुमति नहीं है)।<br><br><svg viewBox='0 0 100 100' width='100' height='100'><circle cx='50' cy='50' r='40' fill='none' stroke='black' stroke-width='2'/><path d='M 50 10 L 50 90 M 10 50 L 90 50' stroke='black' stroke-width='2'/><path d='M 50 50 L 80 20' stroke='black' stroke-width='4'/></svg>", 
-                "Q33. Select the option figure in which the given figure is embedded as its part (rotation is NOT allowed).<br><br><svg viewBox='0 0 100 100' width='100' height='100'><circle cx='50' cy='50' r='40' fill='none' stroke='black' stroke-width='2'/><path d='M 50 10 L 50 90 M 10 50 L 90 50' stroke='black' stroke-width='2'/><path d='M 50 50 L 80 20' stroke='black' stroke-width='4'/></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                2, 
-                ["यह आकृति (चतुर्थांश के साथ एक मोटी रेखा) विकल्प 3 में स्पष्ट रूप से दिखाई दे रही है।", "This figure (a thick line in a quadrant) is clearly visible in Option 3."]
-            ],
-            // Q34
-            [
-                "Q34. दी गई श्रृंखला में प्रश्न चिह्न (?) के स्थान पर कौन सी संख्या आएगी?<br>7, 16, 43, 124, 367, ?", 
-                "Q34. Which of the following numbers will replace the question mark (?) in the given series?<br>7, 16, 43, 124, 367, ?", 
-                ["1086", "1086", "1096", "1096", "1066", "1066", "1076", "1076"], 
-                1, 
-                ["पैटर्न: (पिछली संख्या × 3) - 5. 367 × 3 - 5 = 1096.", "Pattern: (Previous number × 3) - 5. 367 × 3 - 5 = 1096."]
-            ],
-            // Q35
-            [
-                "Q35. एक निश्चित कोड भाषा में,<br>A + B का अर्थ 'A, B के भाई की पत्नी है'<br>A - B का अर्थ 'A, B की बहन है'<br>A x B का अर्थ 'A, B की पत्नी है'<br>A ÷ B का अर्थ 'A, B की बेटी है'<br>इसके आधार पर, यदि 'G ÷ K - L ÷ M x Q' है, तो G, Q से कैसे संबंधित है?", 
-                "Q35. In a certain code language,<br>A + B means 'A is the Brother's Wife of B'<br>A - B means 'A is the Sister of B'<br>A x B means 'A is the Wife of B'<br>A ÷ B means 'A is the Daughter of B'<br>Based on the above, how is G related to Q if 'G ÷ K - L ÷ M x Q'?", 
-                ["पुत्री", "Daughter", "बहन", "Sister", "पत्नी की बहन", "Wife's Sister", "पुत्र की पत्नी", "Son's wife"], 
-                3, 
-                ["फैमिली ट्री बनाने पर G, Q के पुत्र की पत्नी साबित होती है।", "Drawing the family tree proves G is the wife of Q's son."]
-            ],
-            // Q36
-            [
-                "Q36. एक निश्चित कोड भाषा में, 'FIND' को 'CLFB' और 'HOW' को 'VME' लिखा जाता है। उसी भाषा में 'WILL' कैसे लिखा जाएगा?", 
-                "Q36. In a certain code language, 'FIND' is written as 'CLFB' and 'HOW' is written as 'VME'. How will 'WILL' be written in that language?", 
-                ["KSFJ", "KSFJ", "SJFK", "SJFK", "SFJK", "SFJK", "KJFS", "KJFS"], 
-                0, 
-                ["अक्षरों के प्लेस वैल्यू में बदलाव किया गया है। सही उत्तर KSFJ होगा।", "The place values of the letters are shifted. The correct answer is KSFJ."]
-            ],
-            // Q37
-            [
-                "Q37. एक पासे के फलकों पर 10, 20, 30, 40, 50 और 60 संख्याएँ अंकित हैं। एक ही पासे की दो स्थितियाँ दी गई हैं। 50 वाले फलक के विपरीत कौन सा फलक है?<br>(दिखने वाले अंक: 40,20,60 और 30,10,60)", 
-                "Q37. A dice has its faces marked by numbers 10, 20, 30, 40, 50 and 60. Two positions of the same dice are given. Which face is opposite to face 50?<br>(Visible numbers: 40,20,60 and 30,10,60)", 
-                ["30", "30", "40", "40", "60", "60", "10", "10"], 
-                2, 
-                ["60 दोनों स्थितियों में कॉमन है। क्लॉकवाइज दिशा में आगे बढ़ने पर 50 का विपरीत 60 निकलेगा (चूंकि 50 अदृश्य है)।", "60 is common. Moving clockwise, the opposite of the invisible 50 is 60."]
-            ],
-            // Q38
-            [
-                "Q38. उस विकल्प का चयन करें जो दिए गए शब्दों के सही क्रम को दर्शाता है जैसे वे अंग्रेजी शब्दकोश में दिखाई देंगे।<br>1. Consistence 2. Conscience 3. Conflagration 4. Consequence 5. Considerable 6. Consignment", 
-                "Q38. Select the option that represents the correct order of the given words as they would appear in an English dictionary.<br>1. Consistence 2. Conscience 3. Conflagration 4. Consequence 5. Considerable 6. Consignment", 
-                ["4, 3, 2, 5, 6, 1", "4, 3, 2, 5, 6, 1", "4, 2, 3, 5, 1, 6", "4, 2, 3, 5, 1, 6", "3, 4, 2, 5, 6, 1", "3, 4, 2, 5, 6, 1", "4, 3, 2, 4, 5, 6, 1 (Valid sequence matches option)", "4, 3, 2, 4, 5, 6, 1"], 
-                3, 
-                ["अंग्रेजी वर्णमाला के अनुसार व्यवस्थित करने पर यही सही क्रम बनता है।", "Arranging alphabetically gives this correct sequence."]
-            ],
-            // Q39
-            [
-                "Q39. निम्नलिखित समीकरण में प्रश्न चिह्न (?) के स्थान पर क्या आएगा यदि '+' और 'x' को आपस में बदल दिया जाए और '-' और '÷' को आपस में बदल दिया जाए?<br>14 - 7 x 10 ÷ 1 + 7 = ?", 
-                "Q39. What will come in place of the question mark (?) in the following equation if '+' and 'x' are interchanged and '-' and '÷' are interchanged?<br>14 - 7 x 10 ÷ 1 + 7 = ?", 
-                ["5", "5", "26", "26", "45", "45", "77", "77"], 
-                0, 
-                ["चिन्ह बदलने के बाद: 14 ÷ 7 + 10 - 1 × 7 = 2 + 10 - 7 = 5.", "After interchanging signs: 14 ÷ 7 + 10 - 1 × 7 = 2 + 10 - 7 = 5."]
-            ],
-            // Q40
-            [
-                "Q40. एक निश्चित कोड भाषा में, 'DICE' को 'EKFI' और 'PLAN' को 'QNDR' लिखा जाता है। उसी भाषा में 'LUDO' कैसे लिखा जाएगा?", 
-                "Q40. In a certain code language, 'DICE' is written as 'EKFI' and 'PLAN' is written as 'QNDR'. How will 'LUDO' be written in that language?", 
-                ["NXES", "NXES", "NWES", "NWES", "MWGS", "MWGS", "MXES", "MXES"], 
-                2, 
-                ["पैटर्न +1, +2, +3, +4 है। L+1=M, U+2=W, D+3=G, O+4=S.", "The pattern is +1, +2, +3, +4. L+1=M, U+2=W, D+3=G, O+4=S."]
-            ],
-            // Q41
-            [
-                "Q41. 12 का संबंध 40 से एक निश्चित तर्क के अनुसार है। उसी तर्क के अनुसार 9 का संबंध 31 से है। 16 का संबंध किससे होगा?", 
-                "Q41. 12 is related to 40 following a certain logic. Following the same logic, 9 is related to 31. To which of the following is 16 related using the same logic?", 
-                ["52", "52", "51", "51", "61", "61", "63", "63"], 
-                0, 
-                ["तर्क: (संख्या × 3) + 4. 16 × 3 + 4 = 52.", "Logic: (Number × 3) + 4. 16 × 3 + 4 = 52."]
-            ],
-            // Q42
-            [
-                "Q42. दी गई श्रृंखला को पूरा करने के लिए प्रश्न चिह्न (?) को कौन सा अक्षर क्लस्टर प्रतिस्थापित कर सकता है?<br>FDKI, GCMG, ?, IAQC", 
-                "Q42. Which letter cluster can replace the question mark (?) to complete the given series?<br>FDKI, GCMG, ?, IAQC", 
-                ["HBNF", "HBNF", "HBOE", "HBOE", "HBPF", "HBPF", "HBLE", "HBLE"], 
-                1, 
-                ["प्रत्येक अक्षर में क्रमशः +1, -1, +2, -2 का पैटर्न है।", "The pattern for each letter is +1, -1, +2, -2 respectively."]
-            ],
-            // Q43
-            [
-                "Q43. उस सेट का चयन करें जिसमें संख्याएँ दिए गए सेटों की संख्याओं के समान संबंधित हैं।<br>(9, 36, 12) और (12, 48, 16)", 
-                "Q43. Select the set in which the numbers are related in the same way as are the numbers of the given sets.<br>(9, 36, 12) and (12, 48, 16)", 
-                ["(21, 84, 24)", "(21, 84, 24)", "(21, 81, 28)", "(21, 81, 28)", "(21, 81, 24)", "(21, 81, 24)", "(21, 84, 28)", "(21, 84, 28)"], 
-                3, 
-                ["पहली संख्या × 4 = दूसरी संख्या। पहली संख्या × 4/3 = तीसरी संख्या।", "First number × 4 = Second number. First number × 4/3 = Third number."]
-            ],
-            // Q44: Mirror Image (SVG)
-            [
-                "Q44. जब दर्पण को MN पर रखा जाता है, तो दी गई आकृति की सही दर्पण छवि चुनें:<br><br><svg viewBox='0 0 200 60' width='200' height='60'><text x='10' y='40' font-size='28' font-family='Arial, sans-serif' font-weight='bold' letter-spacing='2'>L27Aef</text><line x1='145' y1='10' x2='145' y2='50' stroke='black' stroke-dasharray='4' stroke-width='2'/><text x='150' y='20' font-size='12'>M</text><text x='150' y='50' font-size='12'>N</text></svg>", 
-                "Q44. Select the correct mirror image of the given figure when the mirror is placed at MN as shown below.<br><br><svg viewBox='0 0 200 60' width='200' height='60'><text x='10' y='40' font-size='28' font-family='Arial, sans-serif' font-weight='bold' letter-spacing='2'>L27Aef</text><line x1='145' y1='10' x2='145' y2='50' stroke='black' stroke-dasharray='4' stroke-width='2'/><text x='150' y='20' font-size='12'>M</text><text x='150' y='50' font-size='12'>N</text></svg>", 
-                ["fɘA⏒S⅃", "fɘA⏒S⅃", "feA72L", "feA72L", "⅃S⏒Aɘf", "⅃S⏒Aɘf", "f e A 7 2 L", "f e A 7 2 L"], 
-                0, 
-                ["मिरर इमेज में 'f' उल्टा होकर सबसे पहले आएगा, और 'L' उल्टा होकर (⅃) सबसे अंत में जाएगा।", "In the mirror image, 'f' will be inverted and appear first, and 'L' will be inverted (⅃) at the end."]
-            ],
-            // Q45
-            [
-                "Q45. एक कोड भाषा में, 'RACE' को 'VWGA' और 'BANK' को 'FWRG' लिखा जाता है। उसी भाषा में 'STEM' को कैसे लिखा जाएगा?", 
-                "Q45. In a code language, 'RACE' is written as 'VWGA', and 'BANK' is written as 'FWRG'. How will 'STEM' be written in that language?", 
-                ["IIWP", "IIWP", "WIPI", "WIPI", "WIIP", "WIIP", "WPII", "WPII"], 
-                3, 
-                ["अक्षरों में क्रॉस-कोडिंग का पैटर्न लागू किया गया है।", "A cross-coding pattern is applied to the letters."]
-            ],
-            // Q46
-            [
-                "Q46. उस विकल्प का चयन करें जो दिए गए शब्दों की सही व्यवस्था को उसी क्रम में इंगित करता है जिस क्रम में वे अंग्रेजी शब्दकोश में दिखाई देते हैं।<br>1- Literacy 2- Literature 3- Litany 4- Listen 5- Lithograph", 
-                "Q46. Select the option that indicates the correct arrangement of the given words in the order in which they appear in an English dictionary.<br>1- Literacy 2- Literature 3- Litany 4- Listen 5- Lithograph", 
-                ["4, 3, 1, 2, 5", "4, 3, 1, 2, 5", "3, 4, 1, 2, 5", "3, 4, 1, 2, 5", "1, 4, 3, 2, 5", "1, 4, 3, 2, 5", "4, 1, 3, 5, 2", "4, 1, 3, 5, 2"], 
-                0, 
-                ["'Listen' सबसे पहले आएगा, उसके बाद 'Litany'।", "'Listen' will come first, followed by 'Litany'."]
-            ],
-            // Q47
-            [
-                "Q47. दिए गए समीकरण को संतुलित करने के लिए नीचे दिए गए रिक्त स्थानों में बाएं से दाएं क्रमिक रूप से रखने के लिए गणितीय चिह्नों के सही संयोजन का चयन करें।<br>6 _ 2 _ 0 _ 8 = 20", 
-                "Q47. Select the correct combination of mathematical signs to sequentially place from left to right in the blanks below to balance the given equation.<br>6 _ 2 _ 0 _ 8 = 20", 
-                ["+, -, +", "+, -, +", "+, +, ×", "+, +, ×", "×, +, +", "×, +, +", "-, ÷, +", "-, ÷, +"], 
-                2, 
-                ["6 × 2 + 0 + 8 = 12 + 0 + 8 = 20.", "6 × 2 + 0 + 8 = 12 + 0 + 8 = 20."]
-            ],
-            // Q48
-            [
-                "Q48. एक पासे के फलकों पर 2, 3, 5, 6, 7 और 8 संख्याएँ हैं। एक ही पासे की दो अलग-अलग स्थितियाँ नीचे दिखाई गई हैं। उस संख्या का चयन करें जो 8 वाले फलक के विपरीत फलक पर होगी।<br>(दिखने वाले अंक: 5,6,3 और 7,2,7)", 
-                "Q48. A dice has numbers 2, 3, 5, 6, 7 and 8 on its sides. Two different positions of the same dice are shown. Select the number that will be on the face opposite to the one having 8.<br>(Visible faces: 5,6,3 and 7,2,7)", 
-                ["6", "6", "2", "2", "3", "3", "7", "7"], 
-                3, 
-                ["रोटेशन के नियम के अनुसार, 8 के विपरीत फलक पर 7 होगा।", "According to the rotation rule, 7 is on the face opposite to 8."]
-            ],
-            // Q49: Figure Series (SVG)
-            [
-                "Q49. दी गई आकृति श्रृंखला में प्रश्न चिह्न (?) के स्थान पर तार्किक रूप से कौन सी आकृति आएगी?<br><br><svg viewBox='0 0 250 80' width='250' height='80'><rect x='10' y='10' width='50' height='50' fill='none' stroke='black'/><text x='15' y='25' font-size='12'>A</text><text x='45' y='55' font-size='12'>E</text><rect x='70' y='10' width='50' height='50' fill='none' stroke='black'/><text x='105' y='25' font-size='12'>A</text><text x='75' y='55' font-size='12'>E</text><rect x='130' y='10' width='50' height='50' fill='none' stroke='black'/><text x='165' y='55' font-size='12'>A</text><text x='135' y='25' font-size='12'>E</text><rect x='190' y='10' width='50' height='50' fill='none' stroke='black' stroke-dasharray='3'/><text x='208' y='42' font-size='24'>?</text></svg>", 
-                "Q49. Select the figure from among the given options that can logically replace the question mark (?) in the following series.<br><br><svg viewBox='0 0 250 80' width='250' height='80'><rect x='10' y='10' width='50' height='50' fill='none' stroke='black'/><text x='15' y='25' font-size='12'>A</text><text x='45' y='55' font-size='12'>E</text><rect x='70' y='10' width='50' height='50' fill='none' stroke='black'/><text x='105' y='25' font-size='12'>A</text><text x='75' y='55' font-size='12'>E</text><rect x='130' y='10' width='50' height='50' fill='none' stroke='black'/><text x='165' y='55' font-size='12'>A</text><text x='135' y='25' font-size='12'>E</text><rect x='190' y='10' width='50' height='50' fill='none' stroke='black' stroke-dasharray='3'/><text x='208' y='42' font-size='24'>?</text></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                1, 
-                ["अक्षर (A और E) बॉक्स के कोनों में दक्षिणावर्त (clockwise) दिशा में खिसक रहे हैं।", "The letters (A and E) are shifting to the corners of the box in a clockwise direction."]
-            ],
-            // Q50: Venn Diagram (SVG)
-            [
-                "Q50. उस वेन आरेख का चयन करें जो निम्नलिखित वर्गों के बीच के संबंध को सबसे अच्छा दर्शाता है।<br><b>कुत्ते, बिल्लियां, लैब्राडोर</b><br><br><svg viewBox='0 0 150 100' width='150' height='100'><circle cx='45' cy='50' r='35' stroke='black' stroke-width='2' fill='none'/><circle cx='45' cy='50' r='15' stroke='black' stroke-width='2' fill='none'/><circle cx='115' cy='50' r='20' stroke='black' stroke-width='2' fill='none'/></svg>", 
-                "Q50. Select the Venn diagram that best illustrates the relationship between the following classes.<br><b>Dogs, Cats, Labradors</b><br><br><svg viewBox='0 0 150 100' width='150' height='100'><circle cx='45' cy='50' r='35' stroke='black' stroke-width='2' fill='none'/><circle cx='45' cy='50' r='15' stroke='black' stroke-width='2' fill='none'/><circle cx='115' cy='50' r='20' stroke='black' stroke-width='2' fill='none'/></svg>", 
-                ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 
-                1, 
-                ["लैब्राडोर कुत्तों की एक नस्ल है, इसलिए यह कुत्ते वाले गोले के अंदर आएगा। बिल्लियां अलग रहेंगी।", "Labradors are a breed of dogs, so it comes inside the Dog circle. Cats are separate."]
-            ]
+            ["Q1. एक निश्चित कूट भाषा में,<br>A + B का अर्थ 'A, B के भाई की पत्नी है'<br>A - B का अर्थ 'A, B की बहन है'<br>A x B का अर्थ 'A, B की पत्नी है'<br>A ÷ B का अर्थ 'A, B की पुत्री है'<br>उपरोक्त के आधार पर, यदि 'G + K - L ÷ M x Q' है, तो G, Q से किस प्रकार संबंधित है?", "Q1. In a certain code language,<br>A + B means 'A is the Brother's Wife of B'<br>A - B means 'A is the Sister of B'<br>A x B means 'A is the Wife of B'<br>A ÷ B means 'A is the Daughter of B'<br>Based on the above, how is G related to Q if 'G + K - L ÷ M x Q'?", ["पुत्र की पत्नी", "Son's wife", "बहन", "Sister", "पत्नी की बहन", "Wife's Sister", "पुत्री", "Daughter"], 0, ["हल: G, Q के पुत्र की पत्नी है।", "Solution: G is the wife of Q's son."]],
+            ["Q2. दी गई श्रृंखला को पूरा करने के लिए प्रश्न चिह्न (?) के स्थान पर कौन सा अक्षर-समूह आएगा?<br>HEWC, KIRI, ?, QQHU, TUCA", "Q2. Which letter cluster will replace the question mark (?) to complete the given series?<br>HEWC, KIRI, ?, QQHU, TUCA", ["NBTO", "NBTO", "NMMO", "NMMO", "PRZO", "PRZO", "JLSO", "JLSO"], 1, ["पैटर्न +3, +4, +5, +6 का है।", "Pattern is +3, +4, +5, +6."]],
+            ["Q3. एक कूट भाषा में, 'CUTE' को 'FQWA' और 'BLUE' को 'EHXA' लिखा जाता है। उसी भाषा में 'VOTE' को कैसे लिखा जाएगा?", "Q3. In a code language, 'CUTE' is written as 'FQWA', and 'BLUE' is written as 'EHXA'. How will 'VOTE' be written in that language?", ["YWAK", "YWAK", "YKAW", "YKAW", "YKWA", "YKWA", "AYWK", "AYWK"], 2, ["पैटर्न +3, -4, +3, -4 है।", "Pattern is +3, -4, +3, -4."]],
+            ["Q4. उस सेट का चयन करें जिसमें संख्याएँ उसी प्रकार संबंधित हैं जैसे निम्नलिखित सेटों की संख्याएँ हैं:<br>(12, 36, 6)<br>(18, 54, 9)", "Q4. Select the set in which the numbers are related in the same way as are the numbers of the following sets:<br>(12, 36, 6)<br>(18, 54, 9)", ["(28, 86, 14)", "(28, 86, 14)", "(26, 84, 14)", "(26, 84, 14)", "(28, 84, 16)", "(28, 84, 16)", "(28, 84, 14)", "(28, 84, 14)"], 3, ["पहली संख्या x 3 = दूसरी संख्या। पहली संख्या ÷ 2 = तीसरी संख्या।", "First no x 3 = Second no. First no ÷ 2 = Third no."]],
+            ["Q5. दिए गए शब्दों का वह सही क्रम चुनें जिस क्रम में वे अंग्रेजी शब्दकोश में आते हैं:<br>1- Literacy 2- Literature 3- Litany 4- Listen 5- Lithograph", "Q5. Select the correct arrangement of the given words in the order in which they appear in an English dictionary:<br>1- Literacy 2- Literature 3- Litany 4- Listen 5- Lithograph", ["4, 1, 3, 5, 2", "4, 1, 3, 5, 2", "4, 3, 1, 2, 5", "4, 3, 1, 2, 5", "3, 4, 1, 2, 5", "3, 4, 1, 2, 5", "1, 4, 3, 2, 5", "1, 4, 3, 2, 5"], 1, ["अंग्रेजी वर्णमाला के अनुसार सही क्रम।", "Alphabetical order."]],
+            ["Q6. दिए गए समीकरण को संतुलित करने के लिए क्रमिक रूप से चिह्न बदलने के लिए गणितीय चिह्नों के सही संयोजन का चयन करें:<br>13 * 7 * 12 * 4 * 15 * 65", "Q6. Select the correct combination of mathematical signs to replace the signs and balance the given equation:<br>13 * 7 * 12 * 4 * 15 * 65", ["+, ÷, -, x, =", "+, ÷, -, x, =", "+, ÷, +, =, -", "+, ÷, +, =, -", "+, x, ÷, x, =", "+, x, ÷, x, =", "-, ÷, -, +, =", "-, ÷, -, +, ="], 0, ["BODMAS के अनुसार: 13 + 7 - 12 ÷ 4 x 15 = 65", "By BODMAS: 13 + 7 - 12 ÷ 4 x 15 = 65"]],
+            ["Q7. उस विकल्प आकृति का चयन करें जिसमें दी गई आकृति अंतर्निहित है (घुमाने की अनुमति नहीं है)।<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q7. Select the option figure in which the given figure is embedded as its part (rotation is NOT allowed).<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 2, ["आकृति विकल्प 3 में है।", "Figure is embedded in Option 3."]],
+            ["Q8. दिए गए विकल्पों में से उस आकृति का चयन करें जो निम्नलिखित श्रृंखला में प्रश्न चिह्न (?) को तार्किक रूप से प्रतिस्थापित कर सकती है।<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q8. Select the figure from among the given options that can logically replace the question mark (?) in the following series.<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 2, ["आकृति रोटेशन पैटर्न।", "Figure rotation pattern."]],
+            ["Q9. निम्नलिखित समीकरण में प्रश्न चिह्न (?) के स्थान पर क्या आएगा यदि '+' और 'x' को आपस में बदल दिया जाए और '-' और '÷' को आपस में बदल दिया जाए?<br>14 - 7 x 10 ÷ 1 + 7 = ?", "Q9. What will come in place of the question mark (?) in the following equation if '+' and 'x' are interchanged and '-' and '÷' are interchanged?<br>14 - 7 x 10 ÷ 1 + 7 = ?", ["26", "26", "77", "77", "45", "45", "5", "5"], 3, ["चिह्न बदलने पर: 14 ÷ 7 + 10 - 1 x 7 = 5", "After changing signs: 14 ÷ 7 + 10 - 1 x 7 = 5"]],
+            ["Q10. एक शादी के रिसेप्शन में, एक आदमी ने दूल्हे की ओर इशारा किया और दूल्हे को अपने दादा के बेटे के बेटे का भाई बताया। दूल्हा उस आदमी का क्या लगता है?", "Q10. At a wedding reception, a man pointed towards the groom and claims the groom to be the brother of the son of his grandfather's son. Who is the groom to the man?", ["भाई", "Brother", "जीजा/साला", "Brother-in-law", "चाचा", "Uncle", "पिता", "Father"], 0, ["दादा के बेटे का बेटा खुद या भाई होता है। उसका भाई भी भाई ही लगेगा।", "Grandfather's son's son is self or brother. His brother is brother."]],
+            ["Q11. 15 का संबंध 45 से है। 25 का संबंध 125 से है। 80 से किसका संबंध होगा?", "Q11. 15 is related to 45. 25 is related to 125. Which number is related to 80?", ["22", "22", "18", "18", "20", "20", "21", "21"], 2, ["N x (N/5). 20 x (20/5) = 80.", "N x (N/5). 20 x (20/5) = 80."]],
+            ["Q12. उस सेट का चयन करें: (247, 349) और (261, 363)", "Q12. Select the set: (247, 349) and (261, 363)", ["(282, 382)", "(282, 382)", "(294, 396)", "(294, 396)", "(265, 369)", "(265, 369)", "(253, 358)", "(253, 358)"], 2, ["पहली संख्या + 102 = दूसरी संख्या। 265 + 102 = 369.", "First no + 102 = Second no. 265 + 102 = 369."]],
+            ["Q13. दिए गए समीकरण को संतुलित करने के लिए क्रमिक रूप से चिह्न बदलने के लिए सही संयोजन:<br>10 * 2 * 1 * 8 * 11 * 8", "Q13. Select the correct combination of mathematical signs to replace the signs and balance the equation:<br>10 * 2 * 1 * 8 * 11 * 8", ["÷, =, -", "÷, =, -", "+, -, ÷, +, =", "+, -, ÷, +, =", "÷, x, +, =, -", "÷, x, +, =, -", "x, -, ÷, +, =", "x, -, ÷, +, ="], 1, ["10 + 2 - 1 ÷ 8 + 11 = 8 (Error in options by TCS but Opt 2 is officially chosen)", "Based on official TCS key, option 2 is marked correct."]],
+            ["Q14. CARS: HFWX :: BOAT: GTFY :: FUSE: ?", "Q14. CARS: HFWX :: BOAT: GTFY :: FUSE: ?", ["LAXJ", "LAXJ", "LAYK", "LAYK", "KZWI", "KZWI", "KZXJ", "KZXJ"], 3, ["सभी अक्षरों में +5। F+5=K, U+5=Z, S+5=X, E+5=J.", "Shift of +5 in each letter."]],
+            ["Q15. मुड़े हुए कागज को काटने का तरीका दर्शाया गया है। यह कागज खोलने पर कैसा दिखेगा?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q15. The sequence of folding a paper and the manner in which the folded paper is cut is shown. How would this paper look when unfolded?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 0, ["मिरर इमेज पैटर्न।", "Mirror image pattern."]],
+            ["Q16. वेन आरेख चुनें: केले, सेब, अंगूर<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q16. Select Venn diagram: Bananas, Apple, Grapes<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 1, ["तीनों अलग फल हैं।", "All three are different fruits."]],
+            ["Q17. LAND को IWKZ और GOLD को DKIZ लिखा जाता है। TEAM को कैसे लिखा जाएगा?", "Q17. LAND is IWKZ, GOLD is DKIZ. TEAM is?", ["QAXI", "QAXI", "JXQB", "JXQB", "XJQB", "XJQB", "QXJB", "QXJB"], 3, ["सभी अक्षरों में -3। T-3=Q, E-3=X, A-3=J, M-3=B.", "Shift of -3 in each letter."]],
+            ["Q18. RACE को VWGA और BANK को FWRG लिखा जाता है। STEM को कैसे लिखा जाएगा?", "Q18. RACE is VWGA, BANK is FWRG. STEM is?", ["WIIP", "WIIP", "WPII", "WPII", "IIWP", "IIWP", "WIPI", "WIPI"], 1, ["अक्षरों में क्रॉस पैटर्न।", "Cross coding pattern."]],
+            ["Q19. FDKI, GCMG, ?, IAQC", "Q19. FDKI, GCMG, ?, IAQC", ["HBPF", "HBPF", "HBNF", "HBNF", "HBOE", "HBOE", "HBLE", "HBLE"], 2, ["पहला अक्षर +1, दूसरा -1, तीसरा +2, चौथा -2.", "Pattern: +1, -1, +2, -2."]],
+            ["Q20. बेमेल चुनें: JGM, SPU, URX, PMS", "Q20. Odd one out: JGM, SPU, URX, PMS", ["JGM", "JGM", "SPU", "SPU", "URX", "URX", "PMS", "PMS"], 1, ["SPU में पैटर्न अलग है (बाकी में -3, +6 है)।", "SPU does not follow the -3, +6 pattern."]],
+            ["Q21. DINESH = 12-27-42-15-57-24, VIRAT = 66-27-54-3-60. GAUTAM = ?", "Q21. DINESH = 12-27-42-15-57-24, VIRAT = 66-27-54-3-60. GAUTAM = ?", ["29-9-55-47-8-28", "29-9-55-47-8-28", "26-7-25-67-4-37", "26-7-25-67-4-37", "24-7-61-34-5-31", "24-7-61-34-5-31", "21-3-63-60-3-39", "21-3-63-60-3-39"], 3, ["हर अक्षर का स्थान (Place value) x 3.", "Place value of each letter x 3."]],
+            ["Q22. सेट: (9, 36, 12), (12, 48, 16)", "Q22. Set: (9, 36, 12), (12, 48, 16)", ["(21, 84, 24)", "(21, 84, 24)", "(21, 81, 28)", "(21, 81, 28)", "(21, 81, 24)", "(21, 81, 24)", "(21, 84, 28)", "(21, 84, 28)"], 3, ["No1 x 4 = No2. No1 x (4/3) = No3.", "No1 x 4 = No2. No1 x (4/3) = No3."]],
+            ["Q23. 7, 16, 43, 124, 367, ?", "Q23. 7, 16, 43, 124, 367, ?", ["1086", "1086", "1066", "1066", "1076", "1076", "1096", "1096"], 3, ["पैटर्न: (पिछली संख्या x 3) - 5", "Pattern: (Previous number x 3) - 5"]],
+            ["Q24. 1, 1, 2, 3, 5, 8, 13, ?", "Q24. 1, 1, 2, 3, 5, 8, 13, ?", ["20", "20", "24", "24", "21", "21", "22", "22"], 2, ["फिबोनाची सीरीज (पिछली दो संख्याओं का योग)। 8+13 = 21.", "Fibonacci series. 8+13=21."]],
+            ["Q25. 25, 40, 70, 115, 175, ?", "Q25. 25, 40, 70, 115, 175, ?", ["275", "275", "225", "225", "200", "200", "250", "250"], 3, ["अंतर 15, 30, 45, 60, 75 बढ़ रहा है। 175+75=250.", "Difference is increasing by 15, 30, 45, 60, 75."]],
+            ["Q26. 12 -> 40, 9 -> 31. 16 -> ?", "Q26. 12 -> 40, 9 -> 31. 16 -> ?", ["51", "51", "52", "52", "63", "63", "61", "61"], 1, ["(N x 3) + 4. 16 x 3 + 4 = 52.", "(N x 3) + 4. 16 x 3 + 4 = 52."]],
+            ["Q27. सही समीकरण के लिए किन दो चिह्नों को बदलना चाहिए?<br>10 ÷ 63 x 7 + 90 - 80 = 100", "Q27. Which two signs should be interchanged?<br>10 ÷ 63 x 7 + 90 - 80 = 100", ["- और +", "- and +", "x और ÷", "x and ÷", "x और -", "x and -", "+ और -", "+ and -"], 1, ["x और ÷ को बदलने पर: 10 x 63 ÷ 7 + 90 - 80 = 100", "Changing x and ÷ balances it."]],
+            ["Q28. यदि - का अर्थ ÷, + का अर्थ x, x का अर्थ -, ÷ का अर्थ + है:<br>22 x 11 - 450 ÷ 50 + 500 = ?", "Q28. If - means ÷, + means x, x means -, ÷ means +:<br>22 x 11 - 450 ÷ 50 + 500 = ?", ["550", "550", "350", "350", "650", "650", "450", "450"], 0, ["चिह्न बदलने पर: 22 - 11 ÷ 450 + 50 x 500 = 550", "By BODMAS, result is 550."]],
+            ["Q29. CHO, DIP, EJQ, ?", "Q29. CHO, DIP, EJQ, ?", ["DIL", "DIL", "FKR", "FKR", "EJL", "EJL", "HMR", "HMR"], 1, ["हर अक्षर में +1. C->D->E->F.", "Shift of +1."]],
+            ["Q30. दर्पण छवि चुनें: RkgEyw<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q30. Select mirror image: RkgEyw<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 0, ["'w' पहले आएगा।", "'w' appears first."]],
+            ["Q31. दर्पण छवि चुनें: L27Aef<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q31. Select mirror image: L27Aef<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 3, ["'f' पहले आएगा।", "'f' appears first."]],
+            ["Q32. वेन आरेख: आलू, सब्जियां, अंगूर<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q32. Venn diagram: Potatoes, Vegetables, Grapes<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 1, ["आलू सब्जी के अंदर, अंगूर अलग।", "Potato inside vegetable, grapes separate."]],
+            ["Q33. सैली मिनी स्कूल बस चलाती है। 7 किमी उत्तर, दाएं 10 किमी, दाएं 5 किमी, फिर दाएं। स्कूल पहुंचने के लिए कितनी दूरी?", "Q33. Sally drives mini bus. 7 km north, right 10 km, right 5 km, final right. Distance to reach school?", ["12 km", "12 km", "10 km", "10 km", "22 km", "22 km", "17 km", "17 km"], 1, ["दूरी आरेख से 10 किमी।", "From distance diagram, 10 km."]],
+            ["Q34. 6 छात्र गोलाकार मेज पर बैठे हैं। राम, गीता के दायें से दूसरे स्थान पर है। प्रणय, गीता और बॉबी का पड़ोसी है। अमन, गीता के दायें से तीसरे स्थान पर है। राम और बॉबी का पड़ोसी कौन है?", "Q34. 6 students sitting around circular table. Ram is 2nd right of Gita. Pranay neighbour of Gita & Bobby. Aman 3rd right of Gita. Neighbour of Ram & Bobby?", ["प्रणय", "Pranay", "अमन", "Aman", "गीता", "Gita", "चिंटू", "Chintu"], 3, ["चिंटू, राम और बॉबी के बीच बैठा है।", "Chintu is between Ram and Bobby."]],
+            ["Q35. वेन आरेख: चीता, पक्षी, चील<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q35. Venn diagram: Panther, Bird, Eagle<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 1, ["चील पक्षी है, चीता अलग।", "Eagle is bird, panther is separate."]],
+            ["Q36. ABUSE: ASUBE :: BEGIN: BIGEN :: OTHER: ?", "Q36. ABUSE: ASUBE :: BEGIN: BIGEN :: OTHER: ?", ["OTHRE", "OTHRE", "ORTHE", "ORTHE", "OHTER", "OHTER", "OEHTR", "OEHTR"], 1, ["अक्षरों की स्थिति बदली गई है।", "Letter positions swapped."]],
+            ["Q37. प्रीति 7 किमी दक्षिण, बाएं मुड़कर 9 किमी, अंत में बाएं 7 किमी। प्रारंभिक बिंदु तक दूरी?", "Q37. Preeti drives 7 km South, left 9 km, final left 7 km. Distance to starting point?", ["6 km", "6 km", "8 km", "8 km", "9 km", "9 km", "7 km", "7 km"], 2, ["आयत बनता है, दूरी 9 किमी।", "Forms a rectangle, distance is 9 km."]],
+            ["Q38. प्रश्न चिह्न (?) की जगह कौन सी आकृति आएगी?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q38. Identify the option figure to complete the series.<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 1, ["आकृति पैटर्न।", "Figure pattern."]],
+            ["Q39. समीकरण संतुलित करने के लिए सही चिह्न: 6 _ 2 _ 0 _ 8 = 20", "Q39. Correct signs for: 6 _ 2 _ 0 _ 8 = 20", ["+, x, +", "+, x, +", "-, x, +", "-, x, +", "x, +, +", "x, +, +", "+, +, x", "+, +, x"], 2, ["6 x 2 + 0 + 8 = 20.", "6 x 2 + 0 + 8 = 20."]],
+            ["Q40. एक पासे की दो स्थितियाँ। 1 के विपरीत कौन सा अंक है?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q40. Two positions of dice. Opposite to 1?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["2", "2", "6", "6", "3", "3", "4", "4"], 1, ["समान अंक को घुमाने पर 6 विपरीत आता है।", "Rotating from common face gives 6."]],
+            ["Q41. शब्दकोश क्रम: 1. Consistence 2. Conscience 3. Conflagration 4. Consequence 5. Considerable 6. Consignment", "Q41. Dictionary order: 1. Consistence 2. Conscience 3. Conflagration 4. Consequence 5. Considerable 6. Consignment", ["3, 4, 2, 5, 6, 1", "3, 4, 2, 5, 6, 1", "4, 3, 2, 5, 6, 1", "4, 3, 2, 5, 6, 1", "3, 2, 4, 5, 6, 1", "3, 2, 4, 5, 6, 1", "4, 2, 3, 5, 1, 6", "4, 2, 3, 5, 1, 6"], 2, ["शब्दकोश नियम।", "Dictionary rule."]],
+            ["Q42. 1, 6, 15, 28, ?, ?, 91", "Q42. 1, 6, 15, 28, ?, ?, 91", ["42, 54", "42, 54", "44, 54", "44, 54", "45, 66", "45, 66", "40, 60", "40, 60"], 2, ["दोगुना अंतर (Double difference) पैटर्न।", "Double difference pattern."]],
+            ["Q43. आकृति श्रृंखला पूरी करें।<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q43. Complete the figure series.<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 2, ["आकृति रोटेशन।", "Figure rotation."]],
+            ["Q44. FIND को CLFB और HOW को VME लिखा जाता है। WILL कैसे लिखा जाएगा?", "Q44. FIND->CLFB, HOW->VME, WILL->?", ["SJFK", "SJFK", "SFJK", "SFJK", "KJFS", "KJFS", "KSFJ", "KSFJ"], 0, ["प्लेस वैल्यू में बदलाव।", "Place value shift."]],
+            ["Q45. सही समीकरण के लिए किन दो चिह्नों को बदला जाए: 2 + 10 x 12 - 4 ÷ 24 = 8", "Q45. Signs to interchange: 2 + 10 x 12 - 4 ÷ 24 = 8", ["- और +", "- and +", "+ और +", "+ and +", "x और -", "x and -", "÷ और -", "÷ and -"], 3, ["÷ और - को बदलने पर 8 आता है।", "Interchanging ÷ and - gives 8."]],
+            ["Q46. पासे पर 2, 3, 5, 6, 7, 8 हैं। 8 के विपरीत?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q46. Dice has 2,3,5,6,7,8. Opposite to 8?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["7", "7", "6", "6", "2", "2", "3", "3"], 0, ["पासे के नियम से 7।", "Dice rule gives 7."]],
+            ["Q47. पासे पर 10, 20, 30, 40, 50, 60 हैं। 50 के विपरीत?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q47. Dice has 10..60. Opposite to 50?<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["30", "30", "60", "60", "40", "40", "10", "10"], 0, ["पासे के नियम से 30।", "Dice rule gives 30."]],
+            ["Q48. DICE -> EKFI, PLAN -> QNDR. LUDO -> ?", "Q48. DICE -> EKFI, PLAN -> QNDR. LUDO -> ?", ["MWGS", "MWGS", "MXES", "MXES", "NXES", "NXES", "NWES", "NWES"], 1, ["पैटर्न +1, +2, +3, +4", "Pattern is +1, +2, +3, +4"]],
+            ["Q49. वेन आरेख: कुत्ते, बिल्लियां, लैब्राडोर<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q49. Venn diagram: Dogs, Cats, Labradors<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 0, ["लैब्राडोर कुत्ते की प्रजाति है।", "Labrador is a dog breed."]],
+            ["Q50. अंतर्निहित आकृति (घुमाने की अनुमति नहीं)।<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", "Q50. Embedded figure (rotation NOT allowed).<br><img src='REPLACE_WITH_IMAGE_URL' style='width:100%; max-width:400px;'>", ["विकल्प 1", "Option 1", "विकल्प 2", "Option 2", "विकल्प 3", "Option 3", "विकल्प 4", "Option 4"], 0, ["यह विकल्प 1 में मौजूद है।", "Present in option 1."]]
         ]
-    }, 
-{
+    },
+    {
         name: "General Knowledge",
         cat: 1,
         questions: [
