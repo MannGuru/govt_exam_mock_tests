@@ -246,8 +246,15 @@ svg { max-width: 100%; height: auto; }
 <div id="solution-screen" class="screen">
     <div style="max-width:800px;width:100%;margin:0 auto; padding:20px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:15px 20px; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:10px; position:sticky;top:5px;z-index:10;">
-            <h3 style="color:var(--primary);">Detailed Solutions</h3>
-            <button class="btn btn-clear" style="padding:6px 15px;" onclick="showScreen('result-screen')">&#8592; Back</button>
+            <h3 style="color:var(--primary); margin:0;">Detailed Solutions</h3>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size:13px; font-weight:bold;">Language:</span>
+                <select id="sol-lang-toggle" onchange="changeSolLanguage()" style="padding:4px 8px; border-radius:4px; border:1px solid var(--glass-border); background:var(--card-bg); color:var(--text-main); font-size:13px; font-weight:600;">
+                    <option value="hi">Hindi</option>
+                    <option value="en">English</option>
+                </select>
+                <button class="btn btn-clear" style="padding:6px 15px;" onclick="showScreen('result-screen')">&#8592; Back</button>
+            </div>
         </div>
         <div id="sol-container"></div>
     </div>
@@ -511,10 +518,11 @@ let examData = rawSections.map(sec => {
 // --- State Management ---
 const STORAGE_KEY = 'cpo_real_mock_active'; 
 const COMPLETED_KEY = 'cpo_real_mock_comp';
-const SEC_TIME = 30 * 60; // 30 Mins
+const SEC_TIME = 30 * 60; // 30 Mins per section
 
 let candidateName = localStorage.getItem('cpo_candidate_name') || "";
 let appLang = 'hi';
+let solLang = 'hi'; // Default language for solutions
 
 let state = { 
     started: false, submitted: false, currentSec: 0, currentQ: 0, 
@@ -637,6 +645,12 @@ function changeLanguage() {
     }
 }
 
+// --- SOLUTION LANGUAGE TOGGLE ---
+function changeSolLanguage() {
+    solLang = document.getElementById('sol-lang-toggle').value;
+    viewSolutions();
+}
+
 function renderTabs() {
     if(!examData[state.currentSec]) return;
     document.getElementById('section-tabs').innerHTML = `
@@ -660,7 +674,6 @@ function processSectionSubmit() {
     state.completedSections[state.currentSec] = true;
     saveState();
     
-    // अगला सेक्शन ढूँढने और उसे चालू करने का कोड
     let nextSec = state.currentSec + 1;
     while(nextSec < examData.length && (!examData[nextSec] || examData[nextSec].questions.length === 0)) {
         state.completedSections[nextSec] = true;
@@ -789,6 +802,10 @@ function viewSolutions() {
     showScreen('solution-screen'); 
     let html = ''; let labels = ['A', 'B', 'C', 'D'];
     
+    // Sync the dropdown value
+    let solLangDropdown = document.getElementById('sol-lang-toggle');
+    if(solLangDropdown) solLangDropdown.value = solLang;
+    
     examData.forEach((sec, sIdx) => {
         if(sec.questions.length === 0) return;
         html += `<h2 style="color:white; background:var(--primary); padding:10px; border-radius:8px; margin:20px 0 10px;">${sec.sectionName}</h2>`;
@@ -796,10 +813,10 @@ function viewSolutions() {
         sec.questions.forEach((q, qIdx) => {
             let uAns = state.answers[sIdx][qIdx]; let cAns = q.a; let optsHtml = '';
             
-            // LANGUAGE LOGIC FOR SOLUTIONS
-            let qText = appLang === 'hi' ? q.qHi : q.qEn;
-            let currentOpts = appLang === 'hi' ? q.optsHi : q.optsEn;
-            let expText = appLang === 'hi' ? q.expHi : q.expEn;
+            // LANGUAGE LOGIC FOR SOLUTIONS (Using solLang variable)
+            let qText = solLang === 'hi' ? q.qHi : q.qEn;
+            let currentOpts = solLang === 'hi' ? q.optsHi : q.optsEn;
+            let expText = solLang === 'hi' ? q.expHi : q.expEn;
             
             currentOpts.forEach((opt, oIdx) => {
                 let cls = ''; let icon = '';
@@ -811,13 +828,13 @@ function viewSolutions() {
             let userStatus = uAns === null || uAns === undefined ? "<span style='color:var(--text-muted)'>Unattempted</span>" : 
                            (uAns === cAns ? "<span style='color:var(--success)'>Correct</span>" : "<span style='color:var(--danger)'>Incorrect</span>");
             
-            html += `<div class="sol-card"><div style="font-weight:700; font-size:16px; margin-bottom:15px;">Q${qIdx+1}. ${qText}</div>${optsHtml}<div style="font-weight:bold; margin:15px 0;">Status: ${userStatus}</div><div class="sol-exp"><b>Solution:</b><br>${expText}</div></div>`;
+            html += `<div class="sol-card"><div style="font-weight:700; font-size:16px; margin-bottom:15px;">Question: ${qIdx+1}<br><br>${qText}</div>${optsHtml}<div style="font-weight:bold; margin:15px 0;">Status: ${userStatus}</div><div class="sol-exp"><b>Solution:</b><br>${expText}</div></div>`;
         });
     });
     document.getElementById('sol-container').innerHTML = html;
 }
 
-function toggleTheme() { document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+function toggleTheme() { document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); } ? 'light' : 'dark'); }
 </script>
 </body>
 </html>
