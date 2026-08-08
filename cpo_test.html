@@ -518,7 +518,7 @@ let examData = rawSections.map(sec => {
 // --- State Management ---
 const STORAGE_KEY = 'cpo_real_mock_active'; 
 const COMPLETED_KEY = 'cpo_real_mock_comp';
-const SEC_TIME = 30 * 60; // 30 Mins per section
+const SEC_TIME = 30 * 60; // 30 Mins
 
 let candidateName = localStorage.getItem('cpo_candidate_name') || "";
 let appLang = 'hi';
@@ -637,7 +637,6 @@ function reattemptTest() {
 
 function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 
-// --- WORKING LANGUAGE TOGGLE ---
 function changeLanguage() {
     appLang = document.getElementById('lang-toggle').value;
     if(state.started && !state.submitted) {
@@ -645,7 +644,6 @@ function changeLanguage() {
     }
 }
 
-// --- SOLUTION LANGUAGE TOGGLE ---
 function changeSolLanguage() {
     solLang = document.getElementById('sol-lang-toggle').value;
     viewSolutions();
@@ -702,7 +700,6 @@ function loadQuestion(sIdx, qIdx) {
     let qData = examData[sIdx].questions[qIdx];
     document.getElementById('q-no').innerText = `Question: ${qIdx + 1}`;
     
-    // LANGUAGE LOGIC
     document.getElementById('q-text').innerHTML = appLang === 'hi' ? qData.qHi : qData.qEn;
     
     let optsHTML = ''; 
@@ -802,7 +799,6 @@ function viewSolutions() {
     showScreen('solution-screen'); 
     let html = ''; let labels = ['A', 'B', 'C', 'D'];
     
-    // Sync the dropdown value
     let solLangDropdown = document.getElementById('sol-lang-toggle');
     if(solLangDropdown) solLangDropdown.value = solLang;
     
@@ -813,7 +809,6 @@ function viewSolutions() {
         sec.questions.forEach((q, qIdx) => {
             let uAns = state.answers[sIdx][qIdx]; let cAns = q.a; let optsHtml = '';
             
-            // LANGUAGE LOGIC FOR SOLUTIONS (Using solLang variable)
             let qText = solLang === 'hi' ? q.qHi : q.qEn;
             let currentOpts = solLang === 'hi' ? q.optsHi : q.optsEn;
             let expText = solLang === 'hi' ? q.expHi : q.expEn;
@@ -834,7 +829,9 @@ function viewSolutions() {
     document.getElementById('sol-container').innerHTML = html;
 }
 
-function toggleTheme() { document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); } ? 'light' : 'dark'); }
+function toggleTheme() { 
+    document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); 
+}
 </script>
 </body>
 </html>
