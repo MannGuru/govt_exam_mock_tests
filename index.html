@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ✅ यहाँ गड़बड़ थी, अब सही Tailwind CDN स्क्रिप्ट लगा दी है -->
     <script src="https://cdn.tailwindcss.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC Mock Test Portal</title>
-    
-    <!-- एनिमेटेड टेक्स्ट के लिए कस्टम CSS -->
+    <title>Mann Guru Mock Tests</title>
     <style>
         @keyframes scrollText {
             0% { transform: translateX(100%); }
@@ -20,12 +17,11 @@
         }
     </style>
 </head>
-<!-- प्रीमियम और अट्रैक्टिव बैकग्राउंड ग्रेडिएंट -->
 <body class="bg-gradient-to-br from-[#f0fdf4] via-[#faf5ff] to-[#f0f9ff] min-h-screen text-gray-800 font-sans antialiased">
 
-    <!-- Header / Navbar -->
+    <!-- Header -->
     <div class="bg-white/90 backdrop-blur-md px-4 py-4 flex justify-center items-center shadow-md font-extrabold text-xl text-slate-800 sticky top-0 z-50 border-b border-emerald-100">
-        <span class="flex items-center gap-2 text-emerald-600">🎓 <span class="text-indigo-600">SSC</span> Mock Test Portal</span>
+        <span class="flex items-center gap-2 text-emerald-600">🎓 <span class="text-indigo-600">Mann Guru</span> Mock Tests</span>
     </div>
 
     <!-- ⚡ साफ और हाई-कंट्रास्ट सोशल मीडिया बटन्स ⚡ -->
@@ -42,91 +38,63 @@
         </a>
     </div>
 
-    <!-- Modern Scrolling Updates -->
+    <!-- Scrolling Updates -->
     <div class="bg-[#1e1b4b] text-white flex items-center text-xs shadow-md overflow-hidden relative h-8">
         <div class="bg-[#f43f5e] px-4 py-2 font-bold z-20 uppercase tracking-wider animate-pulse absolute left-0 top-0 bottom-0 flex items-center">
             Updates
         </div>
         <div class="w-full flex items-center h-full pl-24">
-            <span class="animate-scroll font-semibold text-emerald-300">Welcome to Mann Guru SSC Mock Test Portal! Stay tuned for latest pattern updates.</span>
+            <span class="animate-scroll font-semibold text-emerald-300">Welcome to Mann Guru Mock Tests! Stay tuned for latest pattern updates.</span>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="max-w-4xl mx-auto px-4 py-10 text-center">
-        <!-- Badge -->
-        <div class="inline-block bg-indigo-600 text-white text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-full mb-3 shadow-md shadow-indigo-500/20">
-            Staff Selection Commission
-        </div>
-        <!-- Main Heading -->
         <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-3 tracking-tight leading-tight">
-            SSC MOCK TEST BY <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-indigo-600">Mann Guru</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-indigo-600">MANN GURU</span> MOCK TESTS
         </h1>
-        <!-- Subheading Badge -->
         <div class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm border border-emerald-200">
             🎯 Latest Pattern Based Test Series
         </div>
 
-        <!-- Exam Cards Grid -->
+        <!-- Exam Cards Grid (Only 3 Cards) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto mt-10">
             
             <!-- SSC CPO Card -->
             <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-emerald-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
                 <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">🛡️</div>
                 <div class="text-lg font-black text-slate-800 mb-1">SSC CPO</div>
-                <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Sub-Inspector in Delhi Police & CAPFs Full Mock Tests</div>
+                <div class="text-xs text-slate-500 mb-5 font-medium text-center flex-grow leading-relaxed">Sub-Inspector in Delhi Police & CAPFs Full Mock Tests</div>
                 <button onclick="window.location.href='cpo_list.html'" 
                         class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-emerald-600/20 tracking-wide uppercase">
                     Start Practice
                 </button>
             </div>
 
-            <!-- SSC CGL Card -->
-            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-indigo-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
-                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">🎓</div>
-                <div class="text-lg font-black text-slate-800 mb-1">SSC CGL</div>
-                <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Combined Graduate Level Examination Complete Series</div>
-                <button onclick="alert('SSC CGL Test is coming soon!')" 
-                        class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-indigo-600/20 tracking-wide uppercase">
-                    Start Practice
-                </button>
-            </div>
-
-            <!-- SSC MTS Card -->
-            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-amber-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
-                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">📄</div>
-                <div class="text-lg font-black text-slate-800 mb-1">SSC MTS</div>
-                <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Multi-Tasking Staff (Non-Technical) Tier 1 Mock Tests</div>
-                <button onclick="alert('SSC MTS Test is coming soon!')" 
-                        class="w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-amber-600/20 tracking-wide uppercase">
-                    Start Practice
-                </button>
-            </div>
-
-            <!-- SSC CHSL Card -->
-            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-teal-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
-                <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">💻</div>
-                <div class="text-lg font-black text-slate-800 mb-1">SSC CHSL</div>
-                <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Combined Higher Secondary Level Practice Set</div>
-                <button onclick="alert('SSC CHSL Test is coming soon!')" 
-                        class="w-full bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-teal-600/20 tracking-wide uppercase">
-                    Start Practice
-                </button>
-            </div>
-
             <!-- SSC GD Card -->
-            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-rose-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 sm:col-span-2 max-w-sm mx-auto w-full flex flex-col items-center">
+            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-rose-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col items-center">
                 <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">🏃‍♂️</div>
                 <div class="text-lg font-black text-slate-800 mb-1">SSC GD</div>
-                <div class="text-xs text-slate-500 mb-5 font-medium text-center max-w-[200px] flex-grow leading-relaxed">Constable (General Duty) in CAPFs Practice Sets</div>
+                <div class="text-xs text-slate-500 mb-5 font-medium text-center flex-grow leading-relaxed">Constable (General Duty) in CAPFs Practice Sets</div>
                 <button onclick="window.location.href='gd_test.html'" 
                         class="w-full bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-700 hover:to-rose-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-rose-600/20 tracking-wide uppercase">
                     Start Practice
                 </button>
             </div>
 
+            <!-- Delhi Police Card (Spans 2 columns on PC for better look) -->
+            <div class="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-blue-100 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 sm:col-span-2 flex flex-col items-center">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex justify-center items-center text-2xl mb-3 shadow-inner">🚓</div>
+                <div class="text-lg font-black text-slate-800 mb-1">Delhi Police Exams</div>
+                <div class="text-xs text-slate-500 mb-5 font-medium text-center flex-grow leading-relaxed">Constable, Head Constable (Min/AWO), Driver</div>
+                <!-- Yahan link delhi_police.html diya gaya hai -->
+                <button onclick="window.location.href='delhi_police.html'" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-extrabold py-3 rounded-xl text-xs transition duration-300 shadow-md shadow-blue-600/20 tracking-wide uppercase">
+                    View All Exams
+                </button>
+            </div>
+
         </div>
     </div>
-
 </body>
 </html>
